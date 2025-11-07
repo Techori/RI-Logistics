@@ -9,6 +9,9 @@ import { Box } from "@mui/material";
 import LandingPage from "../pages/LandingPageNew.jsx";
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
+import PartTruckloadPage from "../pages/PartTruckloadPage.jsx";
+import FullTruckloadPage from "../pages/FullTruckloadPage.jsx";
+import FranchiseOpportunitiesPage from "../pages/FranchiseOpportunitiesPage.jsx";
 import BrokerDashboard from "../pages/dashboard/BrokerDashboard.jsx";
 import VehicleOwnerDashboard from "../pages/dashboard/VehicleOwnerDashboard.jsx";
 import DriverDashboard from "../pages/dashboard/DriverDashboard.jsx";
@@ -49,6 +52,9 @@ const AppRouter = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/part-truckload" element={<PartTruckloadPage />} />
+          <Route path="/full-truckload" element={<FullTruckloadPage />} />
+          <Route path="/franchise-opportunities" element={<FranchiseOpportunitiesPage />} />
 
           {/* Protected Routes */}
           <Route

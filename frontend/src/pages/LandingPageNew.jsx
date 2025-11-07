@@ -7,6 +7,14 @@ import {
   Grid,
   Card,
   alpha,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+  Tabs,
+  Tab,
+  CardContent,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useThemeMode } from "../theme/ThemeProvider";
@@ -21,8 +29,12 @@ import {
   Timeline,
   FlightTakeoff,
   CheckCircle,
+  Warehouse,
+  LocalShippingOutlined,
+  Analytics,
+  KeyboardArrowDown,
 } from "@mui/icons-material";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Tilt from "react-parallax-tilt";
@@ -98,16 +110,88 @@ const LandingPageNew = () => {
   const navigate = useNavigate();
   const { mode } = useThemeMode();
   const isDark = mode === "dark";
-  const { scrollYProgress } = useScroll();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [mouseTrail, setMouseTrail] = useState([]);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [activeSection, setActiveSection] = useState(0);
+  const [servicesAnchor, setServicesAnchor] = useState(null);
+  const [partnerAnchor, setPartnerAnchor] = useState(null);
+  const [videoEnded, setVideoEnded] = useState(false);
+  const [trackingTab, setTrackingTab] = useState(0);
+  const [trackingValue, setTrackingValue] = useState("");
 
-  // Parallax effects
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+  // Services menu data for dropdown
+  const servicesMenu = [
+    {
+      name: 'Express Parcel',
+      icon: <LocalShipping sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/express-parcel',
+    },
+    {
+      name: 'Warehousing',
+      icon: <Warehouse sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/warehousing',
+    },
+    {
+      name: 'Part Truckload',
+      icon: <Inventory sx={{ color: '#e63946' }} />,
+      path: '/part-truckload',
+    },
+    {
+      name: 'Full Truckload',
+      icon: <LocalShippingOutlined sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/full-truckload',
+    },
+    {
+      name: 'Cross Border',
+      icon: <Public sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/cross-border',
+    },
+    {
+      name: 'Data Intelligence',
+      icon: <Analytics sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/data-intelligence',
+    },
+  ];
+
+  // Partner menu data for dropdown
+  const partnersMenu = [
+    {
+      name: 'Franchise Opportunities',
+      path: '/franchise-opportunities',
+    },
+    {
+      name: 'Delivery Partner',
+      path: '/delivery-partner',
+    },
+    {
+      name: 'Fleet Owners',
+      path: '/fleet-owners',
+    },
+  ];
+
+  const handleServicesOpen = (event) => {
+    setServicesAnchor(event.currentTarget);
+  };
+
+  const handleServicesClose = () => {
+    setServicesAnchor(null);
+  };
+
+  const handleServiceClick = (path) => {
+    navigate(path);
+    handleServicesClose();
+  };
+
+  const handlePartnerOpen = (event) => {
+    setPartnerAnchor(event.currentTarget);
+  };
+
+  const handlePartnerClose = () => {
+    setPartnerAnchor(null);
+  };
+
+  const handlePartnerClick = (path) => {
+    navigate(path);
+    handlePartnerClose();
+  };
 
   useEffect(() => {
     // Smooth scroll
@@ -119,21 +203,6 @@ const LandingPageNew = () => {
       mirror: true,
       easing: "ease-out-cubic",
     });
-
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 30,
-        y: (e.clientY / window.innerHeight - 0.5) * 30,
-      });
-
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-
-      // Create trail effect
-      setMouseTrail((prev) => [
-        ...prev.slice(-15),
-        { x: e.clientX, y: e.clientY, id: Date.now() },
-      ]);
-    };
 
     const handleScroll = () => {
       const sections = document.querySelectorAll("[data-section]");
@@ -148,11 +217,9 @@ const LandingPageNew = () => {
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -232,55 +299,8 @@ const LandingPageNew = () => {
           : "linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)",
         overflow: "hidden",
         position: "relative",
-        cursor: "none",
       }}
     >
-      {/* Custom Cursor */}
-      <motion.div
-        animate={{
-          x: cursorPosition.x - 20,
-          y: cursorPosition.y - 20,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 28,
-        }}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: 40,
-          height: 40,
-          borderRadius: "50%",
-          border: `2px solid ${isDark ? "#e63946" : "#1976d2"}`,
-          pointerEvents: "none",
-          zIndex: 10000,
-          mixBlendMode: "difference",
-        }}
-      />
-
-      {/* Mouse Trail */}
-      {mouseTrail.map((trail) => (
-        <motion.div
-          key={trail.id}
-          initial={{ opacity: 0.6, scale: 1 }}
-          animate={{ opacity: 0, scale: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{
-            position: "fixed",
-            top: trail.y - 3,
-            left: trail.x - 3,
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: isDark ? "#e63946" : "#1976d2",
-            pointerEvents: "none",
-            zIndex: 9999,
-          }}
-        />
-      ))}
-
       {/* Floating Navigation Dots */}
       <Box
         sx={{
@@ -361,7 +381,7 @@ const LandingPageNew = () => {
         ))}
       </Box>
 
-      {/* 3D Floating Shapes */}
+      {/* 3D Floating Shapes - Static Background */}
       <Box
         sx={{
           position: "fixed",
@@ -373,13 +393,8 @@ const LandingPageNew = () => {
           pointerEvents: "none",
         }}
       >
-        <motion.div
-          animate={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-          transition={{ type: "spring", stiffness: 50 }}
-          style={{
+        <Box
+          sx={{
             position: "absolute",
             top: "20%",
             left: "10%",
@@ -392,13 +407,8 @@ const LandingPageNew = () => {
             filter: "blur(60px)",
           }}
         />
-        <motion.div
-          animate={{
-            x: -mousePosition.x,
-            y: -mousePosition.y,
-          }}
-          transition={{ type: "spring", stiffness: 30 }}
-          style={{
+        <Box
+          sx={{
             position: "absolute",
             bottom: "20%",
             right: "10%",
@@ -459,7 +469,164 @@ const LandingPageNew = () => {
               </Typography>
             </motion.div>
             <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-              {["Services", "Solutions", "Track", "About"].map((item) => (
+              {/* Services Dropdown */}
+              <motion.div
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Box
+                  onClick={handleServicesOpen}
+                  sx={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      color: isDark
+                        ? alpha("#ffffff", 0.9)
+                        : alpha("#000000", 0.8),
+                      transition: "color 0.2s",
+                      "&:hover": {
+                        color: isDark ? "#e63946" : "#1976d2",
+                      },
+                    }}
+                  >
+                    Services
+                  </Typography>
+                  <KeyboardArrowDown
+                    sx={{
+                      fontSize: 20,
+                      color: isDark
+                        ? alpha("#ffffff", 0.9)
+                        : alpha("#000000", 0.8),
+                    }}
+                  />
+                </Box>
+              </motion.div>
+
+              <Menu
+                anchorEl={servicesAnchor}
+                open={Boolean(servicesAnchor)}
+                onClose={handleServicesClose}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 250,
+                    borderRadius: 2,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                    bgcolor: isDark ? '#1a1d29' : '#ffffff',
+                  },
+                }}
+              >
+                {servicesMenu.map((service) => (
+                  <MenuItem
+                    key={service.name}
+                    onClick={() => handleServiceClick(service.path)}
+                    sx={{
+                      py: 1.5,
+                      '&:hover': {
+                        bgcolor: isDark 
+                          ? alpha('#e63946', 0.1) 
+                          : alpha('#1976d2', 0.1),
+                      },
+                    }}
+                  >
+                    <ListItemIcon>{service.icon}</ListItemIcon>
+                    <ListItemText
+                      primary={service.name}
+                      primaryTypographyProps={{
+                        fontSize: '0.95rem',
+                        fontWeight: 500,
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              {/* Partner Dropdown */}
+              <motion.div
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Box
+                  onClick={handlePartnerOpen}
+                  sx={{
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      color: isDark
+                        ? alpha("#ffffff", 0.9)
+                        : alpha("#000000", 0.8),
+                      transition: "color 0.2s",
+                      "&:hover": {
+                        color: isDark ? "#e63946" : "#1976d2",
+                      },
+                    }}
+                  >
+                    Partner
+                  </Typography>
+                  <KeyboardArrowDown
+                    sx={{
+                      fontSize: 20,
+                      color: isDark
+                        ? alpha("#ffffff", 0.9)
+                        : alpha("#000000", 0.8),
+                    }}
+                  />
+                </Box>
+              </motion.div>
+
+              <Menu
+                anchorEl={partnerAnchor}
+                open={Boolean(partnerAnchor)}
+                onClose={handlePartnerClose}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    minWidth: 250,
+                    borderRadius: 2,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                    bgcolor: isDark ? '#1a1d29' : '#ffffff',
+                  },
+                }}
+              >
+                {partnersMenu.map((partner) => (
+                  <MenuItem
+                    key={partner.name}
+                    onClick={() => handlePartnerClick(partner.path)}
+                    sx={{
+                      py: 1.5,
+                      '&:hover': {
+                        bgcolor: isDark 
+                          ? alpha('#e63946', 0.1) 
+                          : alpha('#1976d2', 0.1),
+                      },
+                    }}
+                  >
+                    <ListItemText
+                      primary={partner.name}
+                      primaryTypographyProps={{
+                        fontSize: '0.95rem',
+                        fontWeight: 500,
+                      }}
+                    />
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              {["Solutions", "Track", "About"].map((item) => (
                 <motion.div
                   key={item}
                   whileHover={{ y: -2 }}
@@ -523,270 +690,331 @@ const LandingPageNew = () => {
         </Container>
       </Box>
 
-      {/* Hero Section */}
+      {/* Hero Video Section */}
       <Box
         data-section
         component={motion.div}
-        style={{ opacity, scale }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
         sx={{
           position: "relative",
-          pt: { xs: 15, md: 20 },
-          pb: { xs: 10, md: 15 },
+          width: "100%",
+          height: { xs: "60vh", sm: "70vh", md: "80vh", lg: "90vh" },
+          overflow: "hidden",
           zIndex: 1,
+          mt: { xs: 8, sm: 9, md: 10 }, // Margin top to create gap from navigation
         }}
       >
-        <Container maxWidth="xl">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <motion.div
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+        {/* Video Background */}
+        <Box
+          component="video"
+          autoPlay
+          muted
+          playsInline
+          onEnded={(e) => {
+            e.target.pause();
+            setVideoEnded(true);
+          }}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+          <source src="/videos/hero-video.webm" type="video/webm" />
+          Your browser does not support the video tag.
+        </Box>
+
+        {/* Dark overlay - appears only after video ends */}
+        {videoEnded && (
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: isDark
+                ? "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))"
+                : "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
+              zIndex: 1,
+            }}
+          />
+        )}
+
+        {/* Tracking Order Card - appears when video ends */}
+        {videoEnded && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              right: { xs: "5%", sm: "8%", md: "10%" },
+              transform: "translateY(-50%)",
+              zIndex: 2,
+              width: { xs: "90%", sm: "400px", md: "450px" },
+            }}
+          >
+            <motion.div
+              initial={{ x: 100, opacity: 0, scale: 0.8 }}
+              animate={{ x: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 2, ease: "easeOut" }}
+            >
+              <Card
+                sx={{
+                  borderRadius: 3,
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                  overflow: "hidden",
+                  bgcolor: "rgba(255, 255, 255, 0.95)",
+                  backdropFilter: "blur(10px)",
+                }}
               >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    fontSize: { xs: "3rem", sm: "4rem", md: "5rem" },
-                    fontWeight: 900,
-                    lineHeight: 1.1,
-                    mb: 3,
-                    background: isDark
-                      ? "linear-gradient(135deg, #ffffff 0%, #e63946 100%)"
-                      : "linear-gradient(135deg, #1a1d29 0%, #1976d2 100%)",
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Future of
-                  <br />
-                  Logistics
-                  <br />
-                  <motion.span
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    style={{
-                      background: isDark
-                        ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                        : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                      backgroundClip: "text",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
+                <CardContent sx={{ p: 4 }}>
+                  {/* Tabs */}
+                  <Tabs
+                    value={trackingTab}
+                    onChange={(e, newValue) => setTrackingTab(newValue)}
+                    sx={{
+                      mb: 3,
+                      "& .MuiTab-root": {
+                        textTransform: "none",
+                        fontWeight: 600,
+                        fontSize: "1rem",
+                        color: "#666",
+                      },
+                      "& .Mui-selected": {
+                        color: "#1976d2",
+                      },
+                      "& .MuiTabs-indicator": {
+                        backgroundColor: "#1976d2",
+                        height: 3,
+                      },
                     }}
                   >
-                    Delivered
-                  </motion.span>
-                </Typography>
-              </motion.div>
+                    <Tab label="Track order" />
+                    <Tab label="Ship order" />
+                  </Tabs>
 
-              <motion.div
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    mb: 5,
-                    color: isDark
-                      ? alpha("#ffffff", 0.7)
-                      : alpha("#000000", 0.7),
-                    fontSize: { xs: "1.1rem", md: "1.3rem" },
-                    fontWeight: 500,
-                  }}
-                >
-                  Seamless, intelligent, and lightning-fast logistics solutions
-                  for the modern world
-                </Typography>
-              </motion.div>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontWeight: 700,
+                      mb: 3,
+                      color: "#000",
+                    }}
+                  >
+                    Track <Box component="span">your order through</Box>
+                  </Typography>
 
-              <motion.div
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
-                  <MagneticButton>
+                  {/* Tab Buttons */}
+                  <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
                     <Button
                       variant="contained"
-                      size="large"
-                      component={motion.button}
-                      whileHover={{ scale: 1.1, y: -8 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => navigate("/register")}
                       sx={{
-                        px: 5,
-                        py: 2,
-                        fontSize: "1.1rem",
-                        fontWeight: 700,
-                        borderRadius: 3,
+                        bgcolor: "#1a1d29",
+                        color: "#fff",
                         textTransform: "none",
-                        background: isDark
-                          ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                          : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                        boxShadow: isDark
-                          ? "0 12px 40px rgba(230, 57, 70, 0.4)"
-                          : "0 12px 40px rgba(25, 118, 210, 0.3)",
-                        "&:hover": {
-                          boxShadow: isDark
-                            ? "0 20px 60px rgba(230, 57, 70, 0.6)"
-                            : "0 16px 50px rgba(25, 118, 210, 0.4)",
-                        },
+                        fontWeight: 600,
+                        px: 3,
+                        "&:hover": { bgcolor: "#2a2d39" },
                       }}
                     >
-                      Start Shipping Now
+                      Mobile
                     </Button>
-                  </MagneticButton>
-                  <MagneticButton>
                     <Button
-                      variant="outlined"
-                      size="large"
-                      component={motion.button}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
+                      variant="text"
                       sx={{
-                        px: 5,
-                        py: 2,
-                        fontSize: "1.1rem",
-                        fontWeight: 700,
-                        borderRadius: 3,
+                        color: "#999",
                         textTransform: "none",
-                        borderWidth: 2,
-                        borderColor: isDark ? "#e63946" : "#1976d2",
-                        color: isDark ? "#e63946" : "#1976d2",
-                        "&:hover": {
-                          borderWidth: 2,
-                          bgcolor: isDark
-                            ? alpha("#e63946", 0.1)
-                            : alpha("#1976d2", 0.1),
-                        },
+                        fontWeight: 600,
                       }}
                     >
-                      Watch Demo
+                      AWB
                     </Button>
-                  </MagneticButton>
-                </Box>
-              </motion.div>
-            </Grid>
+                    <Button
+                      variant="text"
+                      sx={{
+                        color: "#999",
+                        textTransform: "none",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Order Id
+                    </Button>
+                    <Button
+                      variant="text"
+                      sx={{
+                        color: "#999",
+                        textTransform: "none",
+                        fontWeight: 600,
+                      }}
+                    >
+                      LRN
+                    </Button>
+                  </Box>
 
-            <Grid item xs={12} md={6}>
-              <motion.div
-                style={{ y: y1 }}
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <Tilt
-                  tiltMaxAngleX={15}
-                  tiltMaxAngleY={15}
-                  scale={1.05}
-                  transitionSpeed={2000}
-                >
-                  <Box
+                  {/* Input Field */}
+                  <TextField
+                    fullWidth
+                    placeholder="Enter your mobile number"
+                    value={trackingValue}
+                    onChange={(e) => setTrackingValue(e.target.value)}
                     sx={{
-                      position: "relative",
-                      width: "100%",
-                      height: 500,
-                      borderRadius: 6,
-                      background: isDark
-                        ? "linear-gradient(135deg, #1a1d29 0%, #0a0e1a 100%)"
-                        : "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
-                      boxShadow: isDark
-                        ? "0 30px 80px rgba(0,0,0,0.6)"
-                        : "0 30px 80px rgba(0,0,0,0.2)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      overflow: "hidden",
-                      border: `2px solid ${
-                        isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
-                      }`,
+                      mb: 3,
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                        bgcolor: "#f5f5f5",
+                        "& fieldset": {
+                          borderColor: "#e0e0e0",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#bdbdbd",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#1976d2",
+                        },
+                      },
+                      "& .MuiInputBase-input": {
+                        color: "#000",
+                        "&::placeholder": {
+                          color: "#999",
+                          opacity: 1,
+                        },
+                      },
+                    }}
+                  />
+
+                  {/* Get OTP Button */}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    onClick={() => navigate("/tracking")}
+                    sx={{
+                      bgcolor: "#1a1d29",
+                      color: "#fff",
+                      textTransform: "none",
+                      fontWeight: 700,
+                      fontSize: "1.1rem",
+                      py: 1.5,
+                      borderRadius: 2,
+                      mb: 3,
+                      "&:hover": { bgcolor: "#2a2d39" },
                     }}
                   >
-                    {/* Animated Delivery Truck */}
-                    <motion.div
-                      animate={{
-                        x: [0, 60, 0],
-                        y: [0, -25, 0],
-                        rotate: [0, 5, 0, -5, 0],
-                      }}
-                      transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 15 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <LocalShipping
-                          sx={{
-                            fontSize: 220,
-                            color: isDark ? "#e63946" : "#1976d2",
-                            filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.4))",
-                          }}
-                        />
-                      </motion.div>
-                    </motion.div>
+                    Get OTP
+                  </Button>
 
-                    {/* Animated Road Lines */}
-                    {[...Array(5)].map((_, i) => (
-                      <motion.div
-                        key={`road-${i}`}
-                        animate={{
-                          x: [-100, 500],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.4,
-                          ease: "linear",
-                        }}
-                        style={{
-                          position: "absolute",
-                          bottom: 100 + i * 30,
-                          left: 0,
-                          width: 60,
-                          height: 4,
-                          background: isDark
-                            ? alpha("#e63946", 0.3)
-                            : alpha("#1976d2", 0.3),
-                          borderRadius: 2,
-                        }}
-                      />
-                    ))}
+                  {/* App Download */}
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    sx={{ color: "#666", mb: 2 }}
+                  >
+                    Live tracking updates & extra support on our App
+                  </Typography>
 
-                    {/* Floating Particles */}
-                    {[...Array(15)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          y: [0, -100, 0],
-                          opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                          duration: Math.random() * 3 + 2,
-                          repeat: Infinity,
-                          delay: Math.random() * 2,
-                        }}
-                        style={{
-                          position: "absolute",
-                          left: `${Math.random() * 100}%`,
-                          bottom: 0,
-                          width: 4,
-                          height: 4,
-                          borderRadius: "50%",
-                          background: isDark ? "#e63946" : "#1976d2",
-                        }}
-                      />
-                    ))}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src="https://www.delhivery.com/app-store.svg"
+                      alt="App Store"
+                      sx={{
+                        height: 40,
+                        cursor: "pointer",
+                        transition: "transform 0.2s",
+                        "&:hover": { transform: "scale(1.05)" },
+                      }}
+                    />
+                    <Box
+                      component="img"
+                      src="https://www.delhivery.com/play-store.svg"
+                      alt="Play Store"
+                      sx={{
+                        height: 40,
+                        cursor: "pointer",
+                        transition: "transform 0.2s",
+                        "&:hover": { transform: "scale(1.05)" },
+                      }}
+                    />
                   </Box>
-                </Tilt>
-              </motion.div>
-            </Grid>
-          </Grid>
-        </Container>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Box>
+        )}
+
+        {/* Left side - Text (remains visible with video) */}
+        {videoEnded && (
+          <Container
+            maxWidth="lg"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: 0,
+              transform: "translateY(-50%)",
+              zIndex: 2,
+            }}
+          >
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
+            >
+              <Typography
+                variant="h2"
+                sx={{
+                  color: "#fff",
+                  fontWeight: 700,
+                  fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+                  mb: 2,
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                  pl: { xs: 3, sm: 5, md: 8 },
+                }}
+              >
+                We are India's largest fully integrated
+                <br />
+                <Box
+                  component="span"
+                  sx={{
+                    color: "#e63946",
+                    fontWeight: 900,
+                  }}
+                >
+                  logistics services
+                </Box>{" "}
+                provider
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: "#fff",
+                  fontWeight: 400,
+                  fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+                  textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
+                  pl: { xs: 3, sm: 5, md: 8 },
+                }}
+              >
+                Express Parcel • PTL • FTL • Cross Border • Supply Chain
+              </Typography>
+            </motion.div>
+          </Container>
+        )}
       </Box>
 
       {/* Stats Section */}
