@@ -102,7 +102,7 @@ const LandingHeader = () => {
     {
       name: 'Franchise Opportunities',
       icon: <People sx={{ color: isDark ? '#fff' : '#666' }} />,
-      path: '/franchise-opportunities',
+      path: '/franchise',
     },
     {
       name: 'Delivery Partner',
@@ -312,6 +312,27 @@ const LandingHeader = () => {
                 </MenuItem>
               ))}
             </Menu>
+
+            {/* Support Link */}
+            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Typography
+                onClick={() => navigate('/support')}
+                sx={{
+                  cursor: 'pointer',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  color: isDark
+                    ? alpha('#ffffff', 0.9)
+                    : alpha('#000000', 0.8),
+                  transition: 'color 0.2s',
+                  '&:hover': {
+                    color: isDark ? '#e63946' : '#1976d2',
+                  },
+                }}
+              >
+                Support
+              </Typography>
+            </motion.div>
 
             {['Solutions', 'Track', 'About'].map((item) => (
               <motion.div

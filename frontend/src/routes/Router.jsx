@@ -11,7 +11,10 @@ import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import PartTruckloadPage from "../pages/PartTruckloadPage.jsx";
 import FullTruckloadPage from "../pages/FullTruckloadPage.jsx";
-import FranchiseOpportunitiesPage from "../pages/FranchiseOpportunitiesPage.jsx";
+import FranchisePage from "../pages/FranchisePage.jsx";
+import DeliveryPartnerPage from "../pages/DeliveryPartnerPage.jsx";
+import FleetOwnerPage from "../pages/FleetOwnerPage.jsx";
+import SupportPage from "../pages/SupportPage.jsx";
 import BrokerDashboard from "../pages/dashboard/BrokerDashboard.jsx";
 import VehicleOwnerDashboard from "../pages/dashboard/VehicleOwnerDashboard.jsx";
 import DriverDashboard from "../pages/dashboard/DriverDashboard.jsx";
@@ -54,7 +57,10 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/part-truckload" element={<PartTruckloadPage />} />
           <Route path="/full-truckload" element={<FullTruckloadPage />} />
-          <Route path="/franchise-opportunities" element={<FranchiseOpportunitiesPage />} />
+          <Route path="/franchise" element={<FranchisePage />} />
+          <Route path="/delivery-partner" element={<DeliveryPartnerPage />} />
+          <Route path="/fleet-owners" element={<FleetOwnerPage />} />
+          <Route path="/support" element={<SupportPage />} />
 
           {/* Protected Routes */}
           <Route

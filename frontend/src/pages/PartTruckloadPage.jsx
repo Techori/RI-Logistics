@@ -153,8 +153,8 @@ const PartTruckloadPage = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={7}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ flex: '1 1 70%', maxWidth: '70%' }}>
               <Typography
                 variant="h2"
                 component="h1"
@@ -193,8 +193,8 @@ const PartTruckloadPage = () => {
               >
                 Sign up as a business
               </Button>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
@@ -208,32 +208,33 @@ const PartTruckloadPage = () => {
           >
             Serving corporates, SME, retail clients across industries
           </Typography>
-          <Grid container spacing={4} justifyContent="center" alignItems="center">
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'center' }}>
             {clients.map((client, index) => (
-              <Grid item xs={6} sm={4} md={2} key={index}>
-                <Box
+              <Box
+                key={index}
+                sx={{
+                  flex: { xs: '1 1 40%', sm: '1 1 30%', md: '1 1 15%' },
+                  minWidth: '120px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minHeight: 80,
+                  p: 2,
+                }}
+              >
+                <Typography
+                  variant="h6"
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    minHeight: 80,
-                    p: 2,
+                    fontWeight: 700,
+                    color: 'text.secondary',
+                    textAlign: 'center',
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontWeight: 700,
-                      color: 'text.secondary',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {client.logo}
-                  </Typography>
-                </Box>
-              </Grid>
+                  {client.logo}
+                </Typography>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Container>
       </Box>
 
@@ -254,12 +255,12 @@ const PartTruckloadPage = () => {
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               gap: { xs: 2, md: 3 },
             }}
           >
             {/* Left side - Text */}
-            <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, width: '100%' }}>
+            <Box sx={{ flex: 1, textAlign: 'center', width: '100%' }}>
               <Typography
                 variant="h2"
                 sx={{
@@ -290,7 +291,7 @@ const PartTruckloadPage = () => {
               sx={{
                 flex: 1,
                 display: 'flex',
-                justifyContent: { xs: 'center', md: 'flex-end' },
+                justifyContent: 'center',
                 alignItems: 'center',
                 width: '100%',
               }}
@@ -311,9 +312,9 @@ const PartTruckloadPage = () => {
 
         {/* Bottom Grid - 4 cards in a row */}
         <Container maxWidth="xl">
-          <Grid container spacing={2} justifyContent="center">
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
             {/* Second stat card */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 22%' }, minWidth: '200px' }}>
               <Card
                 sx={{
                   height: '100%',
@@ -354,10 +355,10 @@ const PartTruckloadPage = () => {
                   )}
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
 
             {/* Third stat card */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 22%' }, minWidth: '200px' }}>
               <Card
                 sx={{
                   height: '100%',
@@ -398,11 +399,11 @@ const PartTruckloadPage = () => {
                   )}
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
 
             {/* Additional Features Cards */}
             {additionalFeatures.map((feature, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
+              <Box key={index} sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 22%' }, minWidth: '200px' }}>
                 <Card
                   sx={{
                     height: '100%',
@@ -429,25 +430,25 @@ const PartTruckloadPage = () => {
                     {feature}
                   </Typography>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Container>
       </Box>
 
       {/* eCommerce Experience Section */}
       <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6, alignItems: 'center' }}>
+            <Box sx={{ flex: '1 1 50%' }}>
               <Typography
                 variant="h3"
                 sx={{ fontWeight: 700, mb: 3 }}
               >
                 Get eCommerce like experience with Relogistics's dedicated panel for your B2B shipments
               </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </Box>
+            <Box sx={{ flex: '1 1 50%' }}>
               <Box
                 sx={{
                   bgcolor: alpha(theme.palette.primary.main, 0.1),
@@ -463,17 +464,17 @@ const PartTruckloadPage = () => {
                   [Dashboard Preview]
                 </Typography>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
       {/* Features Section */}
       <Box sx={{ py: 8, bgcolor: isDark ? '#0a0e1a' : '#1a1d29' }}>
         <Container maxWidth="xl">
-          <Grid container spacing={3} justifyContent="center">
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, justifyContent: 'center' }}>
             {features.map((feature, index) => (
-              <Grid item xs={12} sm={6} md={2.4} key={index}>
+              <Box key={index} sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 18%' }, minWidth: '200px' }}>
                 <Card
                   sx={{
                     height: '100%',
@@ -500,9 +501,9 @@ const PartTruckloadPage = () => {
                     {feature.title}
                   </Typography>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Container>
       </Box>
 
@@ -529,9 +530,9 @@ const PartTruckloadPage = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={4}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
             {/* Services */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 SERVICES
               </Typography>
@@ -544,10 +545,10 @@ const PartTruckloadPage = () => {
                   {service}
                 </Typography>
               ))}
-            </Grid>
+            </Box>
 
             {/* Solutions */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 SOLUTIONS
               </Typography>
@@ -560,10 +561,10 @@ const PartTruckloadPage = () => {
                   {solution}
                 </Typography>
               ))}
-            </Grid>
+            </Box>
 
             {/* Partners */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 PARTNERS
               </Typography>
@@ -576,10 +577,10 @@ const PartTruckloadPage = () => {
                   {partner}
                 </Typography>
               ))}
-            </Grid>
+            </Box>
 
             {/* Company */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 COMPANY
               </Typography>
@@ -592,10 +593,10 @@ const PartTruckloadPage = () => {
                   {item}
                 </Typography>
               ))}
-            </Grid>
+            </Box>
 
             {/* Get in Touch */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 GET IN TOUCH
               </Typography>
@@ -608,10 +609,10 @@ const PartTruckloadPage = () => {
                   {item}
                 </Typography>
               ))}
-            </Grid>
+            </Box>
 
             {/* Policies */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 POLICIES
               </Typography>
@@ -624,8 +625,8 @@ const PartTruckloadPage = () => {
                   {policy}
                 </Typography>
               ))}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
 
           {/* Bottom Footer */}
           <Box sx={{ mt: 6, pt: 3, borderTop: 1, borderColor: 'divider' }}>

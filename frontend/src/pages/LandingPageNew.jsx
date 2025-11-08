@@ -120,16 +120,6 @@ const LandingPageNew = () => {
   // Services menu data for dropdown
   const servicesMenu = [
     {
-      name: 'Express Parcel',
-      icon: <LocalShipping sx={{ color: isDark ? '#fff' : '#666' }} />,
-      path: '/express-parcel',
-    },
-    {
-      name: 'Warehousing',
-      icon: <Warehouse sx={{ color: isDark ? '#fff' : '#666' }} />,
-      path: '/warehousing',
-    },
-    {
       name: 'Part Truckload',
       icon: <Inventory sx={{ color: '#e63946' }} />,
       path: '/part-truckload',
@@ -139,23 +129,13 @@ const LandingPageNew = () => {
       icon: <LocalShippingOutlined sx={{ color: isDark ? '#fff' : '#666' }} />,
       path: '/full-truckload',
     },
-    {
-      name: 'Cross Border',
-      icon: <Public sx={{ color: isDark ? '#fff' : '#666' }} />,
-      path: '/cross-border',
-    },
-    {
-      name: 'Data Intelligence',
-      icon: <Analytics sx={{ color: isDark ? '#fff' : '#666' }} />,
-      path: '/data-intelligence',
-    },
   ];
 
   // Partner menu data for dropdown
   const partnersMenu = [
     {
       name: 'Franchise Opportunities',
-      path: '/franchise-opportunities',
+      path: '/franchise',
     },
     {
       name: 'Delivery Partner',

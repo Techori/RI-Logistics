@@ -138,8 +138,8 @@ const FullTruckloadPage = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={7}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ flex: '1 1 70%', maxWidth: '70%' }}>
               <Typography
                 variant="h2"
                 component="h1"
@@ -178,181 +178,9 @@ const FullTruckloadPage = () => {
               >
                 Book Now
               </Button>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
-      </Box>
-
-      {/* Stats Section */}
-      <Box sx={{ py: 3 }}>
-        {/* Full Width Card with truck image and first stat */}
-        <Box sx={{ px: { xs: 2, sm: 3, md: 4 }, mb: 2 }}>
-          <Card
-            sx={{
-              width: '100%',
-              minHeight: { xs: 150, md: 180 },
-              bgcolor: alpha('#f5f5dc', 0.9),
-              boxShadow: 'none',
-              borderRadius: 3,
-              p: { xs: 2, md: 3 },
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: { xs: 2, md: 3 },
-            }}
-          >
-            {/* Left side - Text */}
-            <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' }, width: '100%' }}>
-              <Typography
-                variant="h2"
-                sx={{
-                  fontWeight: 700,
-                  mb: 1,
-                  color: '#000',
-                  fontSize: { xs: '2rem', md: '2.5rem' },
-                }}
-              >
-                {stats[0].value}
-              </Typography>
-              {stats[0].label && (
-                <Typography 
-                  variant="h6" 
-                  color="text.secondary" 
-                  sx={{ 
-                    fontWeight: 600,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {stats[0].label}
-                </Typography>
-              )}
-            </Box>
-            
-            {/* Right side - Truck Image */}
-            <Box
-              sx={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: { xs: 'center', md: 'flex-end' },
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
-              <img
-                src={truckImage}
-                alt="Reliable Freight Truck"
-                style={{
-                  width: '100%',
-                  maxWidth: '450px',
-                  height: 'auto',
-                  objectFit: 'contain',
-                }}
-              />
-            </Box>
-          </Card>
-        </Box>
-
-        {/* Bottom Grid - 4 cards in a row */}
-        <Box sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-          <Grid container spacing={3}>
-            {/* Second stat card */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  height: '100%',
-                  minHeight: 180,
-                  bgcolor: alpha('#e8f4f8', 0.8),
-                  boxShadow: 'none',
-                  borderRadius: 3,
-                  p: 3,
-                  textAlign: 'center',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <CardContent>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      mb: 1,
-                      color: 'primary.main',
-                    }}
-                  >
-                    {stats[1].value}
-                  </Typography>
-                  {stats[1].label && (
-                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                      {stats[1].label}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Third stat card */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  height: '100%',
-                  minHeight: 180,
-                  bgcolor: alpha('#f3e5f5', 0.8),
-                  boxShadow: 'none',
-                  borderRadius: 3,
-                  p: 3,
-                  textAlign: 'center',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <CardContent>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      fontWeight: 700,
-                      mb: 1,
-                      color: 'primary.main',
-                    }}
-                  >
-                    {stats[2].value}
-                  </Typography>
-                  {stats[2].label && (
-                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
-                      {stats[2].label}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Additional Features Cards */}
-            {additionalFeatures.map((feature, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    minHeight: 180,
-                    bgcolor: alpha('#e8f5e9', 0.8),
-                    boxShadow: 'none',
-                    borderRadius: 3,
-                    p: 3,
-                    textAlign: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    {feature}
-                  </Typography>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
       </Box>
 
       {/* Why Choose Us Section */}
@@ -365,41 +193,56 @@ const FullTruckloadPage = () => {
           >
             Why choose us?
           </Typography>
-          <Grid container spacing={3}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
             {/* Get All Vehicle Types - Featured Card */}
-            <Grid item xs={12} md={4}>
+            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 33%' } }}>
               <Card
                 sx={{
                   height: '100%',
                   bgcolor: '#000',
                   color: 'white',
-                  borderRadius: 3,
-                  p: 4,
+                  borderRadius: 4,
+                  p: 5,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  minHeight: 400,
+                  justifyContent: 'flex-start',
+                  minHeight: 450,
                 }}
               >
                 <Box>
-                  <Box sx={{ mb: 3 }}>
-                    <LocalShipping sx={{ fontSize: 80, color: 'white' }} />
+                  <Box sx={{ mb: 6 }}>
+                    <LocalShipping sx={{ fontSize: 70, color: 'white' }} />
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: '#e53935' }}>
+                  <Typography 
+                    variant="h4" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      mb: 3, 
+                      color: '#e53935',
+                      lineHeight: 1.3,
+                    }}
+                  >
                     Get all vehicle types
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 400, opacity: 0.9 }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      fontWeight: 400, 
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      lineHeight: 1.6,
+                    }}
+                  >
                     14ft, 17ft, 20ft, 32ft, 32ft MXL
                   </Typography>
                 </Box>
               </Card>
-            </Grid>
+            </Box>
 
             {/* Other Features - 2x3 Grid */}
-            <Grid item xs={12} md={8}>
-              <Grid container spacing={3}>
+            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 67%' } }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
                 {whyChooseUs.slice(1).map((feature, index) => (
-                  <Grid item xs={12} sm={6} key={index}>
+                  <Box key={index} sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' }, minWidth: '250px' }}>
                     <Card
                       sx={{
                         height: '100%',
@@ -420,19 +263,19 @@ const FullTruckloadPage = () => {
                         </Typography>
                       </CardContent>
                     </Card>
-                  </Grid>
+                  </Box>
                 ))}
-              </Grid>
-            </Grid>
-          </Grid>
+              </Box>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
       {/* Built for Businesses Section */}
       <Box sx={{ py: 8, bgcolor: '#e53935', color: 'white' }}>
         <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6, alignItems: 'center' }}>
+            <Box sx={{ flex: '1 1 50%' }}>
               <Typography
                 variant="h2"
                 sx={{ fontWeight: 700, mb: 2 }}
@@ -477,8 +320,8 @@ const FullTruckloadPage = () => {
               >
                 Book Now
               </Button>
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </Box>
+            <Box sx={{ flex: '1 1 50%' }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -497,8 +340,8 @@ const FullTruckloadPage = () => {
                   }}
                 />
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
@@ -525,55 +368,6 @@ const FullTruckloadPage = () => {
           >
             Learn more here →
           </Button>
-        </Container>
-      </Box>
-
-      {/* Explore Other Services Section */}
-      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            sx={{ mb: 6, fontWeight: 600 }}
-          >
-            Explore other <strong>Services</strong>
-          </Typography>
-          <Grid container spacing={4}>
-            {services.map((service, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    transition: 'transform 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      height: 200,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      bgcolor: alpha(theme.palette.primary.main, 0.05),
-                    }}
-                  >
-                    {service.icon}
-                  </Box>
-                  <CardContent sx={{ p: 3 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-                      {service.title}
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                      {service.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
         </Container>
       </Box>
 
