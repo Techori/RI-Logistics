@@ -28,6 +28,9 @@ import ProfilePage from "../pages/ProfilePage.jsx";
 import SettingsPage from "../pages/SettingsPage.jsx";
 import PrivateRoute from "../components/auth/PrivateRoute";
 import BottomNavigation from "../components/common/BottomNavigation.jsx";
+import D2CSolutionsPage from "../pages/solutions/D2CSolutionsPage.jsx";
+import B2BSolutionsPage from "../pages/solutions/B2BSolutionsPage.jsx";
+import ThreePLSolutionsPage from "../pages/solutions/ThreePLSolutionsPage.jsx";
 
 const DashboardRouter = () => {
   const userRole = localStorage.getItem("userRole");
@@ -61,6 +64,11 @@ const AppRouter = () => {
           <Route path="/delivery-partner" element={<DeliveryPartnerPage />} />
           <Route path="/fleet-owners" element={<FleetOwnerPage />} />
           <Route path="/support" element={<SupportPage />} />
+
+          {/* Solutions Pages */}
+          <Route path="/solutions/d2c" element={<D2CSolutionsPage />} />
+          <Route path="/solutions/b2b" element={<B2BSolutionsPage />} />
+          <Route path="/solutions/3pl" element={<ThreePLSolutionsPage />} />
 
           {/* Protected Routes */}
           <Route

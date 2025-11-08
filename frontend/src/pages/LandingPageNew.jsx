@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useThemeMode } from "../theme/ThemeProvider";
-import ThemeToggle from "../components/common/ThemeToggle";
+import Navbar from "../components/solutions/Navbar";
 import {
   LocalShipping,
   TrendingUp,
@@ -312,8 +312,8 @@ const LandingPageNew = () => {
                     ? "#e63946"
                     : "#1976d2"
                   : isDark
-                  ? alpha("#ffffff", 0.3)
-                  : alpha("#000000", 0.3),
+                    ? alpha("#ffffff", 0.3)
+                    : alpha("#000000", 0.3),
               cursor: "pointer",
               transition: "all 0.3s",
             }}
@@ -999,6 +999,7 @@ const LandingPageNew = () => {
 
       {/* Stats Section */}
       <Container
+        id="tracking-section"
         data-section
         maxWidth="xl"
         sx={{ position: "relative", zIndex: 1, py: 8 }}
@@ -1034,17 +1035,16 @@ const LandingPageNew = () => {
                       textAlign: "center",
                       background: isDark
                         ? `linear-gradient(135deg, ${alpha(
-                            "#1a1d29",
-                            0.9
-                          )} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
+                          "#1a1d29",
+                          0.9
+                        )} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
                         : `linear-gradient(135deg, ${alpha(
-                            "#ffffff",
-                            0.95
-                          )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
+                          "#ffffff",
+                          0.95
+                        )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
                       backdropFilter: "blur(30px)",
-                      border: `2px solid ${
-                        isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
-                      }`,
+                      border: `2px solid ${isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
+                        }`,
                       borderRadius: 5,
                       boxShadow: isDark
                         ? "0 25px 70px rgba(230, 57, 70, 0.2)"
@@ -1219,9 +1219,8 @@ const LandingPageNew = () => {
                         width: 80,
                         height: 80,
                         borderRadius: "50%",
-                        background: `linear-gradient(135deg, ${
-                          feature.color
-                        } 0%, ${alpha(feature.color, 0.6)} 100%)`,
+                        background: `linear-gradient(135deg, ${feature.color
+                          } 0%, ${alpha(feature.color, 0.6)} 100%)`,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -1257,6 +1256,7 @@ const LandingPageNew = () => {
 
       {/* Services Section */}
       <Box
+        id="services-section"
         data-section
         sx={{
           position: "relative",
@@ -1477,15 +1477,15 @@ const LandingPageNew = () => {
 
       {/* Footer */}
       <Box
+        id="footer-section"
         sx={{
           position: "relative",
           zIndex: 1,
           py: 8,
           background: isDark ? alpha("#1a1d29", 0.8) : alpha("#000000", 0.05),
           backdropFilter: "blur(20px)",
-          borderTop: `1px solid ${
-            isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
-          }`,
+          borderTop: `1px solid ${isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
+            }`,
         }}
       >
         <Container maxWidth="xl">
@@ -1584,9 +1584,8 @@ const LandingPageNew = () => {
                     flex: 1,
                     padding: "12px 16px",
                     borderRadius: "8px",
-                    border: `1px solid ${
-                      isDark ? alpha("#ffffff", 0.2) : alpha("#000000", 0.2)
-                    }`,
+                    border: `1px solid ${isDark ? alpha("#ffffff", 0.2) : alpha("#000000", 0.2)
+                      }`,
                     background: isDark
                       ? alpha("#ffffff", 0.05)
                       : alpha("#000000", 0.03),
@@ -1612,9 +1611,8 @@ const LandingPageNew = () => {
             sx={{
               mt: 6,
               pt: 4,
-              borderTop: `1px solid ${
-                isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
-              }`,
+              borderTop: `1px solid ${isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
+                }`,
               textAlign: "center",
             }}
           >
