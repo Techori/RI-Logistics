@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useThemeMode } from "../theme/ThemeProvider";
-import ThemeToggle from "../components/common/ThemeToggle";
+import Navbar from "../components/solutions/Navbar";
 import {
   LocalShipping,
   TrendingUp,
@@ -312,8 +312,8 @@ const LandingPageNew = () => {
                     ? "#e63946"
                     : "#1976d2"
                   : isDark
-                  ? alpha("#ffffff", 0.3)
-                  : alpha("#000000", 0.3),
+                    ? alpha("#ffffff", 0.3)
+                    : alpha("#000000", 0.3),
               cursor: "pointer",
               transition: "all 0.3s",
             }}
@@ -414,114 +414,7 @@ const LandingPageNew = () => {
       </Box>
 
       {/* Navigation */}
-      <Box
-        component={motion.div}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          backdropFilter: "blur(20px)",
-          bgcolor: isDark ? alpha("#1a1d29", 0.8) : alpha("#ffffff", 0.8),
-          borderBottom: `1px solid ${
-            isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
-          }`,
-        }}
-      >
-        <Container maxWidth="xl">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              py: 2,
-            }}
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 800,
-                  background: isDark
-                    ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                    : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  cursor: "pointer",
-                }}
-              >
-                LogiFlow
-              </Typography>
-            </motion.div>
-            <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-              {["Services", "Solutions", "Track", "About"].map((item) => (
-                <motion.div
-                  key={item}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Typography
-                    sx={{
-                      cursor: "pointer",
-                      fontSize: "0.95rem",
-                      fontWeight: 600,
-                      color: isDark
-                        ? alpha("#ffffff", 0.9)
-                        : alpha("#000000", 0.8),
-                      transition: "color 0.2s",
-                      "&:hover": {
-                        color: isDark ? "#e63946" : "#1976d2",
-                      },
-                    }}
-                  >
-                    {item}
-                  </Typography>
-                </motion.div>
-              ))}
-              <ThemeToggle />
-              <MagneticButton>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Button
-                    variant="contained"
-                    onClick={() => navigate("/login")}
-                    sx={{
-                      background: isDark
-                        ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                        : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                      color: "white",
-                      fontWeight: 700,
-                      px: 4,
-                      py: 1.2,
-                      borderRadius: 3,
-                      textTransform: "none",
-                      boxShadow: isDark
-                        ? "0 8px 32px rgba(230, 57, 70, 0.4)"
-                        : "0 8px 32px rgba(25, 118, 210, 0.3)",
-                      "&:hover": {
-                        transform: "translateY(-4px)",
-                        boxShadow: isDark
-                          ? "0 16px 48px rgba(230, 57, 70, 0.6)"
-                          : "0 16px 48px rgba(25, 118, 210, 0.5)",
-                      },
-                      transition: "all 0.3s",
-                    }}
-                  >
-                    Get Started
-                  </Button>
-                </motion.div>
-              </MagneticButton>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+      <Navbar />
 
       {/* Hero Section */}
       <Box
@@ -698,9 +591,8 @@ const LandingPageNew = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       overflow: "hidden",
-                      border: `2px solid ${
-                        isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
-                      }`,
+                      border: `2px solid ${isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
+                        }`,
                     }}
                   >
                     {/* Animated Delivery Truck */}
@@ -791,6 +683,7 @@ const LandingPageNew = () => {
 
       {/* Stats Section */}
       <Container
+        id="tracking-section"
         data-section
         maxWidth="xl"
         sx={{ position: "relative", zIndex: 1, py: 8 }}
@@ -826,17 +719,16 @@ const LandingPageNew = () => {
                       textAlign: "center",
                       background: isDark
                         ? `linear-gradient(135deg, ${alpha(
-                            "#1a1d29",
-                            0.9
-                          )} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
+                          "#1a1d29",
+                          0.9
+                        )} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
                         : `linear-gradient(135deg, ${alpha(
-                            "#ffffff",
-                            0.95
-                          )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
+                          "#ffffff",
+                          0.95
+                        )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
                       backdropFilter: "blur(30px)",
-                      border: `2px solid ${
-                        isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
-                      }`,
+                      border: `2px solid ${isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
+                        }`,
                       borderRadius: 5,
                       boxShadow: isDark
                         ? "0 25px 70px rgba(230, 57, 70, 0.2)"
@@ -1011,9 +903,8 @@ const LandingPageNew = () => {
                         width: 80,
                         height: 80,
                         borderRadius: "50%",
-                        background: `linear-gradient(135deg, ${
-                          feature.color
-                        } 0%, ${alpha(feature.color, 0.6)} 100%)`,
+                        background: `linear-gradient(135deg, ${feature.color
+                          } 0%, ${alpha(feature.color, 0.6)} 100%)`,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -1049,6 +940,7 @@ const LandingPageNew = () => {
 
       {/* Services Section */}
       <Box
+        id="services-section"
         data-section
         sx={{
           position: "relative",
@@ -1269,15 +1161,15 @@ const LandingPageNew = () => {
 
       {/* Footer */}
       <Box
+        id="footer-section"
         sx={{
           position: "relative",
           zIndex: 1,
           py: 8,
           background: isDark ? alpha("#1a1d29", 0.8) : alpha("#000000", 0.05),
           backdropFilter: "blur(20px)",
-          borderTop: `1px solid ${
-            isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
-          }`,
+          borderTop: `1px solid ${isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
+            }`,
         }}
       >
         <Container maxWidth="xl">
@@ -1376,9 +1268,8 @@ const LandingPageNew = () => {
                     flex: 1,
                     padding: "12px 16px",
                     borderRadius: "8px",
-                    border: `1px solid ${
-                      isDark ? alpha("#ffffff", 0.2) : alpha("#000000", 0.2)
-                    }`,
+                    border: `1px solid ${isDark ? alpha("#ffffff", 0.2) : alpha("#000000", 0.2)
+                      }`,
                     background: isDark
                       ? alpha("#ffffff", 0.05)
                       : alpha("#000000", 0.03),
@@ -1404,9 +1295,8 @@ const LandingPageNew = () => {
             sx={{
               mt: 6,
               pt: 4,
-              borderTop: `1px solid ${
-                isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
-              }`,
+              borderTop: `1px solid ${isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.1)
+                }`,
               textAlign: "center",
             }}
           >
