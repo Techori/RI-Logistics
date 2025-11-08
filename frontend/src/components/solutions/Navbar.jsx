@@ -238,16 +238,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Track Link */}
-          <motion.div
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => handleScrollTo("tracking-section")}
-            className="nav-link"
-          >
-            Track
-          </motion.div>
-
           {/* About Link */}
           <motion.div
             whileHover={{ y: -2 }}
