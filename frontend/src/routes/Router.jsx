@@ -69,6 +69,9 @@ const AppRouter = () => {
           <Route path="/solutions/d2c" element={<D2CSolutionsPage />} />
           <Route path="/solutions/b2b" element={<B2BSolutionsPage />} />
           <Route path="/solutions/3pl" element={<ThreePLSolutionsPage />} />
+          <Route path="/b2b-solution" element={<B2BSolutionsPage />} />
+          <Route path="/d2d-solution" element={<D2CSolutionsPage />} />
+          <Route path="/3pl-solution" element={<ThreePLSolutionsPage />} />
 
           {/* Protected Routes */}
           <Route

@@ -29,7 +29,7 @@ import {
   People,
   TrendingUp,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 import truckBgImage from '../assets/fullTruckLoad.png';
 import officeImage from '../assets/office.png';
 
@@ -134,7 +134,7 @@ const FranchisePage = () => {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <LandingHeader />
+      <Navbar />
       
       {/* Hero Section */}
       <Box

@@ -21,7 +21,7 @@ import {
   ExpandMore,
   ArrowForward,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 import truckHeroImage from '../assets/fullTruckLoad.png';
 
 const FleetOwnerPage = () => {
@@ -136,7 +136,7 @@ const FleetOwnerPage = () => {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <LandingHeader />
+      <Navbar />
 
       {/* Hero Section */}
       <Box

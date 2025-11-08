@@ -27,7 +27,7 @@ import {
   School,
   HealthAndSafety,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 import partnerPhoto from '../assets/partnerphoto.png'; // Add your partner image with this name
 import deliveryBoy from '../assets/delivaryBoy.jpeg';
 import delCustomer from '../assets/delCustomer.png';
@@ -143,7 +143,7 @@ const DeliveryPartnerPage = () => {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <LandingHeader />
+      <Navbar />
       
       {/* Hero Section */}
       <Box

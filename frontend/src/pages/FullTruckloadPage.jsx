@@ -22,7 +22,7 @@ import {
   Inventory,
   Public,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 import truckImage from '../assets/realtruck.png';
 import fullTruckBg from '../assets/fullTruckLoad.png';
 
@@ -120,7 +120,7 @@ const FullTruckloadPage = () => {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Navigation Header */}
-      <LandingHeader />
+      <Navbar />
 
       {/* Hero Section */}
       <Box

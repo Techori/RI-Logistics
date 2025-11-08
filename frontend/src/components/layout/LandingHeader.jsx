@@ -35,6 +35,7 @@ import { motion } from 'framer-motion';
 const LandingHeader = () => {
   const [servicesAnchor, setServicesAnchor] = useState(null);
   const [partnerAnchor, setPartnerAnchor] = useState(null);
+  const [solutionsAnchor, setSolutionsAnchor] = useState(null);
   const navigate = useNavigate();
   const { mode } = useThemeMode();
   const isDark = mode === 'dark';
@@ -55,6 +56,14 @@ const LandingHeader = () => {
     setPartnerAnchor(null);
   };
 
+  const handleSolutionsOpen = (event) => {
+    setSolutionsAnchor(event.currentTarget);
+  };
+
+  const handleSolutionsClose = () => {
+    setSolutionsAnchor(null);
+  };
+
   const handleServiceClick = (path) => {
     navigate(path);
     handleServicesClose();
@@ -63,6 +72,11 @@ const LandingHeader = () => {
   const handlePartnerClick = (path) => {
     navigate(path);
     handlePartnerClose();
+  };
+
+  const handleSolutionClick = (path) => {
+    navigate(path);
+    handleSolutionsClose();
   };
 
   const services = [
@@ -113,6 +127,24 @@ const LandingHeader = () => {
       name: 'Fleet Owners',
       icon: <LocalShippingRounded sx={{ color: isDark ? '#fff' : '#666' }} />,
       path: '/fleet-owners',
+    },
+  ];
+
+  const solutions = [
+    {
+      name: 'B2B',
+      icon: <Analytics sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/b2b-solution',
+    },
+    {
+      name: 'D2D',
+      icon: <LocalShipping sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/d2d-solution',
+    },
+    {
+      name: '3PL',
+      icon: <Warehouse sx={{ color: isDark ? '#fff' : '#666' }} />,
+      path: '/3pl-solution',
     },
   ];
 
@@ -334,7 +366,82 @@ const LandingHeader = () => {
               </Typography>
             </motion.div>
 
-            {['Solutions', 'Track', 'About'].map((item) => (
+            {/* Solutions Dropdown */}
+            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Box
+                onClick={handleSolutionsOpen}
+                sx={{
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: '0.95rem',
+                    fontWeight: 600,
+                    color: isDark
+                      ? alpha('#ffffff', 0.9)
+                      : alpha('#000000', 0.8),
+                    transition: 'color 0.2s',
+                    '&:hover': {
+                      color: isDark ? '#e63946' : '#1976d2',
+                    },
+                  }}
+                >
+                  Solutions
+                </Typography>
+                <KeyboardArrowDown
+                  sx={{
+                    fontSize: 20,
+                    color: isDark
+                      ? alpha('#ffffff', 0.9)
+                      : alpha('#000000', 0.8),
+                  }}
+                />
+              </Box>
+            </motion.div>
+            <Menu
+              anchorEl={solutionsAnchor}
+              open={Boolean(solutionsAnchor)}
+              onClose={handleSolutionsClose}
+              PaperProps={{
+                sx: {
+                  mt: 1,
+                  minWidth: 250,
+                  borderRadius: 2,
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                  bgcolor: isDark ? '#1a1d29' : '#ffffff',
+                },
+              }}
+            >
+              {solutions.map((solution) => (
+                <MenuItem
+                  key={solution.name}
+                  onClick={() => handleSolutionClick(solution.path)}
+                  sx={{
+                    py: 1.5,
+                    '&:hover': {
+                      bgcolor: isDark
+                        ? alpha('#e63946', 0.1)
+                        : alpha('#1976d2', 0.1),
+                    },
+                  }}
+                >
+                  <ListItemIcon>{solution.icon}</ListItemIcon>
+                  <ListItemText
+                    primary={solution.name}
+                    primaryTypographyProps={{
+                      fontSize: '0.95rem',
+                      fontWeight: 500,
+                    }}
+                  />
+                </MenuItem>
+              ))}
+            </Menu>
+
+            {['Track', 'About'].map((item) => (
               <motion.div
                 key={item}
                 whileHover={{ y: -2 }}

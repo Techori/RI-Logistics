@@ -18,7 +18,7 @@ import {
   GpsFixed,
   CheckCircle,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 import { useThemeMode } from '../theme/ThemeProvider';
 import truckImage from '../assets/realtruck.png';
 import partTruckBg from '../assets/partTruckImage.png';
@@ -135,7 +135,7 @@ const PartTruckloadPage = () => {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Navigation Header */}
-      <LandingHeader />
+      <Navbar />
 
       {/* Hero Section */}
       <Box

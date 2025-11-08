@@ -23,7 +23,7 @@ import {
   Phone,
   Headset,
 } from '@mui/icons-material';
-import LandingHeader from '../components/layout/LandingHeader';
+import Navbar from '../components/solutions/Navbar';
 
 const SupportPage = () => {
   const theme = useTheme();
@@ -112,7 +112,7 @@ const SupportPage = () => {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <LandingHeader />
+      <Navbar />
 
       {/* Hero Section */}
       <Box
