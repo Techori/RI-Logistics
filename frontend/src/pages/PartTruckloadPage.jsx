@@ -7,7 +7,6 @@ import {
   Grid,
   Card,
   CardContent,
-  useTheme,
   alpha,
 } from '@mui/material';
 import {
@@ -24,25 +23,14 @@ import truckImage from '../assets/realtruck.png';
 import partTruckBg from '../assets/partTruckImage.png';
 
 const PartTruckloadPage = () => {
-  const theme = useTheme();
   const { mode } = useThemeMode();
   const isDark = mode === 'dark';
-
-  // Client logos data
-  const clients = [
-    { name: 'VOLTAS', logo: 'VOLTAS' },
-    { name: 'BRITANNIA', logo: 'BRITANNIA' },
-    { name: 'Schneider Electric', logo: 'Schneider Electric' },
-    { name: '3M', logo: '3M' },
-    { name: 'TATA 1mg', logo: 'TATA 1mg' },
-    { name: 'apollo TYRES', logo: 'apollo TYRES' },
-  ];
 
   // Stats data
   const stats = [
     {
-      value: '6.1 Million+',
-      label: 'Tonnes Freight Shipped Till Date',
+      value: 'Get eCommerce like experience with Relogistics\'s dedicated panel for your B2B shipments',
+      label: '',
     },
     {
       value: 'Start with as low as ₹6/Kg',
@@ -194,46 +182,6 @@ const PartTruckloadPage = () => {
                 Sign up as a business
               </Button>
             </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Clients Section */}
-      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            align="center"
-            sx={{ mb: 6, fontWeight: 600 }}
-          >
-            Serving corporates, SME, retail clients across industries
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'center' }}>
-            {clients.map((client, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flex: { xs: '1 1 40%', sm: '1 1 30%', md: '1 1 15%' },
-                  minWidth: '120px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  minHeight: 80,
-                  p: 2,
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 700,
-                    color: 'text.secondary',
-                    textAlign: 'center',
-                  }}
-                >
-                  {client.logo}
-                </Typography>
-              </Box>
-            ))}
           </Box>
         </Container>
       </Box>
@@ -436,39 +384,6 @@ const PartTruckloadPage = () => {
         </Container>
       </Box>
 
-      {/* eCommerce Experience Section */}
-      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 6, alignItems: 'center' }}>
-            <Box sx={{ flex: '1 1 50%' }}>
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: 700, mb: 3 }}
-              >
-                Get eCommerce like experience with Relogistics's dedicated panel for your B2B shipments
-              </Typography>
-            </Box>
-            <Box sx={{ flex: '1 1 50%' }}>
-              <Box
-                sx={{
-                  bgcolor: alpha(theme.palette.primary.main, 0.1),
-                  borderRadius: 3,
-                  p: 4,
-                  minHeight: 300,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography variant="h6" color="text.secondary">
-                  [Dashboard Preview]
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
       {/* Features Section */}
       <Box sx={{ py: 8, bgcolor: isDark ? '#0a0e1a' : '#1a1d29' }}>
         <Container maxWidth="xl">
@@ -510,19 +425,19 @@ const PartTruckloadPage = () => {
       {/* Footer */}
       <Box
         sx={{
-          bgcolor: 'background.paper',
+          bgcolor: isDark ? alpha('#1a1d29', 0.95) : alpha('#f8f9fa', 0.95),
           borderTop: 1,
           borderColor: 'divider',
-          py: 6,
+          py: 8,
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           {/* Logo and Certification */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
+          <Box sx={{ mb: 6 }}>
+            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, letterSpacing: 1 }}>
               RELOGISTICS
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 0.5 }}>
               ISO 9001: 2015, ISO 27001: 2022 Certified Company
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -530,97 +445,164 @@ const PartTruckloadPage = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+          {/* Main Footer Grid */}
+          <Box 
+            sx={{ 
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+                lg: 'repeat(5, 1fr)'
+              },
+              gap: { xs: 4, md: 6 },
+              mb: 6
+            }}
+          >
             {/* Services */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
                 SERVICES
               </Typography>
-              {services.map((service, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
-                >
-                  {service}
-                </Typography>
-              ))}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+                {services.map((service, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      '&:hover': { 
+                        color: 'primary.main',
+                        transform: 'translateX(4px)'
+                      } 
+                    }}
+                  >
+                    {service}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
 
             {/* Solutions */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
                 SOLUTIONS
               </Typography>
-              {solutions.map((solution, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
-                >
-                  {solution}
-                </Typography>
-              ))}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+                {solutions.map((solution, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      '&:hover': { 
+                        color: 'primary.main',
+                        transform: 'translateX(4px)'
+                      } 
+                    }}
+                  >
+                    {solution}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
 
             {/* Partners */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
                 PARTNERS
               </Typography>
-              {partners.map((partner, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
-                >
-                  {partner}
-                </Typography>
-              ))}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+                {partners.map((partner, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      '&:hover': { 
+                        color: 'primary.main',
+                        transform: 'translateX(4px)'
+                      } 
+                    }}
+                  >
+                    {partner}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
 
             {/* Company */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
                 COMPANY
               </Typography>
-              {company.map((item, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
-                >
-                  {item}
-                </Typography>
-              ))}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+                {company.map((item, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      '&:hover': { 
+                        color: 'primary.main',
+                        transform: 'translateX(4px)'
+                      } 
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
 
             {/* Get in Touch */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
                 GET IN TOUCH
               </Typography>
-              {getInTouch.map((item, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
-                >
-                  {item}
-                </Typography>
-              ))}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+                {getInTouch.map((item, index) => (
+                  <Typography
+                    key={index}
+                    variant="body2"
+                    sx={{ 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      '&:hover': { 
+                        color: 'primary.main',
+                        transform: 'translateX(4px)'
+                      } 
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
+          </Box>
 
-            {/* Policies */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                POLICIES
-              </Typography>
+          {/* Policies Section - Separate Row */}
+          <Box sx={{ mb: 6 }}>
+            <Typography variant="h6" sx={{ fontWeight: 700, mb: 2.5, fontSize: '1rem', letterSpacing: 0.5 }}>
+              POLICIES
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
               {policies.map((policy, index) => (
                 <Typography
                   key={index}
                   variant="body2"
-                  sx={{ mb: 1, cursor: 'pointer', '&:hover': { color: 'primary.main' } }}
+                  sx={{ 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    '&:hover': { 
+                      color: 'primary.main',
+                      textDecoration: 'underline'
+                    } 
+                  }}
                 >
                   {policy}
                 </Typography>

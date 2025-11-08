@@ -645,44 +645,96 @@ const FleetOwnerPage = () => {
       </Box>
 
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 6 }}>
-        <Container maxWidth="lg">
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            DELHIVERY
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ISO 9001: 2015, ISO 27001: 2022 Certified Company
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-            CIN: L63090DL2011PLC221234
-          </Typography>
+      <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 8 }}>
+        <Container maxWidth="xl">
+          {/* Header */}
+          <Box sx={{ mb: 6 }}>
+            <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, fontSize: '1.75rem' }}>
+              DELHIVERY
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+              ISO 9001: 2015, ISO 27001: 2022 Certified Company
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+              CIN: L63090DL2011PLC221234
+            </Typography>
+          </Box>
 
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 6, mb: 6 }}>
+          {/* Main Footer Grid */}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+                lg: 'repeat(5, 1fr)',
+              },
+              gap: { xs: 4, md: 6 },
+              mb: 6,
+            }}
+          >
             {/* Services */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 700,
+                  mb: 2.5,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
                 SERVICES
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Express Parcel', 'Warehousing', 'Part Truckload', 'Full Truckload', 'Cross Border', 'Data Intelligence', 'Software Platform'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
+                {['Express Parcel', 'Warehousing', 'Part Truckload', 'Full Truckload', 'Cross Border', 'Data Intelligence', 'Software Platform'].map(
+                  (item) => (
+                    <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          cursor: 'pointer',
+                          color: 'text.secondary',
+                          fontSize: '0.875rem',
+                          transition: 'color 0.2s',
+                          '&:hover': { color: 'text.primary' },
+                        }}
+                      >
+                        {item}
+                      </Typography>
+                    </Box>
+                  )
+                )}
               </Box>
             </Box>
 
             {/* Solutions */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 700,
+                  mb: 2.5,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
                 SOLUTIONS
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                 {['D2C Brands', 'Personal Courier', 'B2B Enterprises'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
+                  <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        fontSize: '0.875rem',
+                        transition: 'color 0.2s',
+                        '&:hover': { color: 'text.primary' },
+                      }}
+                    >
                       {item}
                     </Typography>
                   </Box>
@@ -691,14 +743,31 @@ const FleetOwnerPage = () => {
             </Box>
 
             {/* Partners */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 700,
+                  mb: 2.5,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
                 PARTNERS
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                 {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
+                  <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        fontSize: '0.875rem',
+                        transition: 'color 0.2s',
+                        '&:hover': { color: 'text.primary' },
+                      }}
+                    >
                       {item}
                     </Typography>
                   </Box>
@@ -707,14 +776,31 @@ const FleetOwnerPage = () => {
             </Box>
 
             {/* Company */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 700,
+                  mb: 2.5,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
                 COMPANY
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                 {['About Us', 'Governance', 'Investor Relations', 'ODR Portal', 'Press Release', 'Careers'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
+                  <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        fontSize: '0.875rem',
+                        transition: 'color 0.2s',
+                        '&:hover': { color: 'text.primary' },
+                      }}
+                    >
                       {item}
                     </Typography>
                   </Box>
@@ -723,30 +809,31 @@ const FleetOwnerPage = () => {
             </Box>
 
             {/* Get in Touch */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 700,
+                  mb: 2.5,
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
                 GET IN TOUCH
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                 {['Support', 'Raise a query', 'Store Locator', 'Rate Calculator'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            {/* Policies */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                POLICIES
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Terms & Conditions', 'Privacy Policy', 'Cookie Policy', 'Fraud Disclaimer', 'ONDC Disclaimer'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
+                  <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        cursor: 'pointer',
+                        color: 'text.secondary',
+                        fontSize: '0.875rem',
+                        transition: 'color 0.2s',
+                        '&:hover': { color: 'text.primary' },
+                      }}
+                    >
                       {item}
                     </Typography>
                   </Box>
@@ -755,17 +842,58 @@ const FleetOwnerPage = () => {
             </Box>
           </Box>
 
+          {/* Policies Row */}
+          <Box sx={{ mb: 6 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: 700,
+                mb: 2.5,
+                fontSize: '0.95rem',
+                letterSpacing: '0.5px',
+              }}
+            >
+              POLICIES
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: { xs: 2, md: 4 },
+              }}
+            >
+              {['Terms & Conditions', 'Privacy Policy', 'Cookie Policy', 'Fraud Disclaimer', 'ONDC Disclaimer'].map((item) => (
+                <Typography
+                  key={item}
+                  variant="body2"
+                  sx={{
+                    cursor: 'pointer',
+                    color: 'text.secondary',
+                    fontSize: '0.875rem',
+                    transition: 'color 0.2s',
+                    '&:hover': { color: 'text.primary' },
+                  }}
+                >
+                  {item}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Bottom Section */}
           <Box sx={{ pt: 4, borderTop: 1, borderColor: 'divider' }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 2 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, mb: 2, fontSize: '0.875rem' }}>
               Information Security Policy
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Delhivery is committed to safeguarding the confidentiality, integrity and availability of all physical and electronic information assets of the organization. We ensure that the regulatory, operational and contractual requirements are fulfilled.
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, fontSize: '0.875rem' }}>
+              Delhivery is committed to safeguarding the confidentiality, integrity and availability of all physical and
+              electronic information assets of the organization. We ensure that the regulatory, operational and
+              contractual requirements are fulfilled.
             </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, fontSize: '0.875rem' }}>
               Disclaimer
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
               Operational metrics listed are as of August 04, 2023
             </Typography>
           </Box>

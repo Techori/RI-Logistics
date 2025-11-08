@@ -134,7 +134,8 @@ const FullTruckloadPage = () => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           color: 'white',
-          mt: 2,
+          mt: { xs: 10, sm: 12 },
+          pt: 4,
         }}
       >
         <Container maxWidth="lg">
@@ -185,7 +186,7 @@ const FullTruckloadPage = () => {
 
       {/* Why Choose Us Section */}
       <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
-        <Container maxWidth="lg">
+        <Container maxWidth={false} sx={{ maxWidth: '1600px', px: { xs: 2, sm: 3, md: 4 } }}>
           <Typography
             variant="h3"
             align="center"
@@ -193,43 +194,52 @@ const FullTruckloadPage = () => {
           >
             Why choose us?
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
-            {/* Get All Vehicle Types - Featured Card */}
-            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 33%' } }}>
+          
+          {/* Main Container with Black Box and Grid Box */}
+          <Box 
+            sx={{ 
+              display: 'flex',
+              flexDirection: { xs: 'column', lg: 'row' },
+              gap: 2.5,
+            }}
+          >
+            {/* Black Box - Left Side */}
+            <Box sx={{ flex: { xs: '1 1 100%', lg: '0 0 23%' } }}>
               <Card
                 sx={{
-                  height: '100%',
                   bgcolor: '#000',
                   color: 'white',
-                  borderRadius: 4,
-                  p: 5,
+                  borderRadius: 3,
+                  p: 3,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  minHeight: 450,
+                  justifyContent: 'space-between',
+                  height: { xs: '240px', lg: '100%' },
+                  minHeight: '240px',
                 }}
               >
                 <Box>
-                  <Box sx={{ mb: 6 }}>
-                    <LocalShipping sx={{ fontSize: 70, color: 'white' }} />
+                  <Box sx={{ mb: 2.5 }}>
+                    <LocalShipping sx={{ fontSize: 50, color: 'white' }} />
                   </Box>
                   <Typography 
-                    variant="h4" 
+                    variant="h6" 
                     sx={{ 
                       fontWeight: 700, 
-                      mb: 3, 
+                      mb: 1.5, 
                       color: '#e53935',
-                      lineHeight: 1.3,
+                      lineHeight: 1.2,
+                      fontSize: '1.1rem',
                     }}
                   >
                     Get all vehicle types
                   </Typography>
                   <Typography 
-                    variant="h6" 
+                    variant="body2" 
                     sx={{ 
                       fontWeight: 400, 
                       color: 'rgba(255, 255, 255, 0.9)',
-                      lineHeight: 1.6,
+                      lineHeight: 1.4,
                     }}
                   >
                     14ft, 17ft, 20ft, 32ft, 32ft MXL
@@ -238,30 +248,94 @@ const FullTruckloadPage = () => {
               </Card>
             </Box>
 
-            {/* Other Features - 2x3 Grid */}
-            <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 67%' } }}>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-                {whyChooseUs.slice(1).map((feature, index) => (
-                  <Box key={index} sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%' }, minWidth: '250px' }}>
+            {/* Grid Box - Right Side with 6 Cards (2 rows x 3 columns) */}
+            <Box 
+              sx={{ 
+                flex: { xs: '1 1 100%', lg: '1 1 77%' },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2.5,
+              }}
+            >
+              {/* Row 1 - First 3 cards */}
+              <Box 
+                sx={{ 
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 2.5,
+                }}
+              >
+                {whyChooseUs.slice(1, 4).map((feature, index) => (
+                  <Box 
+                    key={index} 
+                    sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 10px)', lg: '1 1 calc(33.333% - 17px)' } }}
+                  >
                     <Card
                       sx={{
-                        height: '100%',
                         bgcolor: alpha(theme.palette.grey[100], 0.8),
                         boxShadow: 'none',
                         borderRadius: 3,
                         p: 3,
-                        minHeight: 190,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        height: '240px',
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        '&:hover': {
+                          transform: 'translateY(-4px)',
+                          boxShadow: 3,
+                        },
                       }}
                     >
-                      <CardContent>
-                        <Box sx={{ mb: 2 }}>{feature.icon}</Box>
-                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                          {feature.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {feature.description}
-                        </Typography>
-                      </CardContent>
+                      <Box sx={{ mb: 2 }}>{feature.icon}</Box>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, fontSize: '1rem' }}>
+                        {feature.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {feature.description}
+                      </Typography>
+                    </Card>
+                  </Box>
+                ))}
+              </Box>
+
+              {/* Row 2 - Last 3 cards */}
+              <Box 
+                sx={{ 
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 2.5,
+                }}
+              >
+                {whyChooseUs.slice(4, 7).map((feature, index) => (
+                  <Box 
+                    key={index} 
+                    sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 10px)', lg: '1 1 calc(33.333% - 17px)' } }}
+                  >
+                    <Card
+                      sx={{
+                        bgcolor: alpha(theme.palette.grey[100], 0.8),
+                        boxShadow: 'none',
+                        borderRadius: 3,
+                        p: 3,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        height: '240px',
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        '&:hover': {
+                          transform: 'translateY(-4px)',
+                          boxShadow: 3,
+                        },
+                      }}
+                    >
+                      <Box sx={{ mb: 2 }}>{feature.icon}</Box>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, fontSize: '1rem' }}>
+                        {feature.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {feature.description}
+                      </Typography>
                     </Card>
                   </Box>
                 ))}

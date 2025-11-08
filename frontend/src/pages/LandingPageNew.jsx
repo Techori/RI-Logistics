@@ -4,7 +4,6 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
   Card,
   alpha,
   TextField,
@@ -674,9 +673,23 @@ const LandingPageNew = () => {
         maxWidth="xl"
         sx={{ position: "relative", zIndex: 1, py: 8 }}
       >
-        <Grid container spacing={4}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 4,
+            justifyContent: "center",
+          }}
+        >
           {stats.map((stat, index) => (
-            <Grid item xs={6} md={3} key={index}>
+            <Box
+              key={index}
+              sx={{
+                flex: { xs: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
+                minWidth: { xs: "calc(50% - 16px)", md: "200px" },
+                maxWidth: { xs: "calc(50% - 16px)", md: "300px" },
+              }}
+            >
               <motion.div
                 initial={{ y: 50, opacity: 0, scale: 0.5 }}
                 whileInView={{ y: 0, opacity: 1, scale: 1 }}
@@ -713,8 +726,7 @@ const LandingPageNew = () => {
                           0.95
                         )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
                       backdropFilter: "blur(30px)",
-                      border: `2px solid ${isDark ? alpha("#e63946", 0.3) : alpha("#1976d2", 0.3)
-                        }`,
+                      border: "none",
                       borderRadius: 5,
                       boxShadow: isDark
                         ? "0 25px 70px rgba(230, 57, 70, 0.2)"
@@ -723,7 +735,6 @@ const LandingPageNew = () => {
                       position: "relative",
                       overflow: "hidden",
                       "&:hover": {
-                        borderColor: isDark ? "#e63946" : "#1976d2",
                         boxShadow: isDark
                           ? "0 35px 90px rgba(230, 57, 70, 0.4)"
                           : "0 35px 90px rgba(25, 118, 210, 0.4)",
@@ -797,9 +808,9 @@ const LandingPageNew = () => {
                   </Card>
                 </Tilt>
               </motion.div>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
 
       {/* Features Section */}
@@ -846,9 +857,23 @@ const LandingPageNew = () => {
           </Typography>
         </motion.div>
 
-        <Grid container spacing={4}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 4,
+            justifyContent: "center",
+          }}
+        >
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Box
+              key={index}
+              sx={{
+                flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
+                minWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "200px" },
+                maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "300px" },
+              }}
+            >
               <motion.div
                 initial={{ y: 100, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -919,9 +944,9 @@ const LandingPageNew = () => {
                   </Typography>
                 </Card>
               </motion.div>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
 
       {/* Services Section */}
@@ -977,9 +1002,23 @@ const LandingPageNew = () => {
             </Typography>
           </motion.div>
 
-          <Grid container spacing={4}>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 4,
+              justifyContent: "center",
+            }}
+          >
             {services.map((service, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
+              <Box
+                key={index}
+                sx={{
+                  flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
+                  minWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "200px" },
+                  maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "300px" },
+                }}
+              >
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
@@ -1034,9 +1073,9 @@ const LandingPageNew = () => {
                     </Card>
                   </Tilt>
                 </motion.div>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Container>
       </Box>
 
@@ -1159,8 +1198,19 @@ const LandingPageNew = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 4,
+            }}
+          >
+            <Box
+              sx={{
+                flex: { xs: "1 1 100%", md: "1 1 calc(33.333% - 22px)" },
+                minWidth: { xs: "100%", md: "250px" },
+              }}
+            >
               <Typography
                 variant="h5"
                 sx={{
@@ -1186,8 +1236,13 @@ const LandingPageNew = () => {
                 The future of logistics, delivered today. Fast, secure, and
                 intelligent shipping solutions for businesses worldwide.
               </Typography>
-            </Grid>
-            <Grid item xs={6} md={2}>
+            </Box>
+            <Box
+              sx={{
+                flex: { xs: "1 1 calc(50% - 16px)", md: "1 1 calc(16.666% - 22px)" },
+                minWidth: { xs: "calc(50% - 16px)", md: "150px" },
+              }}
+            >
               <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
                 Company
               </Typography>
@@ -1209,8 +1264,13 @@ const LandingPageNew = () => {
                   {item}
                 </Typography>
               ))}
-            </Grid>
-            <Grid item xs={6} md={2}>
+            </Box>
+            <Box
+              sx={{
+                flex: { xs: "1 1 calc(50% - 16px)", md: "1 1 calc(16.666% - 22px)" },
+                minWidth: { xs: "calc(50% - 16px)", md: "150px" },
+              }}
+            >
               <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
                 Services
               </Typography>
@@ -1232,8 +1292,13 @@ const LandingPageNew = () => {
                   {item}
                 </Typography>
               ))}
-            </Grid>
-            <Grid item xs={12} md={4}>
+            </Box>
+            <Box
+              sx={{
+                flex: { xs: "1 1 100%", md: "1 1 calc(33.333% - 22px)" },
+                minWidth: { xs: "100%", md: "250px" },
+              }}
+            >
               <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
                 Stay Updated
               </Typography>
@@ -1275,8 +1340,8 @@ const LandingPageNew = () => {
                   Subscribe
                 </Button>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
           <Box
             sx={{
               mt: 6,
