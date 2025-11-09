@@ -24,9 +24,12 @@ import {
   Headset,
 } from '@mui/icons-material';
 import Navbar from '../components/solutions/Navbar';
+import { useThemeMode } from '../theme/ThemeProvider';
 
 const SupportPage = () => {
   const theme = useTheme();
+  const { mode } = useThemeMode();
+  const isDark = mode === 'dark';
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('shipments');
   const [selectedSubCategory, setSelectedSubCategory] = useState('shipment-status');
@@ -140,7 +143,7 @@ const SupportPage = () => {
             <Box sx={{ flex: '1 1 40%' }}>
               <Card
                 sx={{
-                  bgcolor: alpha(theme.palette.grey[100], 0.5),
+                  bgcolor: isDark ? '#ffffff' : alpha(theme.palette.grey[100], 0.5),
                   borderRadius: 3,
                   boxShadow: 2,
                 }}
@@ -148,7 +151,7 @@ const SupportPage = () => {
                 <CardContent sx={{ p: 3 }}>
                   <Typography
                     variant="overline"
-                    sx={{ color: 'text.secondary', fontWeight: 600, mb: 1, display: 'block' }}
+                    sx={{ color: isDark ? '#000000' : 'text.secondary', fontWeight: 600, mb: 1, display: 'block' }}
                   >
                     NEED SUPPORT WITH YOUR SHIPMENT?
                   </Typography>
@@ -169,7 +172,7 @@ const SupportPage = () => {
                       Raise a Query
                     </Typography>
                   </Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: isDark ? '#000000' : 'text.secondary' }}>
                     (or) Call us at +91 8069856101
                   </Typography>
                 </CardContent>
@@ -233,7 +236,7 @@ const SupportPage = () => {
 
                     {/* Subcategories */}
                     {selectedCategory === category.id && (
-                      <Box sx={{ bgcolor: alpha(theme.palette.grey[50], 0.5) }}>
+                      <Box sx={{ bgcolor: isDark ? '#ffffff' : alpha(theme.palette.grey[50], 0.5) }}>
                         {category.subCategories.map((subCat) => (
                           <Box
                             key={subCat.id}
@@ -253,7 +256,7 @@ const SupportPage = () => {
                               variant="body2"
                               sx={{
                                 fontWeight: selectedSubCategory === subCat.id ? 600 : 400,
-                                color: selectedSubCategory === subCat.id ? '#ef4444' : 'text.secondary',
+                                color: selectedSubCategory === subCat.id ? '#ef4444' : isDark ? '#000000' : 'text.secondary',
                               }}
                             >
                               {subCat.name}
@@ -322,7 +325,7 @@ const SupportPage = () => {
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              color: 'text.secondary',
+                              color: isDark ? '#ffffff' : 'text.secondary',
                             }}
                           >
                             −
@@ -335,7 +338,7 @@ const SupportPage = () => {
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              color: 'text.secondary',
+                              color: isDark ? '#ffffff' : 'text.secondary',
                             }}
                           >
                             +
@@ -345,16 +348,22 @@ const SupportPage = () => {
                       sx={{
                         borderLeft: expandedFaq === `faq-${index}` ? '4px solid #ef4444' : '4px solid transparent',
                         '&:hover': {
-                          bgcolor: alpha(theme.palette.grey[100], 0.3),
+                          bgcolor: isDark ? '#ffffff' : alpha(theme.palette.grey[100], 0.3),
+                          '& .MuiTypography-root': {
+                            color: isDark ? '#000000' : 'text.primary',
+                          },
+                          '& .MuiBox-root': {
+                            color: isDark ? '#000000' : 'text.secondary',
+                          },
                         },
                       }}
                     >
-                      <Typography sx={{ fontWeight: expandedFaq === `faq-${index}` ? 600 : 500 }}>
+                      <Typography sx={{ fontWeight: expandedFaq === `faq-${index}` ? 600 : 500, color: isDark ? '#ffffff' : 'text.primary' }}>
                         {faq.question}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ pt: 0 }}>
-                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                      <Typography variant="body2" sx={{ lineHeight: 1.7, color: isDark ? '#ffffff' : 'text.secondary' }}>
                         {faq.answer}
                       </Typography>
                     </AccordionDetails>
@@ -374,11 +383,11 @@ const SupportPage = () => {
                   sx={{
                     p: 4,
                     borderRadius: 3,
-                    bgcolor: alpha(theme.palette.grey[50], 0.5),
+                    bgcolor: isDark ? '#ffffff' : alpha(theme.palette.grey[50], 0.5),
                     boxShadow: 1,
                   }}
                 >
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 3, color: isDark ? '#000000' : 'text.primary' }}>
                     Please Login to Raise a Query
                   </Typography>
 

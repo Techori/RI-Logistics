@@ -701,6 +701,7 @@ const LandingPageNew = () => {
                   stiffness: 100,
                 }}
                 whileHover={{ y: -15, scale: 1.05 }}
+                style={{ border: 'none', outline: 'none' }}
               >
                 <Tilt
                   tiltMaxAngleX={15}
@@ -711,6 +712,7 @@ const LandingPageNew = () => {
                   glareMaxOpacity={0.3}
                   glareColor={isDark ? "#e63946" : "#1976d2"}
                   glarePosition="all"
+                  style={{ borderRadius: '60px', overflow: 'hidden' }}
                 >
                   <Card
                     sx={{
@@ -726,7 +728,8 @@ const LandingPageNew = () => {
                           0.95
                         )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
                       backdropFilter: "blur(30px)",
-                      border: "none",
+                      border: "none !important",
+                      outline: "none !important",
                       borderRadius: 5,
                       boxShadow: isDark
                         ? "0 25px 70px rgba(230, 57, 70, 0.2)"
@@ -735,12 +738,22 @@ const LandingPageNew = () => {
                       position: "relative",
                       overflow: "hidden",
                       "&:hover": {
+                        border: "none !important",
+                        outline: "none !important",
                         boxShadow: isDark
                           ? "0 35px 90px rgba(230, 57, 70, 0.4)"
                           : "0 35px 90px rgba(25, 118, 210, 0.4)",
                         "&::before": {
                           opacity: 1,
                         },
+                      },
+                      "&:focus": {
+                        border: "none !important",
+                        outline: "none !important",
+                      },
+                      "&:focus-visible": {
+                        border: "none !important",
+                        outline: "none !important",
                       },
                       "&::before": {
                         content: '""',
