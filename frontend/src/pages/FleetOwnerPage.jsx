@@ -756,7 +756,7 @@ const FleetOwnerPage = () => {
                 PARTNERS
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner','Fleet Owner'].map((item) => (
+                {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner', 'Fleet Owner']. map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1.5 }}>
                     <Typography
                       variant="body2"
