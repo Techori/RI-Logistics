@@ -213,33 +213,36 @@ const FullTruckloadPage = () => {
                   p: 3,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  textAlign: 'center',
                   height: { xs: '240px', lg: '100%' },
                   minHeight: '240px',
                 }}
               >
                 <Box>
-                  <Box sx={{ mb: 2.5 }}>
-                    <LocalShipping sx={{ fontSize: 50, color: 'white' }} />
+                  <Box sx={{ mb: 3 }}>
+                    <LocalShipping sx={{ fontSize: 80, color: 'white' }} />
                   </Box>
                   <Typography 
-                    variant="h6" 
+                    variant="h5" 
                     sx={{ 
                       fontWeight: 700, 
-                      mb: 1.5, 
+                      mb: 2, 
                       color: '#e53935',
                       lineHeight: 1.2,
-                      fontSize: '1.1rem',
+                      fontSize: '1.5rem',
                     }}
                   >
                     Get all vehicle types
                   </Typography>
                   <Typography 
-                    variant="body2" 
+                    variant="body1" 
                     sx={{ 
                       fontWeight: 400, 
                       color: 'rgba(255, 255, 255, 0.9)',
-                      lineHeight: 1.4,
+                      lineHeight: 1.6,
+                      fontSize: '1rem',
                     }}
                   >
                     14ft, 17ft, 20ft, 32ft, 32ft MXL
