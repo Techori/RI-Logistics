@@ -683,6 +683,9 @@ const FullTruckloadPage = () => {
                 </Typography>
               ))}
             </Box>
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 };
