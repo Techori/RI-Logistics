@@ -734,7 +734,7 @@ const DeliveryPartnerPage = () => {
         </Container>
       </Box>
 
-      {/* Footer */}
+    {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 8 }}>
         <Container maxWidth="xl">
           {/* Header */}
@@ -969,7 +969,7 @@ const DeliveryPartnerPage = () => {
               ))}
             </Box>
           </Box>
-
+          
           {/* Bottom Section */}
           <Box sx={{ pt: 4, borderTop: 1, borderColor: 'divider' }}>
             <Typography variant="body2" sx={{ fontWeight: 600, mb: 2, fontSize: '0.875rem' }}>
