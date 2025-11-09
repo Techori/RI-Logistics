@@ -650,7 +650,7 @@ const FleetOwnerPage = () => {
           {/* Header */}
           <Box sx={{ mb: 6 }}>
             <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, fontSize: '1.75rem' }}>
-              DELHIVERY
+              RI Logistics
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
               ISO 9001: 2015, ISO 27001: 2022 Certified Company
@@ -688,7 +688,7 @@ const FleetOwnerPage = () => {
                 SERVICES
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Express Parcel', 'Warehousing', 'Part Truckload', 'Full Truckload', 'Cross Border', 'Data Intelligence', 'Software Platform'].map(
+                {['Express Parcel', 'Warehousing', 'Part Truckload', 'Full Truckload'].map(
                   (item) => (
                     <Box component="li" key={item} sx={{ mb: 1.5 }}>
                       <Typography
@@ -723,7 +723,7 @@ const FleetOwnerPage = () => {
                 SOLUTIONS
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['D2C Brands', 'Personal Courier', 'B2B Enterprises'].map((item) => (
+                {['D2C Brands', 'B2B Enterprises', 'Part Truck Load', 'Full truck Load', '3rd Party Load', 'white lable  Solution' ].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1.5 }}>
                     <Typography
                       variant="body2"
@@ -756,7 +756,7 @@ const FleetOwnerPage = () => {
                 PARTNERS
               </Typography>
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner'].map((item) => (
+                {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner''Fleet Owner'].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1.5 }}>
                     <Typography
                       variant="body2"
@@ -886,7 +886,7 @@ const FleetOwnerPage = () => {
               Information Security Policy
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, fontSize: '0.875rem' }}>
-              Delhivery is committed to safeguarding the confidentiality, integrity and availability of all physical and
+              RI Logistics is committed to safeguarding the confidentiality, integrity and availability of all physical and
               electronic information assets of the organization. We ensure that the regulatory, operational and
               contractual requirements are fulfilled.
             </Typography>
