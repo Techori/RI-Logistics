@@ -968,7 +968,7 @@ const DeliveryPartnerPage = () => {
                 </Typography>
               ))}
             </Box>
-          </Box>
+          
 
       {/* Footer Info */}
       <Box sx={{ bgcolor: 'grey.100', py: 4, borderTop: 1, borderColor: 'divider' }}>
