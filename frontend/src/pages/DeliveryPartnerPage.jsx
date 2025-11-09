@@ -734,7 +734,7 @@ const DeliveryPartnerPage = () => {
         </Container>
       </Box>
 
-    {/* Footer */}
+{/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 8 }}>
         <Container maxWidth="xl">
           {/* Header */}
@@ -969,29 +969,7 @@ const DeliveryPartnerPage = () => {
               ))}
             </Box>
           </Box>
-          
-          {/* Bottom Section */}
-          <Box sx={{ pt: 4, borderTop: 1, borderColor: 'divider' }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 2, fontSize: '0.875rem' }}>
-              Information Security Policy
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, fontSize: '0.875rem' }}>
-              RI Logistics is committed to safeguarding the confidentiality, integrity and availability of all physical and
-              electronic information assets of the organization. We ensure that the regulatory, operational and
-              contractual requirements are fulfilled.
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, fontSize: '0.875rem' }}>
-              Disclaimer
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
-              Operational metrics listed are as of August 04, 2023
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-    </Box>
-  );
-};
+
       {/* Footer Info */}
       <Box sx={{ bgcolor: 'grey.100', py: 4, borderTop: 1, borderColor: 'divider' }}>
         <Container maxWidth="lg">
