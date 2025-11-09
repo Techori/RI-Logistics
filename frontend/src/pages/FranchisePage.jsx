@@ -757,7 +757,6 @@ const FranchisePage = () => {
               ))}
             </Box>
           </Box>
-          </Box>
         </Container>
       </Box>
     </Box>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useThemeMode } from '../../theme/ThemeProvider';
 import Navbar from '../../components/solutions/Navbar';
 import MagneticButton from '../../components/common/MagneticButton';
+import { Box, Container, Typography } from '@mui/material';
 import './SolutionsPage.css';
 
 const B2BSolutionsPage = () => {
@@ -385,7 +386,10 @@ const B2BSolutionsPage = () => {
               </button>
             </MagneticButton>
           </div>
-          {/* Footer */}
+        </motion.div>
+      </section>
+
+      {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 8 }}>
         <Container maxWidth="xl">
           {/* Header */}
@@ -620,8 +624,8 @@ const B2BSolutionsPage = () => {
               ))}
             </Box>
           </Box>
-        </motion.div>
-      </section>
+        </Container>
+      </Box>
     </div>
   );
 };
