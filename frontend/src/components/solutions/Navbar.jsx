@@ -62,7 +62,7 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           className="navbar-logo"
         >
-          <h1 className="logo-text">LogiFlow</h1>
+          <h1 className="logo-text">RI Logistics </h1>
         </motion.div>
 
         {/* Mobile Menu Toggle */}
