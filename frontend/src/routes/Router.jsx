@@ -31,6 +31,7 @@ import BottomNavigation from "../components/common/BottomNavigation.jsx";
 import D2CSolutionsPage from "../pages/solutions/D2CSolutionsPage.jsx";
 import B2BSolutionsPage from "../pages/solutions/B2BSolutionsPage.jsx";
 import ThreePLSolutionsPage from "../pages/solutions/ThreePLSolutionsPage.jsx";
+import ThreePLSolutionsPage from "../pages/solutions/ThreePLSolutionsPage.jsx";
 
 const DashboardRouter = () => {
   const userRole = localStorage.getItem("userRole");
