@@ -758,6 +758,9 @@ const FleetOwnerPage = () => {
               <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                 {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner', 'Fleet Owner']. map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1.5 }}>
+                    <button className="btn btn-primary" onClick={() => navigate('/register')}>
+                Fleet owner ragistration
+              </button>
                     <Typography
                       variant="body2"
                       sx={{
