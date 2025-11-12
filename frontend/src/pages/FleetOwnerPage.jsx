@@ -55,7 +55,7 @@ const FleetOwnerPage = () => {
   const howItWorksSteps = [
     {
       image: '/path-to-download-image.png',
-      title: 'Download Axle app & sign up with basic details & KYC',
+      title: 'Ragister as a Fleet owner with basic details & KYC',
     },
     {
       image: '/path-to-view-orders-image.png',
