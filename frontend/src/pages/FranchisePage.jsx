@@ -44,15 +44,15 @@ const FranchisePage = () => {
   const franchiseTypes = [
     {
       icon: <Store sx={{ fontSize: 60 }} />,
-      title: "Run a Relogistics courier booking counter",
-      description: "Collect parcels from customers at your Relogistics store and provide a convenient courier experience",
+      title: "Run a RIlogistics Load & courier booking Partner",
+      description: "Collect Load Booking & parcels from customers at your RIlogistics store and provide a convenient courier experience",
       benefits: [
         "Affordable setup cost",
         "Make profit on every parcel booked",
         "Additional income on packaging & insurance services"
       ],
       eligibility: [
-        "60-80 sqft space on a main road",
+        "50-80 sqft space ",
         "Good communication skills"
       ],
       buttonText: "Sign up to set up a courier booking counter",
@@ -60,7 +60,7 @@ const FranchisePage = () => {
     },
     {
       icon: <LocalShipping sx={{ fontSize: 60 }} />,
-      title: "Run parcel delivery center for Relogistics",
+      title: "Run parcel delivery center for RIlogistics",
       description: "Sort and Deliver parcels to customers doorstep with your staff, from your location, on select routes",
       benefits: [
         "Low Setup Cost",
@@ -68,10 +68,47 @@ const FranchisePage = () => {
         "Earn Per Delivery"
       ],
       eligibility: [
-        "Minimum 200 Sqft. of floor space to keep shipments",
+        "Minimum 500 Sqft. of floor space to keep shipments",
         "Delivery Rider Staff for doorstep delivery"
       ],
       buttonText: "Sign up to deliver parcels for Relogistics",
+      color: '#2e7d32'
+    }
+  ];
+
+    {
+      icon: <Store sx={{ fontSize: 60 }} />,
+      title: "RIlogistics franchise Partener",
+      description: "Grow your business by booking bulk load and unload services, including 3PL, FTL, and PTL, directly from your warehouse. Operate with your own margins while benefiting from our trusted platform, expert training, and strong customer network for scalable and profitable expansion.:",
+      benefits: [
+        "Affordable setup cost",
+        "Make profit on every Load & Vehicle booked",
+        "Earn with your own margins and get additional income on every vehicle through extra services. "
+      ],
+      eligibility: [
+        "600-800 sqft space ",
+        "Good communication skills"
+      ],
+      buttonText: " Enquiry for RIlogistics franchise Partener",
+      color: '#1976d2'
+    },
+    {
+      icon: <LocalShipping sx={{ fontSize: 60 }} />,
+      title: "RILogistics Fleet Partner",
+      description: "SProvide required vehicles to RILogistics as per demand and support smooth logistics operations. Earn attractive commissions based on the type and capacity of each vehicle you supply.",
+      benefits: [
+        "Affordable setup cost",
+        "Earn profit on every vehicle",
+        "Earn up to ₹5 lakhs per month"
+        "Stable and growing income with high logistics demand"
+      ],
+      eligibility: [
+        "100–250 sq. ft. office space",
+        "Good communication skills"
+        "Minimum 20 vehicles required
+        "Basic understanding of transportation and fleet coordination"
+      ],
+      buttonText: "Enquiry for RILogistics Fleet Partner ",
       color: '#2e7d32'
     }
   ];
