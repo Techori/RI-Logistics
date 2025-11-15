@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/solutions/Footer';
 import { useThemeMode } from '../../theme/ThemeProvider';
 import Navbar from '../../components/solutions/Navbar';
 import MagneticButton from '../../components/common/MagneticButton';
 import './SolutionsPage.css';
-
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  useTheme,
+  alpha,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  InputAdornment,
+  Divider,
+} from '@mui/material';
 const ThreePLSolutionsPage = () => {
   const { mode } = useThemeMode();
   const navigate = useNavigate();
@@ -688,6 +704,8 @@ const ThreePLSolutionsPage = () => {
           </div>
         </motion.div>
       </section>
+      {/* Footer */}
+     <Footer/>
     </div>
   );
 };

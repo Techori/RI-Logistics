@@ -25,6 +25,7 @@ import {
 } from '@mui/icons-material';
 import Navbar from '../components/solutions/Navbar';
 import { useThemeMode } from '../theme/ThemeProvider';
+import Footer from '../components/solutions/Footer';
 
 const SupportPage = () => {
   const theme = useTheme();
@@ -493,136 +494,7 @@ const SupportPage = () => {
       </Box>
 
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider', py: 6, mt: 8 }}>
-        <Container maxWidth="lg">
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            RELOGISTICS
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ISO 9001: 2015, ISO 27001: 2022 Certified Company
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-            CIN: L63090DL2011PLC221234
-          </Typography>
-
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 6, mb: 6 }}>
-            {/* Services */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                SERVICES
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Express Parcel', 'Warehousing', 'Part Truckload', 'Full Truckload', 'Cross Border', 'Data Intelligence', 'Software Platform'].map(
-                  (item) => (
-                    <Box component="li" key={item} sx={{ mb: 1 }}>
-                      <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  )
-                )}
-              </Box>
-            </Box>
-
-            {/* Solutions */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                SOLUTIONS
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['D2C Brands', 'Personal Courier', 'B2B Enterprises'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            {/* Partners */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                PARTNERS
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Franchise Opportunities', 'Delivery Partner', 'Fleet Owner'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            {/* Company */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                COMPANY
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['About Us', 'Governance', 'Investor Relations', 'ODR Portal', 'Press Release', 'Careers'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            {/* Get in Touch */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                GET IN TOUCH
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Support', 'Raise a query', 'Store Locator', 'Rate Calculator'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            {/* Policies */}
-            <Box sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 15%' }, minWidth: '150px' }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-                POLICIES
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
-                {['Terms & Conditions', 'Privacy Policy', 'Cookie Policy', 'Fraud Disclaimer', 'ONDC Disclaimer'].map((item) => (
-                  <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-
-          <Box sx={{ pt: 4, borderTop: 1, borderColor: 'divider' }}>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 2 }}>
-              Information Security Policy
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Relogistics is committed to safeguarding the confidentiality, integrity and availability of all physical and electronic
-              information assets of the organization. We ensure that the regulatory, operational and contractual requirements are
-              fulfilled.
-            </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
-              Disclaimer
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Operational metrics listed are as of August 04, 2023
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
+      <Footer/>
     </Box>
   );
 };

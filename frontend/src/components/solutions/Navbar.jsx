@@ -242,7 +242,7 @@ const Navbar = () => {
           <motion.div
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handleScrollTo("footer-section")}
+            onClick={() => navigate("/about")}
             className="nav-link"
           >
             About

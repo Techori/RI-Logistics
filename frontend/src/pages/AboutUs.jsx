@@ -1,7 +1,30 @@
 import React from "react";
-
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  useTheme,
+  alpha,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  InputAdornment,
+  Divider,
+} from '@mui/material';
+import Footer from "../components/solutions/Footer";
+import Navbar from "../components/solutions/Navbar";
 const AboutUs = () => {
   return (
+    <>
+    {/* For margin */}
+    <Box sx={{ bgcolor: 'background.default', minHeight: '10vh' }}></Box>
+    {/* Navbar */}
+    <Navbar/>
+
     <div style={styles.container}>
       <h1 style={styles.title}>About Us</h1>
       <p style={styles.text}>
@@ -37,6 +60,13 @@ const AboutUs = () => {
       <p style={styles.text}>Phone: +91 9876543210</p>
       <p style={styles.text}>Address: 123 Logistics Park, Mumbai, India</p>
     </div>
+    
+      {/* Footer */}
+      <Footer/>
+      
+    
+
+    </>
   );
 };
 

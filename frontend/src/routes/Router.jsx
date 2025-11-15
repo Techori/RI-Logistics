@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 import LandingPage from "../pages/LandingPageNew.jsx";
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
+import AboutUs from "../pages/AboutUs.jsx";
 import PartTruckloadPage from "../pages/PartTruckloadPage.jsx";
 import FullTruckloadPage from "../pages/FullTruckloadPage.jsx";
 import FranchisePage from "../pages/FranchisePage.jsx";
@@ -31,7 +32,7 @@ import BottomNavigation from "../components/common/BottomNavigation.jsx";
 import D2CSolutionsPage from "../pages/solutions/D2CSolutionsPage.jsx";
 import B2BSolutionsPage from "../pages/solutions/B2BSolutionsPage.jsx";
 import ThreePLSolutionsPage from "../pages/solutions/ThreePLSolutionsPage.jsx";
-
+import FleetOwnerRegistration from "../pages/fleetownerregistration.jsx";
 const DashboardRouter = () => {
   const userRole = localStorage.getItem("userRole");
 
@@ -63,7 +64,9 @@ const AppRouter = () => {
           <Route path="/franchise" element={<FranchisePage />} />
           <Route path="/delivery-partner" element={<DeliveryPartnerPage />} />
           <Route path="/fleet-owners" element={<FleetOwnerPage />} />
+          <Route path="/fleet-owners-registration" element={<FleetOwnerRegistration/>} />
           <Route path="/support" element={<SupportPage />} />
+          <Route path="/about" element={<AboutUs />} />
 
           {/* Solutions Pages */}
           <Route path="/solutions/d2c" element={<D2CSolutionsPage />} />

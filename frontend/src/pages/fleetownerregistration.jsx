@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useThemeMode } from "../../theme/ThemeProvider";
-import Navbar from "../../components/solutions/Navbar";
-import MagneticButton from "../../components/common/MagneticButton";
+import { useThemeMode } from "../theme/ThemeProvider";
+import Navbar from "../components/solutions/Navbar";
+import MagneticButton from "../components/common/MagneticButton";
 import { Box, Container, Typography } from "@mui/material";
-
-...existing code...
-export default function FleetOwnerForm() {
+import Footer from "../components/solutions/Footer";
+// ...existing code...
+export default function FleetOwnerRegistration() {
   const { mode } = (useThemeMode && useThemeMode()) || { mode: "light" };
   const navigate = useNavigate();
 
@@ -141,7 +141,7 @@ export default function FleetOwnerForm() {
   }
 
   return (
-    <div>
+    <div style={{marginTop:"2rem"}}>
       <Navbar />
       <Container maxWidth="md" sx={{ py: 4 }}>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -301,7 +301,10 @@ export default function FleetOwnerForm() {
           </Box>
         </motion.div>
       </Container>
+      
+      {/* Footer */}
+      <Footer/>
     </div>
   );
 }
-...existing code...
+// ...existing code...
