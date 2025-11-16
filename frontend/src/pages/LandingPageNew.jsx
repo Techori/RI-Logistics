@@ -342,330 +342,360 @@ const LandingPageNew = () => {
 
       {/* Hero Video Section */}
       <Box
-        data-section
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        sx={{
-          position: "relative",
-          width: "100%",
-          height: { xs: "60vh", sm: "70vh", md: "80vh", lg: "90vh" },
-          overflow: "hidden",
-          zIndex: 1,
-          mt: { xs: 8, sm: 9, md: 10 }, // Margin top to create gap from navigation
-        }}
+  data-section
+  component={motion.div}
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1 }}
+  sx={{
+    position: "relative",
+    width: "100%",
+    height: { xs: "auto", sm: "70vh", md: "80vh", lg: "90vh" },
+    minHeight: { xs: "100vh", sm: "70vh" },
+    overflow: "hidden",
+    zIndex: 1,
+    mt: { xs: 8, sm: 9, md: 10 },
+  }}
+>
+  {/* Video Background */}
+  <Box
+    component="video"
+    autoPlay
+    muted
+    playsInline
+    onEnded={(e) => {
+      e.target.pause();
+      setVideoEnded(true);
+    }}
+    sx={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      zIndex: 0,
+    }}
+  >
+    <source src="/videos/hero-video.mp4" type="video/mp4" />
+    <source src="/videos/hero-video.webm" type="video/webm" />
+    Your browser does not support the video tag.
+  </Box>
+
+  {/* Dark overlay - appears only after video ends */}
+  {videoEnded && (
+    <Box
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 2, ease: "easeInOut" }}
+      sx={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: isDark
+          ? "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))"
+          : "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
+        zIndex: 1,
+      }}
+    />
+  )}
+
+  {/* Left side - Text (remains visible with video) */}
+  {videoEnded && (
+    <Container
+      maxWidth="lg"
+      sx={{
+        position: { xs: "relative", md: "absolute" },
+        top: { xs: 0, md: "50%" },
+        left: 0,
+        transform: { xs: "none", md: "translateY(-50%)" },
+        zIndex: 2,
+        pt: { xs: 4, sm: 5, md: 0 },
+        pb: { xs: 3, md: 0 },
+      }}
+    >
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
       >
-        {/* Video Background */}
         <Box
-          component="video"
-          autoPlay
-          muted
-          playsInline
-          onEnded={(e) => {
-            e.target.pause();
-            setVideoEnded(true);
-          }}
           sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
+            maxWidth: { xs: "100%", md: "55%", lg: "50%" },
           }}
         >
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
-          <source src="/videos/hero-video.webm" type="video/webm" />
-          Your browser does not support the video tag.
+          <Typography
+            variant="h2"
+            sx={{
+              color: "#fff",
+              fontWeight: 700,
+              fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.5rem", lg: "3rem" },
+              mb: 2,
+              textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+              pl: { xs: 2, sm: 3, md: 4, lg: 6 },
+              pr: { xs: 2, sm: 3, md: 2 },
+              lineHeight: 1.2,
+            }}
+          >
+            We are India's largest fully integrated
+            <br />
+            <Box
+              component="span"
+              sx={{
+                color: "#e63946",
+                fontWeight: 900,
+              }}
+            >
+              logistics services
+            </Box>{" "}
+            provider
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "#fff",
+              fontWeight: 400,
+              fontSize: { xs: "0.875rem", sm: "1rem", md: "1rem", lg: "1.1rem" },
+              textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
+              pl: { xs: 2, sm: 3, md: 4, lg: 6 },
+              pr: { xs: 2, sm: 3, md: 2 },
+            }}
+          >
+            Express Parcel • PTL • FTL • Cross Border • Supply Chain
+          </Typography>
         </Box>
+      </motion.div>
+    </Container>
+  )}
 
-        {/* Dark overlay - appears only after video ends */}
-        {videoEnded && (
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background: isDark
-                ? "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))"
-                : "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
-              zIndex: 1,
-            }}
-          />
-        )}
-
-        {/* Tracking Order Card - appears when video ends */}
-        {videoEnded && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              right: { xs: "5%", sm: "8%", md: "10%" },
-              transform: "translateY(-50%)",
-              zIndex: 2,
-              width: { xs: "90%", sm: "400px", md: "450px" },
-            }}
-          >
-            <motion.div
-              initial={{ x: 100, opacity: 0, scale: 0.8 }}
-              animate={{ x: 0, opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 2, ease: "easeOut" }}
+  {/* Tracking Order Card - appears when video ends */}
+  {videoEnded && (
+    <Box
+      sx={{
+        position: { xs: "relative", md: "absolute" },
+        top: { xs: 0, md: "50%" },
+        right: { xs: 0, sm: 0, md: "8%", lg: "10%" },
+        transform: { xs: "none", md: "translateY(-50%)" },
+        zIndex: 2,
+        width: "100%",
+        display: "flex",
+        justifyContent: { xs: "center", md: "flex-end" },
+        px: { xs: 2, sm: 3, md: 0 },
+        pb: { xs: 4, sm: 5, md: 0 },
+      }}
+    >
+      <motion.div
+        initial={{ x: 100, opacity: 0, scale: 0.8 }}
+        animate={{ x: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 2, ease: "easeOut" }}
+        style={{ width: "100%", maxWidth: "420px" }}
+      >
+        <Card
+          sx={{
+            borderRadius: 3,
+            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            overflow: "hidden",
+            bgcolor: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
+            {/* Tabs */}
+            <Tabs
+              value={trackingTab}
+              onChange={(e, newValue) => setTrackingTab(newValue)}
+              sx={{
+                mb: 3,
+                "& .MuiTab-root": {
+                  textTransform: "none",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                  color: "#666",
+                  minWidth: { xs: "auto", sm: 120 },
+                  px: { xs: 2, sm: 3 },
+                },
+                "& .Mui-selected": {
+                  color: "#1976d2",
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "#1976d2",
+                  height: 3,
+                },
+              }}
             >
-              <Card
-                sx={{
-                  borderRadius: 3,
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-                  overflow: "hidden",
-                  bgcolor: "rgba(255, 255, 255, 0.95)",
-                  backdropFilter: "blur(10px)",
-                }}
-              >
-                <CardContent sx={{ p: 4 }}>
-                  {/* Tabs */}
-                  <Tabs
-                    value={trackingTab}
-                    onChange={(e, newValue) => setTrackingTab(newValue)}
-                    sx={{
-                      mb: 3,
-                      "& .MuiTab-root": {
-                        textTransform: "none",
-                        fontWeight: 600,
-                        fontSize: "1rem",
-                        color: "#666",
-                      },
-                      "& .Mui-selected": {
-                        color: "#1976d2",
-                      },
-                      "& .MuiTabs-indicator": {
-                        backgroundColor: "#1976d2",
-                        height: 3,
-                      },
-                    }}
-                  >
-                    <Tab label="Track order" />
-                    <Tab label="Ship order" />
-                  </Tabs>
+              <Tab label="Track order" />
+              <Tab label="Ship order" />
+            </Tabs>
 
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      mb: 3,
-                      color: "#000",
-                    }}
-                  >
-                    Track <Box component="span">your order through</Box>
-                  </Typography>
-
-                  {/* Tab Buttons */}
-                  <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        bgcolor: "#1a1d29",
-                        color: "#fff",
-                        textTransform: "none",
-                        fontWeight: 600,
-                        px: 3,
-                        "&:hover": { bgcolor: "#2a2d39" },
-                      }}
-                    >
-                      Mobile
-                    </Button>
-                    <Button
-                      variant="text"
-                      sx={{
-                        color: "#999",
-                        textTransform: "none",
-                        fontWeight: 600,
-                      }}
-                    >
-                      AWB
-                    </Button>
-                    <Button
-                      variant="text"
-                      sx={{
-                        color: "#999",
-                        textTransform: "none",
-                        fontWeight: 600,
-                      }}
-                    >
-                      Order Id
-                    </Button>
-                    <Button
-                      variant="text"
-                      sx={{
-                        color: "#999",
-                        textTransform: "none",
-                        fontWeight: 600,
-                      }}
-                    >
-                      LRN
-                    </Button>
-                  </Box>
-
-                  {/* Input Field */}
-                  <TextField
-                    fullWidth
-                    placeholder="Enter your mobile number"
-                    value={trackingValue}
-                    onChange={(e) => setTrackingValue(e.target.value)}
-                    sx={{
-                      mb: 3,
-                      "& .MuiOutlinedInput-root": {
-                        borderRadius: 2,
-                        bgcolor: "#f5f5f5",
-                        "& fieldset": {
-                          borderColor: "#e0e0e0",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "#bdbdbd",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#1976d2",
-                        },
-                      },
-                      "& .MuiInputBase-input": {
-                        color: "#000",
-                        "&::placeholder": {
-                          color: "#999",
-                          opacity: 1,
-                        },
-                      },
-                    }}
-                  />
-
-                  {/* Get OTP Button */}
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    onClick={() => navigate("/tracking")}
-                    sx={{
-                      bgcolor: "#1a1d29",
-                      color: "#fff",
-                      textTransform: "none",
-                      fontWeight: 700,
-                      fontSize: "1.1rem",
-                      py: 1.5,
-                      borderRadius: 2,
-                      mb: 3,
-                      "&:hover": { bgcolor: "#2a2d39" },
-                    }}
-                  >
-                    Get OTP
-                  </Button>
-
-                  {/* App Download */}
-                  <Typography
-                    variant="body2"
-                    align="center"
-                    sx={{ color: "#666", mb: 2 }}
-                  >
-                    Live tracking updates & extra support on our App
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 2,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src="https://www.delhivery.com/app-store.svg"
-                      alt="App Store"
-                      sx={{
-                        height: 40,
-                        cursor: "pointer",
-                        transition: "transform 0.2s",
-                        "&:hover": { transform: "scale(1.05)" },
-                      }}
-                    />
-                    <Box
-                      component="img"
-                      src="https://www.delhivery.com/play-store.svg"
-                      alt="Play Store"
-                      sx={{
-                        height: 40,
-                        cursor: "pointer",
-                        transition: "transform 0.2s",
-                        "&:hover": { transform: "scale(1.05)" },
-                      }}
-                    />
-                  </Box>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Box>
-        )}
-
-        {/* Left side - Text (remains visible with video) */}
-        {videoEnded && (
-          <Container
-            maxWidth="lg"
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: 0,
-              transform: "translateY(-50%)",
-              zIndex: 2,
-            }}
-          >
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 700,
+                mb: 3,
+                color: "#000",
+                fontSize: { xs: "1.25rem", sm: "1.5rem" },
+              }}
             >
-              <Typography
-                variant="h2"
+              Track <Box component="span">your order through</Box>
+            </Typography>
+
+            {/* Tab Buttons */}
+            <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
+              <Button
+                variant="contained"
                 sx={{
+                  bgcolor: "#1a1d29",
                   color: "#fff",
-                  fontWeight: 700,
-                  fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                  mb: 2,
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
-                  pl: { xs: 3, sm: 5, md: 8 },
+                  textTransform: "none",
+                  fontWeight: 600,
+                  px: { xs: 2, sm: 3 },
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                  "&:hover": { bgcolor: "#2a2d39" },
                 }}
               >
-                We are India's largest fully integrated
-                <br />
-                <Box
-                  component="span"
-                  sx={{
-                    color: "#e63946",
-                    fontWeight: 900,
-                  }}
-                >
-                  logistics services
-                </Box>{" "}
-                provider
-              </Typography>
-              <Typography
-                variant="h6"
+                Mobile
+              </Button>
+              <Button
+                variant="text"
                 sx={{
-                  color: "#fff",
-                  fontWeight: 400,
-                  fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
-                  textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
-                  pl: { xs: 3, sm: 5, md: 8 },
+                  color: "#999",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
                 }}
               >
-                Express Parcel • PTL • FTL • Cross Border • Supply Chain
-              </Typography>
-            </motion.div>
-          </Container>
-        )}
-      </Box>
+                AWB
+              </Button>
+              <Button
+                variant="text"
+                sx={{
+                  color: "#999",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                }}
+              >
+                Order Id
+              </Button>
+              <Button
+                variant="text"
+                sx={{
+                  color: "#999",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                }}
+              >
+                LRN
+              </Button>
+            </Box>
+
+            {/* Input Field */}
+            <TextField
+              fullWidth
+              placeholder="Enter your mobile number"
+              value={trackingValue}
+              onChange={(e) => setTrackingValue(e.target.value)}
+              sx={{
+                mb: 3,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: 2,
+                  bgcolor: "#f5f5f5",
+                  "& fieldset": {
+                    borderColor: "#e0e0e0",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#bdbdbd",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#1976d2",
+                  },
+                },
+                "& .MuiInputBase-input": {
+                  color: "#000",
+                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                  "&::placeholder": {
+                    color: "#999",
+                    opacity: 1,
+                  },
+                },
+              }}
+            />
+
+            {/* Get OTP Button */}
+            <Button
+              fullWidth
+              variant="contained"
+              size="large"
+              onClick={() => navigate("/tracking")}
+              sx={{
+                bgcolor: "#1a1d29",
+                color: "#fff",
+                textTransform: "none",
+                fontWeight: 700,
+                fontSize: { xs: "1rem", sm: "1.1rem" },
+                py: 1.5,
+                borderRadius: 2,
+                mb: 3,
+                "&:hover": { bgcolor: "#2a2d39" },
+              }}
+            >
+              Get OTP
+            </Button>
+
+            {/* App Download */}
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{
+                color: "#666",
+                mb: 2,
+                fontSize: { xs: "0.8rem", sm: "0.875rem" },
+              }}
+            >
+              Live tracking updates & extra support on our App
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                justifyContent: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <Box
+                component="img"
+                src="https://www.delhivery.com/app-store.svg"
+                alt="App Store"
+                sx={{
+                  height: { xs: 35, sm: 40 },
+                  cursor: "pointer",
+                  transition: "transform 0.2s",
+                  "&:hover": { transform: "scale(1.05)" },
+                }}
+              />
+              <Box
+                component="img"
+                src="https://www.delhivery.com/play-store.svg"
+                alt="Play Store"
+                sx={{
+                  height: { xs: 35, sm: 40 },
+                  cursor: "pointer",
+                  transition: "transform 0.2s",
+                  "&:hover": { transform: "scale(1.05)" },
+                }}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </Box>
+  )}
+</Box>
 
       {/* Stats Section */}
       <Container
@@ -675,156 +705,138 @@ const LandingPageNew = () => {
         sx={{ position: "relative", zIndex: 1, py: 8 }}
       >
         <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 4,
-            justifyContent: "center",
-          }}
+  sx={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: { xs: 2, md: 4 },
+    justifyContent: "center",
+  }}
+>
+  {stats.map((stat, index) => (
+    <Box
+      key={index}
+      sx={{
+        flex: {
+          xs: "1 1 calc(50% - 16px)",   // 2 per row on phones
+          sm: "1 1 calc(33.33% - 24px)", // 3 per row on small tablets
+          md: "1 1 calc(25% - 32px)",    // 4 per row on desktop
+        },
+        minWidth: {
+          xs: "140px",
+          sm: "180px",
+          md: "220px",
+        },
+        maxWidth: {
+          xs: "180px",
+          sm: "240px",
+          md: "300px",
+        },
+        display: "flex",
+        justifyContent: "center",
+        borderRadius:"60px",
+        overflow:"hidden",
+      }}
+    >
+      <motion.div
+        initial={{ y: 40, opacity: 0, scale: 0.85 }}
+        whileInView={{ y: 0, opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.4 }}
+        transition={{
+          duration: 0.7,
+          delay: index * 0.12,
+          type: "spring",
+          stiffness: 100,
+        }}
+        whileHover={{
+          y: { xs: 0, md: -15 }, // no jump on mobile
+          scale: { xs: 1, md: 1.05 },
+        }}
+        style={{ width: "100%", borderRadius:"60px" }}
+      >
+        <Tilt
+          tiltMaxAngleX={12}
+          tiltMaxAngleY={12}
+          scale={1.05}
+          transitionSpeed={800}
+          glareEnable={true}
+          glareMaxOpacity={0.25}
+          glareColor={isDark ? "#e63946" : "#1976d2"}
+          glarePosition="all"
+          style={{ borderRadius: "60px", width: "100%" }}
         >
-          {stats.map((stat, index) => (
-            <Box
-              key={index}
+          <Card
+            sx={{
+              p: { xs: 2.5, sm: 3, md: 4 },
+              textAlign: "center",
+              borderRadius:"60px",
+              background: isDark
+                ? `linear-gradient(135deg, ${alpha("#1a1d29", 0.9)} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
+                : `linear-gradient(135deg, ${alpha("#ffffff", 0.95)} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
+              borderRadius: 5,
+              backdropFilter: "blur(25px)",
+              boxShadow: isDark
+                ? "0 20px 50px rgba(230, 57, 70, 0.18)"
+                : "0 20px 50px rgba(25, 118, 210, 0.18)",
+              "&::before": {
+                background: isDark
+                  ? "radial-gradient(circle at center, rgba(230,57,70,0.08) 0%, transparent 70%)"
+                  : "radial-gradient(circle at center, rgba(25,118,210,0.08) 0%, transparent 70%)",
+              },
+            }}
+          >
+            <motion.div
+              whileHover={{
+                rotate: { xs: 0, md: 360 },
+                scale: { xs: 1, md: 1.15 },
+              }}
+              transition={{ duration: 0.6 }}
+            >
+              <stat.icon
+                sx={{
+                  fontSize: { xs: 40, sm: 50, md: 60 },
+                  color: isDark ? "#e63946" : "#1976d2",
+                  mb: { xs: 1.5, md: 2 },
+                }}
+              />
+            </motion.div>
+
+            <Typography
+              variant="h3"
               sx={{
-                flex: { xs: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
-                minWidth: { xs: "calc(50% - 16px)", md: "200px" },
-                maxWidth: { xs: "calc(50% - 16px)", md: "300px" },
+                fontWeight: 900,
+                fontSize: { xs: "1.8rem", sm: "2rem", md: "2.4rem" },
+                mb: 1,
+                background: isDark
+                  ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
+                  : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
-              <motion.div
-                initial={{ y: 50, opacity: 0, scale: 0.5 }}
-                whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                viewport={{ once: false, amount: 0.5 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.15,
-                  type: "spring",
-                  stiffness: 100,
-                }}
-                whileHover={{ y: -15, scale: 1.05 }}
-                style={{ border: 'none', outline: 'none' }}
-              >
-                <Tilt
-                  tiltMaxAngleX={15}
-                  tiltMaxAngleY={15}
-                  scale={1.08}
-                  transitionSpeed={800}
-                  glareEnable={true}
-                  glareMaxOpacity={0.3}
-                  glareColor={isDark ? "#e63946" : "#1976d2"}
-                  glarePosition="all"
-                  style={{ borderRadius: '60px', overflow: 'hidden' }}
-                >
-                  <Card
-                    sx={{
-                      p: 4,
-                      textAlign: "center",
-                      background: isDark
-                        ? `linear-gradient(135deg, ${alpha(
-                          "#1a1d29",
-                          0.9
-                        )} 0%, ${alpha("#0a0e1a", 0.9)} 100%)`
-                        : `linear-gradient(135deg, ${alpha(
-                          "#ffffff",
-                          0.95
-                        )} 0%, ${alpha("#f8fafc", 0.95)} 100%)`,
-                      backdropFilter: "blur(30px)",
-                      border: "none !important",
-                      outline: "none !important",
-                      borderRadius: 5,
-                      boxShadow: isDark
-                        ? "0 25px 70px rgba(230, 57, 70, 0.2)"
-                        : "0 25px 70px rgba(25, 118, 210, 0.2)",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      position: "relative",
-                      overflow: "hidden",
-                      "&:hover": {
-                        border: "none !important",
-                        outline: "none !important",
-                        boxShadow: isDark
-                          ? "0 35px 90px rgba(230, 57, 70, 0.4)"
-                          : "0 35px 90px rgba(25, 118, 210, 0.4)",
-                        "&::before": {
-                          opacity: 1,
-                        },
-                      },
-                      "&:focus": {
-                        border: "none !important",
-                        outline: "none !important",
-                      },
-                      "&:focus-visible": {
-                        border: "none !important",
-                        outline: "none !important",
-                      },
-                      "&::before": {
-                        content: '""',
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: isDark
-                          ? "radial-gradient(circle at center, rgba(230, 57, 70, 0.1) 0%, transparent 70%)"
-                          : "radial-gradient(circle at center, rgba(25, 118, 210, 0.1) 0%, transparent 70%)",
-                        opacity: 0,
-                        transition: "opacity 0.4s",
-                      },
-                    }}
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <stat.icon
-                        sx={{
-                          fontSize: 60,
-                          color: isDark ? "#e63946" : "#1976d2",
-                          mb: 2,
-                          position: "relative",
-                          zIndex: 1,
-                          filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
-                        }}
-                      />
-                    </motion.div>
-                    <Typography
-                      variant="h3"
-                      sx={{
-                        fontWeight: 900,
-                        mb: 1,
-                        background: isDark
-                          ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                          : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      <AnimatedCounter
-                        end={parseInt(stat.value.replace(/[^0-9]/g, ""))}
-                        suffix={stat.value.replace(/[0-9]/g, "")}
-                      />
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: isDark
-                          ? alpha("#ffffff", 0.8)
-                          : alpha("#000000", 0.8),
-                        fontWeight: 700,
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {stat.label}
-                    </Typography>
-                  </Card>
-                </Tilt>
-              </motion.div>
-            </Box>
-          ))}
-        </Box>
+              <AnimatedCounter
+                end={parseInt(stat.value.replace(/[^0-9]/g, ""))}
+                suffix={stat.value.replace(/[0-9]/g, "")}
+              />
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: isDark
+                  ? alpha("#ffffff", 0.8)
+                  : alpha("#000000", 0.8),
+                fontWeight: 700,
+                fontSize: { xs: "0.85rem", md: "1rem" },
+              }}
+            >
+              {stat.label}
+            </Typography>
+          </Card>
+        </Tilt>
+      </motion.div>
+    </Box>
+  ))}
+</Box>
       </Container>
 
       {/* Features Section */}
