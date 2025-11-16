@@ -34,11 +34,12 @@ import {
 // Assuming these external components/assets exist in your project structure
 import Navbar from '../components/solutions/Navbar';
 import Footer from '../components/solutions/Footer';
-import truckBgImage from '../assets/fullTruckLoad.png';
-import officeImage from '../assets/office.png';
+// Note: In a real project, replace these paths with actual imported variables or public URLs
+const truckBgImage = 'path/to/fullTruckLoad.png'; 
+const officeImage = 'path/to/office.png'; 
 
 
-// --- 1. Constants & Data (Single Page Content) ---
+// --- 1. Constants & Data ---
 const PRIMARY_RED = '#ef4444'; 
 
 const ALL_FRANCHISE_TYPES = [
@@ -50,7 +51,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Profit on every parcel booked (हर पार्सल पर लाभ)", "Additional income on packaging & insurance (पैकेजिंग और बीमा से अतिरिक्त आय)"],
         eligibility: ["50-80 sqft space (50-80 वर्ग फुट जगह)", "Good communication skills (उत्तम संचार कौशल)"],
         buttonText: "Courier Booking Counter के लिए आवेदन करें",
-        color: '#1976d2', // Blue
+        color: '#1976d2', 
     },
     {
         icon: <Warehouse />,
@@ -60,7 +61,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Low Setup Cost (कम सेटअप लागत)", "High Volume Business (उच्च मात्रा का व्यवसाय)", "Earn Per Delivery (प्रति डिलीवरी कमाएं)"],
         eligibility: ["Minimum 500 Sqft. of floor space (500 वर्ग फुट जगह)", "Delivery Rider Staff (डिलीवरी स्टाफ की आवश्यकता)"],
         buttonText: "Parcel Delivery Center के लिए आवेदन करें",
-        color: '#2e7d32', // Green
+        color: '#2e7d32', 
     },
     {
         icon: <CreditCard />,
@@ -70,7 +71,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["High Commission on Load & Vehicle booked (लोड बुकिंग पर उच्च कमीशन)", "Earn with your own margins (अपने मार्जिन के साथ कमाएं)", "Benefit from trusted platform & training (भरोसेमंद प्लेटफॉर्म और ट्रेनिंग का लाभ)"],
         eligibility: ["600-800 sqft warehouse space (600-800 वर्ग फुट गोदाम जगह)", "Strong local network (मजबूत स्थानीय नेटवर्क)"],
         buttonText: "Full Logistics Partner के लिए Enquiry करें",
-        color: '#9c27b0', // Purple
+        color: '#9c27b0', 
     },
     {
         icon: <LocalShipping />,
@@ -80,7 +81,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Earn profit on every vehicle (हर वाहन पर लाभ कमाएं)", "Stable and growing income (स्थिर और बढ़ती आय)"],
         eligibility: ["100–250 sq. ft. office space (100–250 वर्ग फुट ऑफिस जगह)", "Minimum 5 vehicles required (न्यूनतम 5 वाहन आवश्यक)", "Basic understanding of fleet coordination (फ्लीट समन्वय की बुनियादी समझ)"],
         buttonText: "Fleet Partner के लिए Enquiry करें",
-        color: '#ff9800', // Amber
+        color: '#ff9800', 
     }
 ];
 
@@ -117,6 +118,7 @@ const OTHER_OPPORTUNITIES = [
 // --- 2. Franchise Page Component ---
 
 const FranchisePage = () => {
+    // Hooks are correctly placed at the top level of the function component
     const theme = useTheme();
     const [expanded, setExpanded] = useState(false);
 
@@ -129,7 +131,7 @@ const FranchisePage = () => {
             <Navbar />
             
             {/* --------------------------------------------------- */}
-            {/* ## 1. Hero Section: Partnership for Growth */}
+            ## 🚀 Hero Section: Partnership for Growth
             <Box
                 sx={{
                     position: 'relative',
@@ -175,8 +177,9 @@ const FranchisePage = () => {
                 </Container>
             </Box>
 
-            {/* --------------------------------------------------- */}
-            {/* ## 2. Choose your Franchisee Type */}
+            ---
+
+            ## 💼 Choose your Franchisee Type
             <Container maxWidth="xl" sx={{ py: 8 }}>
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -185,7 +188,7 @@ const FranchisePage = () => {
                     <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
                 </Box>
 
-                {/* Dynamic Grid for 4 Franchise Options */}
+                {/* Dynamic Grid for 4 Franchise Options (2x2 grid on large screens) */}
                 <Grid container spacing={4} justifyContent="center" alignItems="stretch">
                     {ALL_FRANCHISE_TYPES.map((franchise, index) => (
                         <Grid item xs={12} sm={6} lg={3} key={index} sx={{ display: 'flex' }}>
@@ -275,8 +278,9 @@ const FranchisePage = () => {
                 </Box>
             </Container>
 
-            {/* --------------------------------------------------- */}
-            {/* ## 3. Frequently Asked Questions (FAQ) */}
+            ---
+
+            ## ❓ Frequently Asked Questions (FAQ)
             <Box sx={{ bgcolor: alpha(theme.palette.primary.main, 0.05), py: 8 }}>
                 <Container maxWidth="lg">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -344,8 +348,9 @@ const FranchisePage = () => {
                 </Container>
             </Box>
 
-            {/* --------------------------------------------------- */}
-            {/* ## 4. Other Partnership Opportunities */}
+            ---
+
+            ## 🤝 Other Partnership Opportunities
             <Container maxWidth="lg" sx={{ py: 8 }}>
                 <Box sx={{ mb: 6, textAlign: 'center' }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -391,8 +396,9 @@ const FranchisePage = () => {
                 </Grid>
             </Container>
 
-            {/* --------------------------------------------------- */}
-            {/* ## 5. Join Now Call to Action (CTA) */}
+            ---
+
+            ## 📢 Join Now Call to Action (CTA)
             <Box
                 sx={{
                     background: 'linear-gradient(135deg, #111827 0%, #000000 100%)',
