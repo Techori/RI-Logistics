@@ -28,32 +28,37 @@ import {
 
 // --- Custom Styles / Tailwind & Theme Setup ---
 const TailwindColors = {
-  primary: "#FF4D4D", // Reddish Primary Color (Highlights)
+  primary: "#FF4D4D",   // Reddish Primary Color (Highlights)
   secondary: "#FF8C00", // Orange (Accent)
   success: "#4CAF50",
   error: "#F44336",
   // Theme Colors
-  textLight: "#1F2937",  // Black in Light Mode
-  textDark: "#F9FAFB",   // White in Dark Mode
-  bgLight: "#FFFFFF",
-  bgDark: "#111827",
-  cardLight: "#F3F4F6",
-  cardDark: "#1F2937",
+  textLight: "#1F2937",    // Black in Light Mode
+  textDark: "#F9FAFB",     // White in Dark Mode
+  bgLight: "#FFFFFF",      // White background
+  bgDark: "#111827",       // Dark background
+  cardLight: "#F3F4F6",    // Light card background
+  cardDark: "#1F2937",     // Dark card background
   border: "#D1D5DB"
 };
 
-// Custom styles for inputs to ensure a uniform, modern look, adapting to theme
+// Custom styles for inputs: CLEANER & THEME ADAPTIVE
 const inputStyles = (isDark) => ({
   mt: 2,
+  // Ensure background color is set for text inputs in dark mode
+  bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
+  
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderColor: isDark ? TailwindColors.border + '50' : TailwindColors.border,
+      transition: 'border-color 0.3s',
     },
     "&:hover fieldset": {
       borderColor: TailwindColors.primary,
     },
     "&.Mui-focused fieldset": {
       borderColor: TailwindColors.primary,
+      borderWidth: '2px', // Highlight focus
     },
   },
   "& .MuiInputLabel-root": {
@@ -65,25 +70,21 @@ const inputStyles = (isDark) => ({
   "& .MuiSelect-select": {
     color: isDark ? TailwindColors.textDark : TailwindColors.textLight,
   },
-  // Dark mode specific background for inputs
-  bgcolor: isDark ? TailwindColors.bgDark : 'white',
 });
 
-// --- Motion Variants for Logistics Animation ---
-// Container fade-in
+// --- Motion Variants for Subtle Animation ---
 const containerVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 15 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: 50, delay: 0.2, staggerChildren: 0.1 } 
+    transition: { type: "tween", duration: 0.5, ease: "easeOut", staggerChildren: 0.1 } 
   },
 };
 
-// Section slide-in (simulating delivery or movement)
 const sectionVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
 };
 
 // --- Main Component ---
@@ -91,7 +92,7 @@ export default function FleetOwnerRegistration() {
   const { mode } = (useThemeMode && useThemeMode()) || { mode: "light" };
   const navigate = useNavigate();
 
-  // State Declarations (As in your original code)
+  // State Declarations (Omitted for brevity, assumed same as previous)
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -123,13 +124,13 @@ export default function FleetOwnerRegistration() {
     document.title = "Fleet Owner Registration";
   }, []);
 
-  // Truck Management Functions (omitted for brevity, assume they are the same)
-  function addTruck() { /* ... */ setTrucks(t => [...t, { id: String(Date.now()) + Math.random(), type: "", regNumber: "", capacity: "", photos: [] }]); }
-  function removeTruck(id) { /* ... */ setTrucks(t => t.filter(x => x.id !== id)); }
-  function setTruckField(id, field, value) { /* ... */ setTrucks(t => t.map(tr => (tr.id === id ? { ...tr, [field]: value } : tr))); }
-  function handleTruckPhotos(id, files) { /* ... */ if (!files) return; const arr = Array.from(files); setTruckField(id, "photos", arr); }
+  // Truck Management Functions (Omitted for brevity, assumed same as previous)
+  function addTruck() { setTrucks(t => [...t, { id: String(Date.now()) + Math.random(), type: "", regNumber: "", capacity: "", photos: [] }]); }
+  function removeTruck(id) { setTrucks(t => t.filter(x => x.id !== id)); }
+  function setTruckField(id, field, value) { setTrucks(t => t.map(tr => (tr.id === id ? { ...tr, [field]: value } : tr))); }
+  function handleTruckPhotos(id, files) { if (!files) return; const arr = Array.from(files); setTruckField(id, "photos", arr); }
 
-  // Validation Function (omitted for brevity, assume it is the same)
+  // Validation Function (Omitted for brevity, assumed same as previous)
   function validate() { 
       if (!fullName.trim()) return "पूरा नाम आवश्यक है / Full name is required.";
       if (!mobile.trim() || !/^\d{10}$/.test(mobile.trim())) return "वैध मोबाइल नंबर आवश्यक है / Valid 10-digit Mobile number is required.";
@@ -143,7 +144,7 @@ export default function FleetOwnerRegistration() {
       return null;
   }
 
-  // Submission Handler (omitted for brevity, assume it is the same)
+  // Submission Handler (Omitted for brevity, assumed same as previous)
   async function handleSubmit(e) {
       e.preventDefault();
       setErrors(null);
@@ -151,10 +152,8 @@ export default function FleetOwnerRegistration() {
       if (err) { setErrors(err); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
       setSubmitting(true);
       try {
-          // ... API submission logic ...
           // Mock delay for demonstration
           await new Promise(resolve => setTimeout(resolve, 1500)); 
-          // throw new Error("Submission failed mock"); // Uncomment to test error
           alert("पंजीकरण सफल / Registration successful");
           navigate("/registration-success");
       } catch (e) {
@@ -190,8 +189,8 @@ export default function FleetOwnerRegistration() {
               bgcolor: cardBg, 
               p: { xs: 2, sm: 4 }, 
               borderRadius: 3, 
-              border: `2px solid ${TailwindColors.primary}`,
-              transition: 'background-color 0.5s', // Theme transition
+              border: `2px solid ${TailwindColors.primary}`, // Striking red border
+              transition: 'background-color 0.5s',
             }}
           >
             {/* Form Title */}
@@ -203,6 +202,7 @@ export default function FleetOwnerRegistration() {
               sx={{ 
                 fontWeight: 700, mb: 4, 
                 color: sectionTitleColor,
+                pb: 1,
                 borderBottom: `3px solid ${TailwindColors.primary}`
               }}
             >
@@ -242,7 +242,7 @@ export default function FleetOwnerRegistration() {
               {/* --- Section 2: KYC Details & Bank Details --- */}
               <motion.div variants={sectionVariants}>
                 <SectionBox title="2. KYC & Bank Details / केवाईसी और बैंक विवरण" isDark={isDark}>
-                  <Typography variant="h6" sx={{ color: sectionTitleColor, mb: 2 }}>KYC Details / केवाईसी विवरण</Typography>
+                  <Typography variant="h6" sx={{ color: sectionTitleColor, mb: 2, borderBottom: `1px solid ${TailwindColors.border}` }}>KYC Details / केवाईसी विवरण</Typography>
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={4}>
                       <TextField fullWidth label="आधार नंबर / Aadhaar Number*" value={aadhaar} onChange={(e) => setAadhaar(e.target.value)} required inputProps={{ maxLength: 12 }} sx={inputStyles(isDark)} />
@@ -255,7 +255,7 @@ export default function FleetOwnerRegistration() {
                     </Grid>
                   </Grid>
 
-                  <Typography variant="h6" sx={{ color: sectionTitleColor, mt: 4, mb: 2 }}>Bank Details / बैंक विवरण</Typography>
+                  <Typography variant="h6" sx={{ color: sectionTitleColor, mt: 4, mb: 2, borderBottom: `1px solid ${TailwindColors.border}` }}>Bank Details / बैंक विवरण</Typography>
                   <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                       <TextField fullWidth label="बैंक का नाम / Bank Name*" value={bankName} onChange={(e) => setBankName(e.target.value)} required sx={inputStyles(isDark)} />
@@ -300,7 +300,6 @@ export default function FleetOwnerRegistration() {
                               '&:hover': { 
                                   backgroundColor: sectionTitleColor + '15',
                                   borderColor: sectionTitleColor,
-                                  transform: 'scale(1.05)' // Subtle scaling on hover
                               } 
                           }}
                       >
@@ -343,7 +342,8 @@ export default function FleetOwnerRegistration() {
                       p: 2, mb: 3, 
                       border: `1px solid ${TailwindColors.border}`, 
                       borderRadius: 1, 
-                      bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight 
+                      bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight,
+                      transition: 'background-color 0.5s',
                     }}
                   >
                     <Typography variant="body2" sx={{ whiteSpace: "pre-line", lineHeight: 1.8 }}>
@@ -381,22 +381,25 @@ export default function FleetOwnerRegistration() {
                 </SectionBox>
               </motion.div>
               
-              {/* --- Submission Button (Motion Added) --- */}
+              {/* --- Submission Button (No Motion, Clean Design) --- */}
               <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
-                <MagneticButton type="submit" disabled={submitting} 
+                <Button type="submit" disabled={submitting} 
+                    variant="contained"
                     sx={{ 
                         px: 6, py: 1.5, fontSize: '1.2rem', 
                         bgcolor: submitting ? `${TailwindColors.primary}80` : TailwindColors.primary, 
                         color: 'white',
-                        transition: 'background-color 0.3s, transform 0.3s',
+                        transition: 'background-color 0.3s', // Subtle hover
+                        boxShadow: `0 4px 10px ${TailwindColors.primary}80`, // Slight shadow for depth
                         '&:hover': { 
                             bgcolor: submitting ? `${TailwindColors.primary}80` : TailwindColors.secondary, 
-                            transform: 'scale(1.05)'
-                        }
+                            boxShadow: `0 6px 15px ${TailwindColors.secondary}A0`,
+                        },
+                        // Removed transform/scale animation
                     }}
                 >
                   {submitting ? "पंजीकरण हो रहा है... / Submitting..." : "Submit Registration / पंजीकरण जमा करें"}
-                </MagneticButton>
+                </Button>
               </Box>
 
             </form>
@@ -412,39 +415,34 @@ export default function FleetOwnerRegistration() {
 // --- Helper Components with Theme Adaptation ---
 
 const SectionBox = ({ children, title, isDark }) => (
-    <motion.div 
-        initial={{ opacity: 0, scaleY: 0.8 }} 
-        animate={{ opacity: 1, scaleY: 1 }} 
-        transition={{ duration: 0.5, type: "spring" }} // Spring animation for box appearance
+    <Box 
+      sx={{ 
+        my: 4, 
+        p: { xs: 2, sm: 3 }, 
+        bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
+        borderRadius: 2, 
+        boxShadow: isDark ? `0 0 10px ${TailwindColors.primary}20` : `0 4px 12px rgba(0,0,0,0.1)`, // Clean shadow
+        borderLeft: `5px solid ${TailwindColors.primary}`,
+        transition: 'background-color 0.5s', 
+      }}
     >
-        <Box 
-          sx={{ 
-            my: 4, 
-            p: { xs: 2, sm: 3 }, 
-            bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
-            borderRadius: 2, 
-            boxShadow: isDark ? `0 0 10px ${TailwindColors.primary}40` : `0 0 10px ${TailwindColors.border}`,
-            borderLeft: `5px solid ${TailwindColors.primary}`, // Consistent red left border
-            transition: 'background-color 0.5s', 
-          }}
-        >
-          <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 600, color: TailwindColors.primary }}>
-            {title}
-          </Typography>
-          {children}
-        </Box>
-    </motion.div>
+      <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 600, color: TailwindColors.primary }}>
+        {title}
+      </Typography>
+      {children}
+    </Box>
 );
 
 const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, truckTypes, isDark }) => (
     <Paper 
-        elevation={2} 
+        elevation={0} // Use elevation 0 for cleaner look, rely on background/border
         sx={{ 
             p: 3, mb: 3, 
+            border: `1px solid ${TailwindColors.border}50`, // Subtle border
             borderLeft: `5px solid ${TailwindColors.secondary}`, 
             bgcolor: isDark ? TailwindColors.cardDark : 'white',
             transition: 'background-color 0.5s',
-            boxShadow: isDark ? `0 0 5px ${TailwindColors.secondary}40` : `0 0 5px rgba(0,0,0,0.1)`,
+            borderRadius: 1,
         }}
     >
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
@@ -493,7 +491,7 @@ const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, tru
                         accept="image/*" 
                         multiple 
                         onChange={(e) => handleTruckPhotos(tr.id, e.target.files)} 
-                        style={{ border: `1px solid ${TailwindColors.border}`, padding: '8px', borderRadius: '4px', display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial' }}
+                        style={{ border: `1px solid ${TailwindColors.border}80`, padding: '8px', borderRadius: '4px', display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial', backgroundColor: isDark ? TailwindColors.bgDark : 'white' }}
                     />
                     <FormHelperText sx={{ color: isDark ? '#bbb' : '#555' }}>
                         {(tr.photos || []).length} files selected
@@ -513,6 +511,7 @@ const DocumentUpload = ({ label, file, setFile, required, isDark }) => {
                 border: `1px dashed ${isUploaded ? TailwindColors.success : TailwindColors.primary}`, 
                 borderRadius: 1,
                 bgcolor: isDark ? TailwindColors.bgDark : 'white',
+                transition: 'border-color 0.3s, background-color 0.5s',
             }}
         >
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
@@ -523,7 +522,7 @@ const DocumentUpload = ({ label, file, setFile, required, isDark }) => {
                 accept=".pdf,image/*" 
                 onChange={(e) => setFile(e.target.files?.[0] || null)} 
                 required={required} 
-                style={{ display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial' }}
+                style={{ display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial', backgroundColor: isDark ? TailwindColors.bgDark : 'white' }}
             />
             {file && (
                 <FormHelperText sx={{ color: TailwindColors.success, fontWeight: 'bold', mt: 1 }}>
