@@ -23,8 +23,17 @@ import {
   Checkbox, 
   FormControlLabel,
   FormHelperText,
-  Paper 
+  Paper,
+  Dialog, // Added for the pop-up/modal
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton
 } from "@mui/material";
+
+// Icons (Using inline SVG Fallback for professional look)
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CloseIcon from '@mui/icons-material/Close';
 
 // --- Custom Styles / Tailwind & Theme Setup ---
 const TailwindColors = {
@@ -45,7 +54,6 @@ const TailwindColors = {
 // Custom styles for inputs: CLEANER & THEME ADAPTIVE
 const inputStyles = (isDark) => ({
   mt: 2,
-  // Ensure background color is set for text inputs in dark mode
   bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
   
   "& .MuiOutlinedInput-root": {
@@ -92,7 +100,7 @@ export default function FleetOwnerRegistration() {
   const { mode } = (useThemeMode && useThemeMode()) || { mode: "light" };
   const navigate = useNavigate();
 
-  // State Declarations (Omitted for brevity, assumed same as previous)
+  // State Declarations
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
@@ -116,6 +124,10 @@ export default function FleetOwnerRegistration() {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState(null);
 
+  // New states for success modal
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [applicationNumber, setApplicationNumber] = useState("");
+
   const truckTypes = [
     "Pickup", "Mini Truck", "Tipper", "Container", "Trailer", "10 Wheeler", "Others",
   ];
@@ -124,13 +136,13 @@ export default function FleetOwnerRegistration() {
     document.title = "Fleet Owner Registration";
   }, []);
 
-  // Truck Management Functions (Omitted for brevity, assumed same as previous)
+  // Truck Management Functions (omitted for brevity)
   function addTruck() { setTrucks(t => [...t, { id: String(Date.now()) + Math.random(), type: "", regNumber: "", capacity: "", photos: [] }]); }
   function removeTruck(id) { setTrucks(t => t.filter(x => x.id !== id)); }
   function setTruckField(id, field, value) { setTrucks(t => t.map(tr => (tr.id === id ? { ...tr, [field]: value } : tr))); }
   function handleTruckPhotos(id, files) { if (!files) return; const arr = Array.from(files); setTruckField(id, "photos", arr); }
 
-  // Validation Function (Omitted for brevity, assumed same as previous)
+  // Validation Function (omitted for brevity)
   function validate() { 
       if (!fullName.trim()) return "पूरा नाम आवश्यक है / Full name is required.";
       if (!mobile.trim() || !/^\d{10}$/.test(mobile.trim())) return "वैध मोबाइल नंबर आवश्यक है / Valid 10-digit Mobile number is required.";
@@ -144,24 +156,40 @@ export default function FleetOwnerRegistration() {
       return null;
   }
 
-  // Submission Handler (Omitted for brevity, assumed same as previous)
+  // Submission Handler with Application Number Generation
   async function handleSubmit(e) {
       e.preventDefault();
       setErrors(null);
       const err = validate();
       if (err) { setErrors(err); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
       setSubmitting(true);
+      
       try {
-          // Mock delay for demonstration
+          // --- API submission logic goes here ---
+          // const fd = new FormData(); // ... append data
+          // const res = await fetch("/api/fleetowner/register", { method: "POST", body: fd });
+          
+          // Mock API delay
           await new Promise(resolve => setTimeout(resolve, 1500)); 
-          alert("पंजीकरण सफल / Registration successful");
-          navigate("/registration-success");
+
+          // Generate Application Number (Simple unique ID for mock scenario)
+          const generatedAppNumber = 'FOT-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
+          
+          setApplicationNumber(generatedAppNumber);
+          setShowSuccessModal(true); 
+          // Note: Navigation happens in handleCloseSuccessModal
+
       } catch (e) {
           setErrors(e?.message || "Submission failed");
       } finally {
           setSubmitting(false);
       }
   }
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    navigate("/registration-success"); // Navigate after the user closes the modal
+  };
 
   // Style Variables for Theme
   const isDark = mode === "dark";
@@ -189,7 +217,7 @@ export default function FleetOwnerRegistration() {
               bgcolor: cardBg, 
               p: { xs: 2, sm: 4 }, 
               borderRadius: 3, 
-              border: `2px solid ${TailwindColors.primary}`, // Striking red border
+              border: `2px solid ${TailwindColors.primary}`,
               transition: 'background-color 0.5s',
             }}
           >
@@ -219,99 +247,42 @@ export default function FleetOwnerRegistration() {
 
             <form onSubmit={handleSubmit}>
               
-              {/* --- Section 1: Personal & Contact Information --- */}
-              <motion.div variants={sectionVariants}>
-                <SectionBox title="1. Personal & Contact Information / व्यक्तिगत और संपर्क जानकारी" isDark={isDark}>
+              <motion.div variants={sectionVariants}><SectionBox title="1. Personal & Contact Information / व्यक्तिगत और संपर्क जानकारी" isDark={isDark}>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="पूरा नाम / Full Name*" value={fullName} onChange={(e) => setFullName(e.target.value)} required sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="मोबाइल नंबर / Mobile Number*" value={mobile} onChange={(e) => setMobile(e.target.value)} required type="tel" inputProps={{ maxLength: 10 }} sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="ईमेल पता (वैकल्पिक) / Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} type="email" sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField fullWidth label="कार्यालय/निवास पता / Address" value={address} onChange={(e) => setAddress(e.target.value)} multiline rows={2} sx={inputStyles(isDark)} />
-                    </Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="पूरा नाम / Full Name*" value={fullName} onChange={(e) => setFullName(e.target.value)} required sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="मोबाइल नंबर / Mobile Number*" value={mobile} onChange={(e) => setMobile(e.target.value)} required type="tel" inputProps={{ maxLength: 10 }} sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="ईमेल पता (वैकल्पिक) / Email (optional)" value={email} onChange={(e) => setEmail(e.target.value)} type="email" sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12}><TextField fullWidth label="कार्यालय/निवास पता / Address" value={address} onChange={(e) => setAddress(e.target.value)} multiline rows={2} sx={inputStyles(isDark)} /></Grid>
                   </Grid>
-                </SectionBox>
-              </motion.div>
+                </SectionBox></motion.div>
 
-              {/* --- Section 2: KYC Details & Bank Details --- */}
-              <motion.div variants={sectionVariants}>
-                <SectionBox title="2. KYC & Bank Details / केवाईसी और बैंक विवरण" isDark={isDark}>
-                  <Typography variant="h6" sx={{ color: sectionTitleColor, mb: 2, borderBottom: `1px solid ${TailwindColors.border}` }}>KYC Details / केवाईसी विवरण</Typography>
+              <motion.div variants={sectionVariants}><SectionBox title="2. KYC & Bank Details / केवाईसी और बैंक विवरण" isDark={isDark}>
+                  <Typography variant="h6" sx={{ color: sectionTitleColor, mb: 2 }}>KYC Details / केवाईसी विवरण</Typography>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} sm={4}>
-                      <TextField fullWidth label="आधार नंबर / Aadhaar Number*" value={aadhaar} onChange={(e) => setAadhaar(e.target.value)} required inputProps={{ maxLength: 12 }} sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <TextField fullWidth label="पैन नंबर (वैकल्पिक) / PAN (optional)" value={pan} onChange={(e) => setPan(e.target.value)} inputProps={{ maxLength: 10 }} sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                      <TextField fullWidth label="जीएसटी नंबर (वैकल्पिक) / GST (optional)" value={gst} onChange={(e) => setGst(e.target.value)} sx={inputStyles(isDark)} />
-                    </Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth label="आधार नंबर / Aadhaar Number*" value={aadhaar} onChange={(e) => setAadhaar(e.target.value)} required inputProps={{ maxLength: 12 }} sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth label="पैन नंबर (वैकल्पिक) / PAN (optional)" value={pan} onChange={(e) => setPan(e.target.value)} inputProps={{ maxLength: 10 }} sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth label="जीएसटी नंबर (वैकल्पिक) / GST (optional)" value={gst} onChange={(e) => setGst(e.target.value)} sx={inputStyles(isDark)} /></Grid>
                   </Grid>
 
-                  <Typography variant="h6" sx={{ color: sectionTitleColor, mt: 4, mb: 2, borderBottom: `1px solid ${TailwindColors.border}` }}>Bank Details / बैंक विवरण</Typography>
+                  <Typography variant="h6" sx={{ color: sectionTitleColor, mt: 4, mb: 2 }}>Bank Details / बैंक विवरण</Typography>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="बैंक का नाम / Bank Name*" value={bankName} onChange={(e) => setBankName(e.target.value)} required sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="आईएफएससी कोड / IFSC Code*" value={ifsc} onChange={(e) => setIfsc(e.target.value)} required sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="बैंक खाता संख्या / Account Number*" value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} required sx={inputStyles(isDark)} />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="खाते का धारक का नाम / Account Holder Name*" value={accountHolder} onChange={(e) => setAccountHolder(e.target.value)} required sx={inputStyles(isDark)} />
-                    </Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="बैंक का नाम / Bank Name*" value={bankName} onChange={(e) => setBankName(e.target.value)} required sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="आईएफएससी कोड / IFSC Code*" value={ifsc} onChange={(e) => setIfsc(e.target.value)} required sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="बैंक खाता संख्या / Account Number*" value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} required sx={inputStyles(isDark)} /></Grid>
+                    <Grid item xs={12} sm={6}><TextField fullWidth label="खाते का धारक का नाम / Account Holder Name*" value={accountHolder} onChange={(e) => setAccountHolder(e.target.value)} required sx={inputStyles(isDark)} /></Grid>
                   </Grid>
-                </SectionBox>
-              </motion.div>
+                </SectionBox></motion.div>
 
-              {/* --- Section 3: Vehicle / Fleet Details --- */}
-              <motion.div variants={sectionVariants}>
-                <SectionBox title="3. Vehicle / Fleet Details / वाहन / फ्लीट विवरण" isDark={isDark}>
-                  {trucks.map((tr, idx) => (
-                    <TruckCard 
-                      key={tr.id} 
-                      tr={tr} 
-                      idx={idx} 
-                      setTruckField={setTruckField} 
-                      handleTruckPhotos={handleTruckPhotos} 
-                      removeTruck={removeTruck} 
-                      truckTypes={truckTypes}
-                      isDark={isDark}
-                    />
-                  ))}
-                  
+              <motion.div variants={sectionVariants}><SectionBox title="3. Vehicle / Fleet Details / वाहन / फ्लीट विवरण" isDark={isDark}>
+                  {trucks.map((tr, idx) => (<TruckCard key={tr.id} tr={tr} idx={idx} setTruckField={setTruckField} handleTruckPhotos={handleTruckPhotos} removeTruck={removeTruck} truckTypes={truckTypes} isDark={isDark}/>))}
                   <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
-                      <Button 
-                          onClick={addTruck} 
-                          variant="outlined" 
-                          sx={{ 
-                              color: sectionTitleColor, 
-                              borderColor: sectionTitleColor,
-                              transition: 'all 0.3s',
-                              '&:hover': { 
-                                  backgroundColor: sectionTitleColor + '15',
-                                  borderColor: sectionTitleColor,
-                              } 
-                          }}
-                      >
+                      <Button onClick={addTruck} variant="outlined" sx={{ color: sectionTitleColor, borderColor: sectionTitleColor, transition: 'all 0.3s', '&:hover': { backgroundColor: sectionTitleColor + '15', borderColor: sectionTitleColor, } }}>
                           + Add Another Truck
                       </Button>
                   </Box>
-                </SectionBox>
-              </motion.div>
+                </SectionBox></motion.div>
 
-              {/* --- Section 4: Document Uploads --- */}
-              <motion.div variants={sectionVariants}>
-                <SectionBox title="4. Document Uploads / दस्तावेज़ अपलोड" isDark={isDark}>
+              <motion.div variants={sectionVariants}><SectionBox title="4. Document Uploads / दस्तावेज़ अपलोड" isDark={isDark}>
                   <Grid container spacing={3}>
                     {[
                       { label: "आधार कार्ड कॉपी / Aadhaar Card*", state: aadhaarFile, setter: setAadhaarFile, required: true },
@@ -319,69 +290,35 @@ export default function FleetOwnerRegistration() {
                       { label: "आरसी बुक / RC Book*", state: rcFile, setter: setRcFile, required: true },
                       { label: "बीमा प्रमाण पत्र / Insurance Certificate*", state: insuranceFile, setter: setInsuranceFile, required: true },
                       { label: "फिटनेस सर्टिफिकेट (वैकल्पिक) / Fitness Certificate (optional)", state: fitnessFile, setter: setFitnessFile, required: false },
-                    ].map((doc) => (
-                      <Grid item xs={12} sm={6} key={doc.label}>
-                          <DocumentUpload 
-                              label={doc.label} 
-                              file={doc.state} 
-                              setFile={doc.setter} 
-                              required={doc.required} 
-                              isDark={isDark}
-                          />
-                      </Grid>
-                    ))}
+                    ].map((doc) => (<Grid item xs={12} sm={6} key={doc.label}><DocumentUpload label={doc.label} file={doc.state} setFile={doc.setter} required={doc.required} isDark={isDark}/></Grid>))}
                   </Grid>
-                </SectionBox>
-              </motion.div>
+                </SectionBox></motion.div>
 
-              {/* --- Section 5: Declaration & Consent --- */}
-              <motion.div variants={sectionVariants}>
-                <SectionBox title="5. Declaration & Consent / घोषणा और सहमति" isDark={isDark}>
-                  <Box 
-                    sx={{ 
-                      p: 2, mb: 3, 
-                      border: `1px solid ${TailwindColors.border}`, 
-                      borderRadius: 1, 
-                      bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight,
-                      transition: 'background-color 0.5s',
-                    }}
-                  >
+              <motion.div variants={sectionVariants}><SectionBox title="5. Declaration & Consent / घोषणा और सहमति" isDark={isDark}>
+                  <Box sx={{ p: 2, mb: 3, border: `1px solid ${TailwindColors.border}`, borderRadius: 1, bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight }}>
                     <Typography variant="body2" sx={{ whiteSpace: "pre-line", lineHeight: 1.8 }}>
                       मैं घोषणा करता हूँ कि इस फॉर्म में दी गई सभी जानकारी और दस्तावेज सत्य, सटीक और पूर्ण हैं।
                       <br/>**I declare that all information and documents provided in this form are true, accurate, and complete.**
-
                       <br/><br/>मैं प्लेटफॉर्म और उसके प्रतिनिधियों को मेरी जानकारी और दस्तावेजों की जांच एवं सत्यापन करने का अधिकार देता हूँ, जिसमें आवश्यक होने पर भौतिक सत्यापन भी शामिल है।
                       <br/>**I authorize the platform... to verify my information and documents.**
-
                       <br/><br/>मैं फ्लीट मालिक और वाहन संचालन की सभी कानूनी और नियामक जिम्मेदारियां स्वीकार करता हूँ।
                       <br/>**I accept all legal and regulatory responsibilities...**
-
                       <br/><br/>मैं प्लेटफॉर्म की नीतियों, सुरक्षा उपायों और नियमों का पालन करने के लिए सहमत हूँ।
                       <br/>**I agree to comply with the platform’s policies...**
-
                       <br/><br/>मैं यह भी स्वीकार करता हूँ कि प्लेटफॉर्म किसी भी प्रकार की हानि, दुर्घटना या विवाद के लिए ज़िम्मेदार नहीं होगा जो मेरे वाहन परिवहन या संचालन से उत्पन्न हो।
                       <br/>**I also acknowledge that the platform shall not be liable for any loss, accident, or dispute...**
                     </Typography>
                   </Box>
                   
                   <FormControlLabel
-                    control={
-                      <Checkbox 
-                        checked={agree} 
-                        onChange={(e) => setAgree(e.target.checked)} 
-                        sx={{ color: sectionTitleColor, '&.Mui-checked': { color: sectionTitleColor } }}
-                      />
-                    }
-                    label={
-                      <Typography sx={{ fontWeight: 'bold' }}>
+                    control={<Checkbox checked={agree} onChange={(e) => setAgree(e.target.checked)} sx={{ color: sectionTitleColor, '&.Mui-checked': { color: sectionTitleColor } }}/>}
+                    label={<Typography sx={{ fontWeight: 'bold' }}>
                         "मैंने उपरोक्त घोषणा और सहमति शर्तों को पढ़ लिया है, समझ लिया है और कड़ाई से पालन करने के लिए सहमत हूँ।" / "I have read, understood, and strictly agree to the above declaration and consent terms."
-                      </Typography>
-                    }
+                      </Typography>}
                   />
-                </SectionBox>
-              </motion.div>
+                </SectionBox></motion.div>
               
-              {/* --- Submission Button (No Motion, Clean Design) --- */}
+              {/* --- Submission Button --- */}
               <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
                 <Button type="submit" disabled={submitting} 
                     variant="contained"
@@ -389,13 +326,12 @@ export default function FleetOwnerRegistration() {
                         px: 6, py: 1.5, fontSize: '1.2rem', 
                         bgcolor: submitting ? `${TailwindColors.primary}80` : TailwindColors.primary, 
                         color: 'white',
-                        transition: 'background-color 0.3s', // Subtle hover
-                        boxShadow: `0 4px 10px ${TailwindColors.primary}80`, // Slight shadow for depth
+                        transition: 'background-color 0.3s',
+                        boxShadow: `0 4px 10px ${TailwindColors.primary}80`,
                         '&:hover': { 
                             bgcolor: submitting ? `${TailwindColors.primary}80` : TailwindColors.secondary, 
                             boxShadow: `0 6px 15px ${TailwindColors.secondary}A0`,
                         },
-                        // Removed transform/scale animation
                     }}
                 >
                   {submitting ? "पंजीकरण हो रहा है... / Submitting..." : "Submit Registration / पंजीकरण जमा करें"}
@@ -408,6 +344,14 @@ export default function FleetOwnerRegistration() {
       </Container>
       
       <Footer/>
+      
+      {/* --- Success Modal Implementation --- */}
+      <SuccessModal 
+        open={showSuccessModal} 
+        handleClose={handleCloseSuccessModal} 
+        appNumber={applicationNumber}
+        isDark={isDark}
+      />
     </div>
   );
 }
@@ -415,30 +359,35 @@ export default function FleetOwnerRegistration() {
 // --- Helper Components with Theme Adaptation ---
 
 const SectionBox = ({ children, title, isDark }) => (
-    <Box 
-      sx={{ 
-        my: 4, 
-        p: { xs: 2, sm: 3 }, 
-        bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
-        borderRadius: 2, 
-        boxShadow: isDark ? `0 0 10px ${TailwindColors.primary}20` : `0 4px 12px rgba(0,0,0,0.1)`, // Clean shadow
-        borderLeft: `5px solid ${TailwindColors.primary}`,
-        transition: 'background-color 0.5s', 
-      }}
+    <motion.div 
+        initial={{ opacity: 0, scaleY: 0.8 }} 
+        animate={{ opacity: 1, scaleY: 1 }} 
+        transition={{ duration: 0.5, type: "spring" }} 
     >
-      <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 600, color: TailwindColors.primary }}>
-        {title}
-      </Typography>
-      {children}
-    </Box>
+        <Box 
+          sx={{ 
+            my: 4, p: { xs: 2, sm: 3 }, 
+            bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.bgLight, 
+            borderRadius: 2, 
+            boxShadow: isDark ? `0 0 10px ${TailwindColors.primary}20` : `0 4px 12px rgba(0,0,0,0.1)`, 
+            borderLeft: `5px solid ${TailwindColors.primary}`,
+            transition: 'background-color 0.5s', 
+          }}
+        >
+          <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 600, color: TailwindColors.primary }}>
+            {title}
+          </Typography>
+          {children}
+        </Box>
+    </motion.div>
 );
 
 const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, truckTypes, isDark }) => (
     <Paper 
-        elevation={0} // Use elevation 0 for cleaner look, rely on background/border
+        elevation={0} 
         sx={{ 
             p: 3, mb: 3, 
-            border: `1px solid ${TailwindColors.border}50`, // Subtle border
+            border: `1px solid ${TailwindColors.border}50`, 
             borderLeft: `5px solid ${TailwindColors.secondary}`, 
             bgcolor: isDark ? TailwindColors.cardDark : 'white',
             transition: 'background-color 0.5s',
@@ -450,12 +399,7 @@ const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, tru
                 🚛 Truck #{idx + 1}
             </Typography>
             {idx > 0 && (
-                <Button 
-                    onClick={() => removeTruck(tr.id)} 
-                    variant="outlined" 
-                    color="error"
-                    size="small"
-                >
+                <Button onClick={() => removeTruck(tr.id)} variant="outlined" color="error" size="small">
                     Remove
                 </Button>
             )}
@@ -464,12 +408,7 @@ const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, tru
             <Grid item xs={12} sm={4}>
                 <FormControl fullWidth sx={inputStyles(isDark)}>
                     <InputLabel id={`truck-type-label-${tr.id}`}>ट्रक/फ्लीट का प्रकार / Truck Type</InputLabel>
-                    <Select
-                        labelId={`truck-type-label-${tr.id}`}
-                        value={tr.type}
-                        label="ट्रक/फ्लीट का प्रकार / Truck Type"
-                        onChange={(e) => setTruckField(tr.id, "type", e.target.value)}
-                    >
+                    <Select labelId={`truck-type-label-${tr.id}`} value={tr.type} label="ट्रक/फ्लीट का प्रकार / Truck Type" onChange={(e) => setTruckField(tr.id, "type", e.target.value)}>
                         <MenuItem value="">Select</MenuItem>
                         {truckTypes.map((t) => <MenuItem key={t} value={t}>{t}</MenuItem>)}
                     </Select>
@@ -483,19 +422,9 @@ const TruckCard = ({ tr, idx, setTruckField, handleTruckPhotos, removeTruck, tru
             </Grid>
             <Grid item xs={12}>
                 <Box mt={2}>
-                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-                        ट्रक की फोटो (कई हो सकते हैं) / Truck Photos (multiple allowed)
-                    </label>
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        multiple 
-                        onChange={(e) => handleTruckPhotos(tr.id, e.target.files)} 
-                        style={{ border: `1px solid ${TailwindColors.border}80`, padding: '8px', borderRadius: '4px', display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial', backgroundColor: isDark ? TailwindColors.bgDark : 'white' }}
-                    />
-                    <FormHelperText sx={{ color: isDark ? '#bbb' : '#555' }}>
-                        {(tr.photos || []).length} files selected
-                    </FormHelperText>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>ट्रक की फोटो (कई हो सकते हैं) / Truck Photos (multiple allowed)</label>
+                    <input type="file" accept="image/*" multiple onChange={(e) => handleTruckPhotos(tr.id, e.target.files)} style={{ border: `1px solid ${TailwindColors.border}80`, padding: '8px', borderRadius: '4px', display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial', backgroundColor: isDark ? TailwindColors.bgDark : 'white' }}/>
+                    <FormHelperText sx={{ color: isDark ? '#bbb' : '#555' }}>{(tr.photos || []).length} files selected</FormHelperText>
                 </Box>
             </Grid>
         </Grid>
@@ -511,29 +440,74 @@ const DocumentUpload = ({ label, file, setFile, required, isDark }) => {
                 border: `1px dashed ${isUploaded ? TailwindColors.success : TailwindColors.primary}`, 
                 borderRadius: 1,
                 bgcolor: isDark ? TailwindColors.bgDark : 'white',
-                transition: 'border-color 0.3s, background-color 0.5s',
             }}
         >
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-                {label}
-            </label>
-            <input 
-                type="file" 
-                accept=".pdf,image/*" 
-                onChange={(e) => setFile(e.target.files?.[0] || null)} 
-                required={required} 
-                style={{ display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial', backgroundColor: isDark ? TailwindColors.bgDark : 'white' }}
-            />
-            {file && (
-                <FormHelperText sx={{ color: TailwindColors.success, fontWeight: 'bold', mt: 1 }}>
-                    ✅ File selected: {file.name}
-                </FormHelperText>
-            )}
-            {required && !file && (
-                <FormHelperText sx={{ color: TailwindColors.primary, mt: 1 }}>
-                    * This field is required
-                </FormHelperText>
-            )}
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>{label}</label>
+            <input type="file" accept=".pdf,image/*" onChange={(e) => setFile(e.target.files?.[0] || null)} required={required} style={{ display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial' }}/>
+            {file && (<FormHelperText sx={{ color: TailwindColors.success, fontWeight: 'bold', mt: 1 }}>✅ File selected: {file.name}</FormHelperHelperText>)}
+            {required && !file && (<FormHelperText sx={{ color: TailwindColors.primary, mt: 1 }}>* This field is required</FormHelperText>)}
         </Box>
+    );
+};
+
+// --- New Success Modal Component ---
+const SuccessModal = ({ open, handleClose, appNumber, isDark }) => {
+    const dialogBg = isDark ? TailwindColors.cardDark : TailwindColors.bgLight;
+    const dialogTextColor = isDark ? TailwindColors.textDark : TailwindColors.textLight;
+
+    return (
+        <Dialog 
+            open={open} 
+            onClose={handleClose} 
+            maxWidth="sm" 
+            fullWidth
+            PaperProps={{ 
+                sx: { 
+                    bgcolor: dialogBg, 
+                    color: dialogTextColor, 
+                    borderRadius: 3,
+                    border: `2px solid ${TailwindColors.success}`,
+                } 
+            }}
+        >
+            <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', color: TailwindColors.success }}>
+                    Submission Successful!
+                </Typography>
+                <IconButton onClick={handleClose} sx={{ color: dialogTextColor }}>
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+            
+            <DialogContent dividers sx={{ borderColor: isDark ? TailwindColors.border + '50' : TailwindColors.border }}>
+                <Box textAlign="center" py={3}>
+                    <CheckCircleOutlineIcon sx={{ color: TailwindColors.success, fontSize: 80, mb: 2 }} />
+                    <Typography variant="h6" gutterBottom>
+                        Your application was successfully submitted.
+                    </Typography>
+                    <Typography variant="body1" sx={{ mt: 2, mb: 3, fontWeight: 'medium' }}>
+                        आपका आवेदन सफलतापूर्वक जमा कर दिया गया है।
+                    </Typography>
+                    
+                    <Paper elevation={3} sx={{ p: 2, bgcolor: isDark ? TailwindColors.bgDark : TailwindColors.cardLight }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', color: TailwindColors.primary }}>
+                            Application Number:
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: TailwindColors.secondary, fontWeight: 700, letterSpacing: 1 }}>
+                            {appNumber}
+                        </Typography>
+                    </Paper>
+                    <Typography variant="caption" display="block" sx={{ mt: 1, color: isDark ? '#aaa' : '#555' }}>
+                        कृपया भविष्य के संदर्भ के लिए यह नंबर सुरक्षित रखें। (Please save this number for future reference.)
+                    </Typography>
+                </Box>
+            </DialogContent>
+            
+            <DialogActions>
+                <Button onClick={handleClose} variant="contained" sx={{ bgcolor: TailwindColors.success, '&:hover': { bgcolor: TailwindColors.success + 'CC' } }}>
+                    Close & Proceed
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
