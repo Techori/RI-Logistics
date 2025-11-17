@@ -444,7 +444,7 @@ const DocumentUpload = ({ label, file, setFile, required, isDark }) => {
         >
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>{label}</label>
             <input type="file" accept=".pdf,image/*" onChange={(e) => setFile(e.target.files?.[0] || null)} required={required} style={{ display: 'block', width: '100%', color: isDark ? 'inherit' : 'initial' }}/>
-            {file && (<FormHelperText sx={{ color: TailwindColors.success, fontWeight: 'bold', mt: 1 }}>✅ File selected: {file.name}</FormHelperHelperText>)}
+            {file && (<FormHelperText sx={{ color: TailwindColors.success, fontWeight: 'bold', mt: 1 }}>✅ File selected: {file.name}</FormHelperText>)}
             {required && !file && (<FormHelperText sx={{ color: TailwindColors.primary, mt: 1 }}>* This field is required</FormHelperText>)}
         </Box>
     );
