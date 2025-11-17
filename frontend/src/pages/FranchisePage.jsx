@@ -1,569 +1,433 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  useTheme,
-  alpha,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Paper,
-  Stack,
+    Box,
+    Container,
+    Typography,
+    Button,
+    Grid,
+    Card,
+    CardContent,
+    useTheme,
+    alpha,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Divider,
+    Paper,
 } from '@mui/material';
 import {
-  Store,
-  LocalShipping,
-  CheckCircle,
-  ArrowForward,
-  ExpandMore,
-  People,
-  TrendingUp,
+    Store,
+    LocalShipping,
+    CheckCircle,
+    ArrowForward,
+    ExpandMore,
+    People,
+    TrendingUp,
+    CreditCard,
+    Warehouse,
 } from '@mui/icons-material';
+
+// Assuming these external components/assets exist in your project structure
 import Navbar from '../components/solutions/Navbar';
 import Footer from '../components/solutions/Footer';
-import truckBgImage from '../assets/fullTruckLoad.png';
-import officeImage from '../assets/office.png';
+// Note: In a real project, replace these paths with actual imported variables or public URLs
+const truckBgImage = 'path/to/fullTruckLoad.png'; 
+const officeImage = 'path/to/office.png'; 
 
-const FranchisePage = () => {
-  const theme = useTheme();
-  const [expanded, setExpanded] = useState(false);
 
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+// --- 1. Constants & Data ---
+const PRIMARY_RED = '#ef4444'; 
 
-  const franchiseTypes = [
+const ALL_FRANCHISE_TYPES = [
     {
-      icon: <Store sx={{ fontSize: 60 }} />,
-      title: "Run a RIlogistics Load & courier booking Partner",
-      description: "Collect Load Booking & parcels from customers at your RIlogistics store and provide a convenient courier experience",
-      benefits: [
-        "Affordable setup cost",
-        "Make profit on every parcel booked",
-        "Additional income on packaging & insurance services"
-      ],
-      eligibility: [
-        "50-80 sqft space ",
-        "Good communication skills"
-      ],
-      buttonText: "Sign up to set up a courier booking counter",
-      color: '#1976d2'
+        icon: <Store />,
+        title: "Load & Courier Booking Partner",
+        titleHindi: "(लोड और कूरियर बुकिंग पार्टनर)",
+        description: "अपने स्टोर पर ग्राहकों से लोड बुकिंग और पार्सल एकत्र करें और एक सुविधाजनक कूरियर अनुभव प्रदान करें।",
+        benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Profit on every parcel booked (हर पार्सल पर लाभ)", "Additional income on packaging & insurance (पैकेजिंग और बीमा से अतिरिक्त आय)"],
+        eligibility: ["50-80 sqft space (50-80 वर्ग फुट जगह)", "Good communication skills (उत्तम संचार कौशल)"],
+        buttonText: "Courier Booking Counter के लिए आवेदन करें",
+        color: '#1976d2', 
     },
     {
-      icon: <LocalShipping sx={{ fontSize: 60 }} />,
-      title: "Run parcel delivery center for RIlogistics",
-      description: "Sort and Deliver parcels to customers doorstep with your staff, from your location, on select routes",
-      benefits: [
-        "Low Setup Cost",
-        "High Volume Business",
-        "Earn Per Delivery"
-      ],
-      eligibility: [
-        "Minimum 500 Sqft. of floor space to keep shipments",
-        "Delivery Rider Staff for doorstep delivery"
-      ],
-      buttonText: "Sign up to deliver parcels for Relogistics",
-      color: '#2e7d32'
-    }
-  ];
-  [
-    {
-      icon: <Store sx={{ fontSize: 60 }} />,
-      title: "RIlogistics franchise Partener",
-      description: "Grow your business by booking bulk load and unload services, including 3PL, FTL, and PTL, directly from your warehouse. Operate with your own margins while benefiting from our trusted platform, expert training, and strong customer network for scalable and profitable expansion.",
-      benefits: [
-        "Affordable setup cost",
-        "Make profit on every Load & Vehicle booked",
-        "Earn with your own margins and get additional income on every vehicle through extra services. "
-      ],
-      eligibility: [
-        "600-800 sqft space ",
-        "Good communication skills"
-      ],
-      buttonText: " Enquiry for RIlogistics franchise Partener",
-      color: '#1976d2'
+        icon: <Warehouse />,
+        title: "Parcel Delivery Center",
+        titleHindi: "(पार्सल वितरण केंद्र)",
+        description: "अपने स्थान से, चयनित मार्गों पर, अपने कर्मचारियों के साथ ग्राहकों के पते पर पार्सल छाँटें और वितरित करें।",
+        benefits: ["Low Setup Cost (कम सेटअप लागत)", "High Volume Business (उच्च मात्रा का व्यवसाय)", "Earn Per Delivery (प्रति डिलीवरी कमाएं)"],
+        eligibility: ["Minimum 500 Sqft. of floor space (500 वर्ग फुट जगह)", "Delivery Rider Staff (डिलीवरी स्टाफ की आवश्यकता)"],
+        buttonText: "Parcel Delivery Center के लिए आवेदन करें",
+        color: '#2e7d32', 
     },
     {
-      icon: <LocalShipping sx={{ fontSize: 60 }} />,
-      title: "RILogistics Fleet Partner",
-      description: "SProvide required vehicles to RILogistics as per demand and support smooth logistics operations. Earn attractive commissions based on the type and capacity of each vehicle you supply.",
-      benefits: [
-        "Affordable setup cost",
-        "Earn profit on every vehicle",
-        "Earn up to ₹5 lakhs per month",
-        "Stable and growing income with high logistics demand"
-      ],
-      eligibility: [
-        "100–250 sq. ft. office space",
-        "Good communication skills",
-        "Minimum 20 vehicles required",
-        "Basic understanding of transportation and fleet coordination"
-      ],
-      buttonText: "Enquiry for RILogistics Fleet Partner ",
-      color: '#2e7d32'
+        icon: <CreditCard />,
+        title: "Full Load & Logistics Franchise Partner",
+        titleHindi: "(पूर्ण लॉजिस्टिक्स फ्रेंचाइजी पार्टनर)",
+        description: "थोक लोड और अनलोड सेवाओं (3PL, FTL, PTL) की बुकिंग करके अपना व्यवसाय बढ़ाएँ। हमारे विश्वसनीय प्लेटफॉर्म से अपने मार्जिन पर लाभ कमाएं।",
+        benefits: ["High Commission on Load & Vehicle booked (लोड बुकिंग पर उच्च कमीशन)", "Earn with your own margins (अपने मार्जिन के साथ कमाएं)", "Benefit from trusted platform & training (भरोसेमंद प्लेटफॉर्म और ट्रेनिंग का लाभ)"],
+        eligibility: ["600-800 sqft warehouse space (600-800 वर्ग फुट गोदाम जगह)", "Strong local network (मजबूत स्थानीय नेटवर्क)"],
+        buttonText: "Full Logistics Partner के लिए Enquiry करें",
+        color: '#9c27b0', 
+    },
+    {
+        icon: <LocalShipping />,
+        title: "RILogistics Fleet Partner",
+        titleHindi: "(फ्लीट पार्टनर)",
+        description: "मांग के अनुसार RILogistics को आवश्यक वाहन प्रदान करें और सुचारू लॉजिस्टिक्स संचालन में सहायता करें। आपूर्ति किए गए प्रत्येक वाहन पर आकर्षक कमीशन अर्जित करें।",
+        benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Earn profit on every vehicle (हर वाहन पर लाभ कमाएं)", "Stable and growing income (स्थिर और बढ़ती आय)"],
+        eligibility: ["100–250 sq. ft. office space (100–250 वर्ग फुट ऑफिस जगह)", "Minimum 5 vehicles required (न्यूनतम 5 वाहन आवश्यक)", "Basic understanding of fleet coordination (फ्लीट समन्वय की बुनियादी समझ)"],
+        buttonText: "Fleet Partner के लिए Enquiry करें",
+        color: '#ff9800', 
     }
-  ];
+];
 
-  const faqData = {
+const FAQ_DATA = {
     exchangeCenter: [
-      {
-        question: "What is Local Delivery Franchise?",
-        answer: "The program is an extension of the Relogistics pick-up and delivery network. We seek entrepreneurs willing to run their own parcel and freight pick-up and delivery business."
-      },
-      {
-        question: "Who can become a Local Delivery Franchise partner?",
-        answer: "Any entrepreneur with the required infrastructure and business acumen can apply to become a franchise partner."
-      },
-      {
-        question: "How long does the application process take?",
-        answer: "The application process typically takes 2-4 weeks from submission to approval."
-      },
-      {
-        question: "Does it cost anything to become a partner for Relogistics?",
-        answer: "There is an initial setup cost that varies based on the franchise type you choose."
-      },
-      {
-        question: "Will training be provided?",
-        answer: "Yes, comprehensive training will be provided to all franchise partners."
-      },
+      { question: "What is Local Delivery Franchise? (लोकल डिलीवरी फ्रेंचाइजी क्या है?)", answer: "The program is an extension of the RIlogistics pick-up and delivery network. We seek entrepreneurs willing to run their own parcel and freight pick-up and delivery business." },
+      { question: "Who can become a Local Delivery Franchise partner? (पार्टनर कौन बन सकता है?)", answer: "Any entrepreneur with the required infrastructure and business acumen can apply to become a franchise partner." },
+      { question: "How long does the application process take? (आवेदन प्रक्रिया में कितना समय लगता है?)", answer: "The application process typically takes 2-4 weeks from submission to approval." },
+      { question: "Does it cost anything to become a partner for RIlogistics? (क्या यह निःशुल्क है?)", answer: "There is an initial setup cost that varies based on the franchise type you choose." },
+      { question: "Will training be provided? (क्या प्रशिक्षण प्रदान किया जाएगा?)", answer: "Yes, comprehensive training will be provided to all franchise partners." },
     ],
     courierStore: [
-      {
-        question: "Local Delivery Franchise vs Courier & Sales Franchise",
-        answer: "In the Local Delivery Franchise program, a partner sets up a last mile delivery center. In the Courier & Sales Franchise program, a partner sets up a company branded retail counter."
-      },
-      {
-        question: "What infrastructure is needed to set up a Relogistics courier store?",
-        answer: "You need a retail space of 60-80 sqft in a prime location with good footfall."
-      },
-      {
-        question: "Is there an investment involved?",
-        answer: "Yes, there is an initial investment for store setup, branding, and operational requirements."
-      },
-      {
-        question: "How can I earn by joining Relogistics courier franchise program?",
-        answer: "You earn commission on every parcel booked, plus additional income from packaging and insurance services."
-      },
+      { question: "Local Delivery Franchise vs Courier & Sales Franchise", answer: "In the Local Delivery Franchise program, a partner sets up a last mile delivery center. In the Courier & Sales Franchise program, a partner sets up a company branded retail counter." },
+      { question: "What infrastructure is needed to set up a RIlogistics courier store?", answer: "You need a retail space of 60-80 sqft in a prime location with good footfall." },
+      { question: "Is there an investment involved? (क्या इसमें कोई निवेश शामिल है?)", answer: "Yes, there is an initial investment for store setup, branding, and operational requirements." },
+      { question: "How can I earn by joining RIlogistics courier franchise program? (मैं कैसे कमा सकता हूँ?)", answer: "You earn commission on every parcel booked, plus additional income from packaging and insurance services." },
     ]
-  };
+};
 
-  const otherOpportunities = [
+const OTHER_OPPORTUNITIES = [
     {
-      icon: <People sx={{ fontSize: 48 }} />,
-      title: "Delivery Partner",
-      description: "Send shipments across India for parcels across categories including heavy goods. Get value added services like RTO reduction tools, door-step inspection and tracking",
+        icon: <People sx={{ fontSize: 48 }} />,
+        title: "Delivery Partner (डिलीवरी पार्टनर)",
+        description: "पार्सल सहित, सभी श्रेणियों में भारत भर में शिपमेंट भेजें। RTO रिडक्शन टूल्स, डोर-स्टेप इंस्पेक्शन और ट्रैकिंग जैसी वैल्यू एडेड सेवाएं प्राप्त करें।",
     },
     {
-      icon: <TrendingUp sx={{ fontSize: 48 }} />,
-      title: "Fleet Owner",
-      description: "We connect shippers with fleet owners, transporters and suppliers of truckload capacity through our in-house bidding platform",
+        icon: <TrendingUp sx={{ fontSize: 48 }} />,
+        title: "Fleet Owner (फ्लीट मालिक)",
+        description: "हम अपने इन-हाउस बिडिंग प्लेटफॉर्म के माध्यम से शिपर्स को फ्लीट मालिकों, ट्रांसपोर्टरों और ट्रकलोड क्षमता के आपूर्तिकर्ताओं से जोड़ते हैं।",
     }
-  ];
+];
 
-  return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      <Navbar />
-      
-      {/* Hero Section */}
-      <Box
-        sx={{
-          position: 'relative',
-          minHeight: '70vh',
-          display: 'flex',
-          alignItems: 'center',
-          background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${truckBgImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          color: 'white',
-          mt: 8,
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '800px' }}>
-            <Box sx={{ width: 60, height: 4, bgcolor: '#ef4444', mb: 3 }} />
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: 700,
-                mb: 3,
-                fontSize: { xs: '2rem', md: '3.5rem' },
-              }}
-            >
-              Associate with <Box component="span" sx={{ color: '#ef4444' }}>India's fastest</Box>
-              <br />
-              growing franchisee business partnership program
-            </Typography>
-            <Box sx={{ width: 120, height: 2, bgcolor: alpha('#fff', 0.3), mb: 4 }} />
-            <Typography variant="h6" sx={{ color: alpha('#fff', 0.9) }}>
-              Become part of the Relogistics network and grow your business with us
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
 
-      {/* Franchise Types Section */}
-      <Container maxWidth="xl" sx={{ py: 8 }}>
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-            Choose your <Box component="span" sx={{ color: 'primary.main' }}>Franchisee Type</Box>
-          </Typography>
-          <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444', mx: 'auto' }} />
-        </Box>
+// --- 2. Franchise Page Component ---
 
-        <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'center', alignItems: 'stretch' }}>
-          {franchiseTypes.map((franchise, index) => (
-            <Box key={index} sx={{ flex: 1, minWidth: 0, maxWidth: { md: '600px' }, display: 'flex', flexDirection: 'column' }}>
-              <Paper
-                elevation={2}
+const FranchisePage = () => {
+    // Hooks are correctly placed at the top level of the function component
+    const theme = useTheme();
+    const [expanded, setExpanded] = useState(false);
+
+    const handleAccordionChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
+    return (
+        <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+            <Navbar />
+            
+            {/* --------------------------------------------------- */}
+            ## 🚀 Hero Section: Partnership for Growth
+            <Box
                 sx={{
-                  height: '100%',
-                  width: '100%',
-                  maxWidth: '600px',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                  transition: 'all 0.3s',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 4,
-                  },
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              >
-                <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  {/* Icon and Title */}
-                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2 }}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 48,
-                        height: 48,
-                        borderRadius: 1.5,
-                        bgcolor: alpha(franchise.color, 0.1),
-                        color: franchise.color,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {React.cloneElement(franchise.icon, { sx: { fontSize: 32 } })}
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
-                        {franchise.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
-                        {franchise.description}
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  {/* Image Section - Styled like Delhivery */}
-                  <Box
-                    sx={{
-                      height: 280,
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      mb: 3,
-                      position: 'relative',
-                      background: index === 0 
-                        ? `url(${officeImage})`
-                        : 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {index !== 0 && (
-                      <Box sx={{ 
-                        textAlign: 'center',
-                        color: franchise.color,
-                        p: 3,
-                      }}>
-                        <LocalShipping sx={{ fontSize: 120, opacity: 0.3, mb: 2 }} />
-                        <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>
-                          Delivery Partner
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                          with RELOGISTICS T-shirt
-                        </Typography>
-                      </Box>
-                    )}
-                  </Box>
-
-                  <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, mb: 3 }}>
-                    <Box sx={{ flex: '1 1 50%' }}>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <CheckCircle fontSize="small" color="success" />
-                        Benefits
-                      </Typography>
-                      <List dense>
-                        {franchise.benefits.map((benefit, idx) => (
-                          <ListItem key={idx} sx={{ px: 0, py: 0.5 }}>
-                            <ListItemIcon sx={{ minWidth: 32 }}>
-                              <CheckCircle fontSize="small" sx={{ color: 'success.main' }} />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={benefit}
-                              primaryTypographyProps={{ variant: 'body2' }}
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </Box>
-
-                    <Box sx={{ flex: '1 1 50%' }}>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <CheckCircle fontSize="small" color="primary" />
-                        Eligibility
-                      </Typography>
-                      <List dense>
-                        {franchise.eligibility.map((item, idx) => (
-                          <ListItem key={idx} sx={{ px: 0, py: 0.5 }}>
-                            <ListItemIcon sx={{ minWidth: 32 }}>
-                              <CheckCircle fontSize="small" sx={{ color: 'primary.main' }} />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={item}
-                              primaryTypographyProps={{ variant: 'body2' }}
-                            />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </Box>
-                  </Box>
-
-                  {/* Push button to bottom */}
-                  <Box sx={{ flexGrow: 1 }} />
-
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    size="large"
-                    endIcon={<ArrowForward />}
-                    sx={{
-                      bgcolor: '#000',
-                      color: '#fff',
-                      py: 1.5,
-                      fontWeight: 600,
-                      mt: 3,
-                      '&:hover': {
-                        bgcolor: '#333',
-                      },
-                    }}
-                  >
-                    {franchise.buttonText}
-                  </Button>
-                </Box>
-              </Paper>
-            </Box>
-          ))}
-        </Box>
-
-        {/* OR Divider */}
-        <Box sx={{ display: 'flex', alignItems: 'center', my: 6 }}>
-          <Divider sx={{ flexGrow: 1 }} />
-          <Typography variant="h4" sx={{ px: 4, color: 'text.secondary', fontWeight: 700 }}>
-            OR
-          </Typography>
-          <Divider sx={{ flexGrow: 1 }} />
-        </Box>
-      </Container>
-
-      {/* FAQ Section */}
-      <Box sx={{ bgcolor: 'grey.50', py: 8 }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-              Frequently asked <Box component="span" sx={{ color: 'primary.main' }}>questions</Box>
-            </Typography>
-            <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444', mx: 'auto' }} />
-          </Box>
-
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-            <Box sx={{ flex: '1 1 50%' }}>
-              <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
-                <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
-                  Parcel Exchange Center
-                </Typography>
-                {faqData.exchangeCenter.map((faq, index) => (
-                  <Accordion
-                    key={index}
-                    expanded={expanded === `exchange-${index}`}
-                    onChange={handleAccordionChange(`exchange-${index}`)}
-                    elevation={0}
-                    sx={{ '&:before': { display: 'none' } }}
-                  >
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                      <Typography sx={{ fontWeight: expanded === `exchange-${index}` ? 600 : 500 }}>
-                        {faq.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography variant="body2" color="text.secondary">
-                        {faq.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </Paper>
-            </Box>
-
-            <Box sx={{ flex: '1 1 50%' }}>
-              <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
-                <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
-                  Relogistics Courier Store
-                </Typography>
-                {faqData.courierStore.map((faq, index) => (
-                  <Accordion
-                    key={index}
-                    expanded={expanded === `courier-${index}`}
-                    onChange={handleAccordionChange(`courier-${index}`)}
-                    elevation={0}
-                    sx={{ '&:before': { display: 'none' } }}
-                  >
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                      <Typography sx={{ fontWeight: expanded === `courier-${index}` ? 600 : 500 }}>
-                        {faq.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography variant="body2" color="text.secondary">
-                        {faq.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </Paper>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* CTA Banner */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #111827 0%, #000000 100%)',
-          color: 'white',
-          py: 8,
-        }}
-      >
-        <Container maxWidth="md">
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 4 }}>
-              Join the Franchisee program and experience the benefit of a wider reach, growth opportunities, and more
-            </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              endIcon={<ArrowForward />}
-              sx={{
-                bgcolor: 'white',
-                color: 'black',
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                fontWeight: 600,
-                '&:hover': {
-                  bgcolor: alpha('#fff', 0.9),
-                },
-              }}
-            >
-              Join us now
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Other Opportunities Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
-            Other ways you can <Box component="span" sx={{ color: 'primary.main' }}>Join Relogistics</Box>
-          </Typography>
-          <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444' }} />
-        </Box>
-
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-          {otherOpportunities.map((opportunity, index) => (
-            <Box key={index} sx={{ flex: '1 1 50%' }}>
-              <Card
-                sx={{
-                  height: '100%',
-                  transition: 'all 0.3s',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    height: 200,
-                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                    position: 'relative',
+                    minHeight: '70vh',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: 16,
-                      right: 16,
-                      width: 48,
-                      height: 48,
-                      bgcolor: '#ef4444',
-                      borderRadius: 1,
-                    }}
-                  />
-                  <Box sx={{ color: 'primary.main' }}>
-                    {opportunity.icon}
-                  </Box>
-                </Box>
-                <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-                    {opportunity.title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
-                    {opportunity.description}
-                  </Typography>
-                  <Button
-                    endIcon={<ArrowForward />}
-                    sx={{ fontWeight: 600, alignSelf: 'flex-start' }}
-                  >
-                    Learn More
-                  </Button>
-                </CardContent>
-              </Card>
+                    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${truckBgImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    color: 'white',
+                    mt: 8,
+                }}
+            >
+                <Container maxWidth="lg">
+                    <Box sx={{ maxWidth: '800px' }}>
+                        <Box sx={{ width: 60, height: 4, bgcolor: PRIMARY_RED, mb: 3 }} />
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                fontWeight: 700,
+                                mb: 3,
+                                fontSize: { xs: '2.5rem', md: '3.5rem' },
+                            }}
+                        >
+                            Associate with <Box component="span" sx={{ color: PRIMARY_RED }}>India's fastest</Box>
+                            <br />
+                            growing franchisee business partnership program
+                        </Typography>
+                        <Box sx={{ width: 120, height: 2, bgcolor: alpha('#fff', 0.3), mb: 4 }} />
+                        <Typography variant="h6" sx={{ color: alpha('#fff', 0.9) }}>
+                            RIlogistics नेटवर्क का हिस्सा बनें और हमारे साथ अपना व्यवसाय बढ़ाएँ
+                        </Typography>
+                        <Button 
+                             variant="contained" 
+                             size="large"
+                             endIcon={<ArrowForward />}
+                             sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': {bgcolor: alpha(PRIMARY_RED, 0.8)} }}
+                        >
+                            Explore Opportunities (अवसर खोजें)
+                        </Button>
+                    </Box>
+                </Container>
             </Box>
-          ))}
-        </Box>
-      </Container>
 
-      {/* Footer */}
-       <Footer/>
-    </Box>
-  );
+            ---
+
+            ## 💼 Choose your Franchisee Type
+            <Container maxWidth="xl" sx={{ py: 8 }}>
+                <Box sx={{ textAlign: 'center', mb: 6 }}>
+                    <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+                        Choose your <Box component="span" sx={{ color: 'primary.main' }}>Franchisee Type</Box> (अपना फ्रेंचाइजी प्रकार चुनें)
+                    </Typography>
+                    <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
+                </Box>
+
+                {/* Dynamic Grid for 4 Franchise Options (2x2 grid on large screens) */}
+                <Grid container spacing={4} justifyContent="center" alignItems="stretch">
+                    {ALL_FRANCHISE_TYPES.map((franchise, index) => (
+                        <Grid item xs={12} sm={6} lg={3} key={index} sx={{ display: 'flex' }}>
+                            <Paper
+                                elevation={4}
+                                sx={{
+                                    height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.3s', borderRadius: 3,
+                                    '&:hover': { transform: 'translateY(-6px)', boxShadow: 8, border: `2px solid ${franchise.color}` },
+                                    border: '2px solid transparent', p: 3,
+                                }}
+                            >
+                                {/* Icon and Title */}
+                                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2, borderBottom: `2px solid ${alpha(franchise.color, 0.2)}`, pb: 2 }}>
+                                    <Box
+                                        sx={{
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', width: 50, height: 50, borderRadius: '50%',
+                                            bgcolor: alpha(franchise.color, 0.1), color: franchise.color, flexShrink: 0,
+                                        }}
+                                    >
+                                        {React.cloneElement(franchise.icon, { sx: { fontSize: 28 } })}
+                                    </Box>
+                                    <Box sx={{ flex: 1 }}>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: 700, lineHeight: 1.3, color: franchise.color }}>
+                                            {franchise.title}
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">{franchise.titleHindi}</Typography>
+                                    </Box>
+                                </Box>
+
+                                <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1, mb: 2 }}>
+                                    {franchise.description}
+                                </Typography>
+
+                                {/* Benefits */}
+                                <Box mb={2}>
+                                    <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, display: 'flex', alignItems: 'center', gap: 1, color: 'success.main' }}>
+                                        <CheckCircle fontSize="small" /> Benefits (लाभ)
+                                    </Typography>
+                                    <List dense sx={{ py: 0 }}>
+                                        {franchise.benefits.slice(0, 3).map((benefit, idx) => (
+                                            <ListItem key={idx} sx={{ px: 0, py: 0.2 }}>
+                                                <ListItemIcon sx={{ minWidth: 28 }}><CheckCircle fontSize="small" sx={{ color: 'success.light', fontSize: 16 }} /></ListItemIcon>
+                                                <ListItemText primary={benefit} primaryTypographyProps={{ variant: 'caption' }} />
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </Box>
+                                
+                                {/* Eligibility */}
+                                <Box mb={3}>
+                                    <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, display: 'flex', alignItems: 'center', gap: 1, color: 'primary.main' }}>
+                                        <CheckCircle fontSize="small" /> Eligibility (पात्रता)
+                                    </Typography>
+                                    <List dense sx={{ py: 0 }}>
+                                        {franchise.eligibility.slice(0, 3).map((item, idx) => (
+                                            <ListItem key={idx} sx={{ px: 0, py: 0.2 }}>
+                                                <ListItemIcon sx={{ minWidth: 28 }}><CheckCircle fontSize="small" sx={{ color: 'primary.light', fontSize: 16 }} /></ListItemIcon>
+                                                <ListItemText primary={item} primaryTypographyProps={{ variant: 'caption' }} />
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </Box>
+
+                                {/* Button */}
+                                <Button
+                                    variant="contained" fullWidth size="large" endIcon={<ArrowForward />}
+                                    sx={{
+                                        bgcolor: franchise.color, color: '#fff', py: 1.5, fontWeight: 600,
+                                        mt: 'auto', 
+                                        '&:hover': { bgcolor: alpha(franchise.color, 0.8) },
+                                    }}
+                                >
+                                    {franchise.buttonText}
+                                </Button>
+                            </Paper>
+                        </Grid>
+                    ))}
+                </Grid>
+
+                {/* OR Divider */}
+                <Box sx={{ display: 'flex', alignItems: 'center', my: 6 }}>
+                    <Divider sx={{ flexGrow: 1 }} />
+                    <Typography variant="h4" sx={{ px: 4, color: 'text.secondary', fontWeight: 700 }}>
+                        OR
+                    </Typography>
+                    <Divider sx={{ flexGrow: 1 }} />
+                </Box>
+            </Container>
+
+            ---
+
+            ## ❓ Frequently Asked Questions (FAQ)
+            <Box sx={{ bgcolor: alpha(theme.palette.primary.main, 0.05), py: 8 }}>
+                <Container maxWidth="lg">
+                    <Box sx={{ textAlign: 'center', mb: 6 }}>
+                        <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+                            Frequently asked <Box component="span" sx={{ color: PRIMARY_RED }}>questions</Box> (अक्सर पूछे जाने वाले सवाल)
+                        </Typography>
+                        <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
+                    </Box>
+
+                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
+                        <Box sx={{ flex: '1 1 50%' }}>
+                            <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+                                <Typography variant="h5" sx={{ fontWeight: 600, mb: 3, color: 'primary.dark' }}>
+                                    Parcel Exchange Center (पार्सल केंद्र)
+                                </Typography>
+                                {FAQ_DATA.exchangeCenter.map((faq, index) => (
+                                    <Accordion
+                                        key={index}
+                                        expanded={expanded === `exchange-${index}`}
+                                        onChange={handleAccordionChange(`exchange-${index}`)}
+                                        elevation={0} sx={{ '&:before': { display: 'none' } }}
+                                    >
+                                        <AccordionSummary expandIcon={<ExpandMore />}>
+                                            <Typography sx={{ fontWeight: expanded === `exchange-${index}` ? 600 : 500 }}>
+                                                {faq.question}
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {faq.answer}
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))}
+                            </Paper>
+                        </Box>
+
+                        <Box sx={{ flex: '1 1 50%' }}>
+                            <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+                                <Typography variant="h5" sx={{ fontWeight: 600, mb: 3, color: 'primary.dark' }}>
+                                    RIlogistics Courier Store (कूरियर स्टोर)
+                                </Typography>
+                                {FAQ_DATA.courierStore.map((faq, index) => (
+                                    <Accordion
+                                        key={index}
+                                        expanded={expanded === `courier-${index}`}
+                                        onChange={handleAccordionChange(`courier-${index}`)}
+                                        elevation={0} sx={{ '&:before': { display: 'none' } }}
+                                    >
+                                        <AccordionSummary expandIcon={<ExpandMore />}>
+                                            <Typography sx={{ fontWeight: expanded === `courier-${index}` ? 600 : 500 }}>
+                                                {faq.question}
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {faq.answer}
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))}
+                            </Paper>
+                        </Box>
+                    </Box>
+                </Container>
+            </Box>
+
+            ---
+
+            ## 🤝 Other Partnership Opportunities
+            <Container maxWidth="lg" sx={{ py: 8 }}>
+                <Box sx={{ mb: 6, textAlign: 'center' }}>
+                    <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+                        Other ways you can <Box component="span" sx={{ color: PRIMARY_RED }}>Join RIlogistics</Box> (अन्य तरीके जिनसे आप जुड़ सकते हैं)
+                    </Typography>
+                    <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
+                </Box>
+
+                <Grid container spacing={4} justifyContent="center">
+                    {OTHER_OPPORTUNITIES.map((opportunity, index) => (
+                        <Grid item xs={12} md={6} key={index} sx={{ display: 'flex' }}>
+                            <Card
+                                elevation={4}
+                                sx={{
+                                    height: '100%', width: '100%', transition: 'all 0.3s', display: 'flex', flexDirection: 'column',
+                                    '&:hover': { transform: 'translateY(-4px)', boxShadow: 8 },
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        height: 150, bgcolor: alpha(theme.palette.primary.main, 0.1), display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    }}
+                                >
+                                    <Box sx={{ color: PRIMARY_RED }}>{opportunity.icon}</Box>
+                                </Box>
+                                <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+                                        {opportunity.title}
+                                    </Typography>
+                                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
+                                        {opportunity.description}
+                                    </Typography>
+                                    <Button
+                                        endIcon={<ArrowForward />} variant="outlined"
+                                        sx={{ fontWeight: 600, alignSelf: 'flex-start', color: PRIMARY_RED, borderColor: PRIMARY_RED, '&:hover': {borderColor: PRIMARY_RED, bgcolor: alpha(PRIMARY_RED, 0.05)} }}
+                                    >
+                                        Learn More (और जानें)
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+
+            ---
+
+            ## 📢 Join Now Call to Action (CTA)
+            <Box
+                sx={{
+                    background: 'linear-gradient(135deg, #111827 0%, #000000 100%)',
+                    color: 'white',
+                    py: 8,
+                }}
+            >
+                <Container maxWidth="md">
+                    <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h3" sx={{ fontWeight: 700, mb: 4 }}>
+                            Join the Franchisee program and experience the benefit of a wider reach, growth opportunities, and more
+                        </Typography>
+                        <Button
+                            variant="contained" size="large" endIcon={<ArrowForward />}
+                            sx={{
+                                bgcolor: PRIMARY_RED, color: 'white', px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 600,
+                                '&:hover': { bgcolor: alpha(PRIMARY_RED, 0.8) },
+                            }}
+                        >
+                            Join us now (अभी हमसे जुड़ें)
+                        </Button>
+                    </Box>
+                </Container>
+            </Box>
+
+            {/* --------------------------------------------------- */}
+            <Footer/>
+        </Box>
+    );
 };
 
 export default FranchisePage;
