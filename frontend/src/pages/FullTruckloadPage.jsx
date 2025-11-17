@@ -453,5 +453,4 @@ const FullTruckloadPage = () => {
     </Box>
   );
 };
-
 export default FullTruckloadPage;

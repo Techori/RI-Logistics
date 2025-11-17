@@ -34,6 +34,7 @@ import {
 // Assuming these external components/assets exist in your project structure
 import Navbar from '../components/solutions/Navbar';
 import Footer from '../components/solutions/Footer';
+import { useNavigate } from 'react-router-dom';
 // Note: In a real project, replace these paths with actual imported variables or public URLs
 const truckBgImage = 'path/to/fullTruckLoad.png'; 
 const officeImage = 'path/to/office.png'; 
@@ -125,13 +126,12 @@ const FranchisePage = () => {
     const handleAccordionChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-
+    const navigate = useNavigate()
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
             <Navbar />
             
             {/* --------------------------------------------------- */}
-            ## 🚀 Hero Section: Partnership for Growth
             <Box
                 sx={{
                     position: 'relative',
@@ -167,6 +167,7 @@ const FranchisePage = () => {
                         </Typography>
                         <Button 
                              variant="contained" 
+                             onClick={()=>navigate('/franchise-registration')}
                              size="large"
                              endIcon={<ArrowForward />}
                              sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': {bgcolor: alpha(PRIMARY_RED, 0.8)} }}
@@ -179,7 +180,7 @@ const FranchisePage = () => {
 
             ---
 
-            ## 💼 Choose your Franchisee Type
+
             <Container maxWidth="xl" sx={{ py: 8 }}>
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
