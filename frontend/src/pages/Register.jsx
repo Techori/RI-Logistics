@@ -129,7 +129,7 @@ const Register = () => {
     >
       {/* Back Button */}
       <IconButton
-        onClick={() => navigate("/")}
+        onClick={() => navigate(-1)}
         sx={{
           position: "absolute",
           top: { xs: 16, sm: 24 },

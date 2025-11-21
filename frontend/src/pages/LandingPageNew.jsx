@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import OrderTrackingCard from "../components/Landingpage.jsx/OrderTrackingCard";
 import Footer from "../components/solutions/Footer";
 import {
   Box,
@@ -98,6 +99,7 @@ const MagneticButton = ({ children }) => {
   );
 };
 
+
 const LandingPageNew = () => {
   const navigate = useNavigate();
   const { mode } = useThemeMode();
@@ -106,6 +108,18 @@ const LandingPageNew = () => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [trackingTab, setTrackingTab] = useState(0);
   const [trackingValue, setTrackingValue] = useState("");
+
+   // OTP Handler Function
+
+const OTPHandler = () => {
+  if (!trackingValue || trackingValue.length !== 10 || !['9', '8', '7', '6'].includes(trackingValue[0])) {
+    return alert('Please enter a valid number');
+  }
+
+  setTrackingValue("");
+  alert('OTP sent to your number');
+};
+
 
   useEffect(() => {
     // Smooth scroll
@@ -475,397 +489,53 @@ const LandingPageNew = () => {
   )}
 
   {/* Tracking Order Card - Desktop only (positioned over video) */}
-  {videoEnded && (
-    <Box
-      sx={{
-        // Hide on mobile, show on desktop
-        display: { xs: "none", md: "block" },
-        position: "absolute",
-        top: "50%",
-        right: { md: "8%", lg: "10%" },
-        transform: "translateY(-50%)",
-        zIndex: 2,
-        width: "100%",
-        maxWidth: "420px",
-      }}
+{videoEnded && (
+  <Box
+    sx={{
+      display: { xs: "none", md: "block" },
+      position: "absolute",
+      top: "50%",
+      right: { md: "8%", lg: "10%" },
+      transform: "translateY(-50%)",
+      zIndex: 2,
+      width: "100%",
+      maxWidth: "420px",
+    }}
+  >
+    <motion.div
+      initial={{ x: 100, opacity: 0, scale: 0.8 }}
+      animate={{ x: 0, opacity: 1, scale: 1 }}
+      transition={{ duration: 1, delay: 2, ease: "easeOut" }}
     >
-      <motion.div
-        initial={{ x: 100, opacity: 0, scale: 0.8 }}
-        animate={{ x: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 2, ease: "easeOut" }}
-      >
-        <Card
-          sx={{
-            borderRadius: 3,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-            overflow: "hidden",
-            bgcolor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          <CardContent sx={{ p: 4 }}>
-            {/* Tabs */}
-            <Tabs
-              value={trackingTab}
-              onChange={(e, newValue) => setTrackingTab(newValue)}
-              sx={{
-                mb: 3,
-                "& .MuiTab-root": {
-                  textTransform: "none",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  color: "#666",
-                  minWidth: 120,
-                  px: 3,
-                },
-                "& .Mui-selected": {
-                  color: "#1976d2",
-                },
-                "& .MuiTabs-indicator": {
-                  backgroundColor: "#1976d2",
-                  height: 3,
-                },
-              }}
-            >
-              <Tab label="Track order" />
-              <Tab label="Ship order" />
-            </Tabs>
-
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: 700,
-                mb: 3,
-                color: "#000",
-                fontSize: "1.5rem",
-              }}
-            >
-              Track <Box component="span">your order through</Box>
-            </Typography>
-
-            {/* Tab Buttons */}
-            <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#1a1d29",
-                  color: "#fff",
-                  textTransform: "none",
-                  fontWeight: 600,
-                  px: 3,
-                  "&:hover": { bgcolor: "#2a2d39" },
-                }}
-              >
-                Mobile
-              </Button>
-              <Button variant="text" sx={{ color: "#999", textTransform: "none", fontWeight: 600 }}>
-                AWB
-              </Button>
-              <Button variant="text" sx={{ color: "#999", textTransform: "none", fontWeight: 600 }}>
-                Order Id
-              </Button>
-              <Button variant="text" sx={{ color: "#999", textTransform: "none", fontWeight: 600 }}>
-                LRN
-              </Button>
-            </Box>
-
-            <TextField
-              fullWidth
-              placeholder="Enter your mobile number"
-              value={trackingValue}
-              onChange={(e) => setTrackingValue(e.target.value)}
-              sx={{
-                mb: 3,
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 2,
-                  bgcolor: "#f5f5f5",
-                  "& fieldset": { borderColor: "#e0e0e0" },
-                  "&:hover fieldset": { borderColor: "#bdbdbd" },
-                  "&.Mui-focused fieldset": { borderColor: "#1976d2" },
-                },
-                "& .MuiInputBase-input": {
-                  color: "#000",
-                  "&::placeholder": { color: "#999", opacity: 1 },
-                },
-              }}
-            />
-
-            <Button
-              fullWidth
-              variant="contained"
-              size="large"
-              onClick={() => navigate("/tracking")}
-              sx={{
-                bgcolor: "#1a1d29",
-                color: "#fff",
-                textTransform: "none",
-                fontWeight: 700,
-                fontSize: "1.1rem",
-                py: 1.5,
-                borderRadius: 2,
-                mb: 3,
-                "&:hover": { bgcolor: "#2a2d39" },
-              }}
-            >
-              Get OTP
-            </Button>
-
-            <Typography variant="body2" align="center" sx={{ color: "#666", mb: 2, fontSize: "0.875rem" }}>
-              Live tracking updates & extra support on our App
-            </Typography>
-
-            <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-              <Box
-                component="img"
-                src="https://www.delhivery.com/app-store.svg"
-                alt="App Store"
-                sx={{
-                  height: 40,
-                  cursor: "pointer",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "scale(1.05)" },
-                }}
-              />
-              <Box
-                component="img"
-                src="https://www.delhivery.com/play-store.svg"
-                alt="Play Store"
-                sx={{
-                  height: 40,
-                  cursor: "pointer",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "scale(1.05)" },
-                }}
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </motion.div>
-    </Box>
-  )}
+    <OrderTrackingCard videoEnded={videoEnded}/>
+    </motion.div>
+  </Box>
+)}
 </Box>
 {/* Hero Video Section End */}
 
 {/* Tracking Form - Mobile Only (Below video, above stats) */}
 {videoEnded && (
-  <Container
-    maxWidth="lg"
+  <Box
     sx={{
-      // Show only on mobile/tablet, hide on desktop
-      display: { xs: "block", md: "none" },
-      py: 4,
+      display: { xs: "block", md: "none" }, // Mobile only
       position: "relative",
-      zIndex: 1,
+      width: "100%",
+      px: 2,
+      py: 4,
+      zIndex: 2,
     }}
   >
     <motion.div
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 2, ease: "easeOut" }}
+      transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
     >
-      <Card
-        sx={{
-          borderRadius: 3,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-          overflow: "hidden",
-          bgcolor: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(10px)",
-          mx: 2,
-        }}
-      >
-        <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
-          {/* Tabs */}
-          <Tabs
-            value={trackingTab}
-            onChange={(e, newValue) => setTrackingTab(newValue)}
-            sx={{
-              mb: 3,
-              "& .MuiTab-root": {
-                textTransform: "none",
-                fontWeight: 600,
-                fontSize: { xs: "0.9rem", sm: "1rem" },
-                color: "#666",
-                minWidth: { xs: "auto", sm: 120 },
-                px: { xs: 2, sm: 3 },
-              },
-              "& .Mui-selected": {
-                color: "#1976d2",
-              },
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#1976d2",
-                height: 3,
-              },
-            }}
-          >
-            <Tab label="Track order" />
-            <Tab label="Ship order" />
-          </Tabs>
-
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 700,
-              mb: 3,
-              color: "#000",
-              fontSize: { xs: "1.25rem", sm: "1.5rem" },
-            }}
-          >
-            Track <Box component="span">your order through</Box>
-          </Typography>
-
-          {/* Tab Buttons */}
-          <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: "#1a1d29",
-                color: "#fff",
-                textTransform: "none",
-                fontWeight: 600,
-                px: { xs: 2, sm: 3 },
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-                "&:hover": { bgcolor: "#2a2d39" },
-              }}
-            >
-              Mobile
-            </Button>
-            <Button
-              variant="text"
-              sx={{
-                color: "#999",
-                textTransform: "none",
-                fontWeight: 600,
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-              }}
-            >
-              AWB
-            </Button>
-            <Button
-              variant="text"
-              sx={{
-                color: "#999",
-                textTransform: "none",
-                fontWeight: 600,
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-              }}
-            >
-              Order Id
-            </Button>
-            <Button
-              variant="text"
-              sx={{
-                color: "#999",
-                textTransform: "none",
-                fontWeight: 600,
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-              }}
-            >
-              LRN
-            </Button>
-          </Box>
-
-          {/* Input Field */}
-          <TextField
-            fullWidth
-            placeholder="Enter your mobile number"
-            value={trackingValue}
-            onChange={(e) => setTrackingValue(e.target.value)}
-            sx={{
-              mb: 3,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
-                bgcolor: "#f5f5f5",
-                "& fieldset": {
-                  borderColor: "#e0e0e0",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#bdbdbd",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#1976d2",
-                },
-              },
-              "& .MuiInputBase-input": {
-                color: "#000",
-                fontSize: { xs: "0.9rem", sm: "1rem" },
-                "&::placeholder": {
-                  color: "#999",
-                  opacity: 1,
-                },
-              },
-            }}
-          />
-
-          {/* Get OTP Button */}
-          <Button
-            fullWidth
-            variant="contained"
-            size="large"
-            onClick={() => navigate("/tracking")}
-            sx={{
-              bgcolor: "#1a1d29",
-              color: "#fff",
-              textTransform: "none",
-              fontWeight: 700,
-              fontSize: { xs: "1rem", sm: "1.1rem" },
-              py: 1.5,
-              borderRadius: 2,
-              mb: 3,
-              "&:hover": { bgcolor: "#2a2d39" },
-            }}
-          >
-            Get OTP
-          </Button>
-
-          {/* App Download */}
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{
-              color: "#666",
-              mb: 2,
-              fontSize: { xs: "0.8rem", sm: "0.875rem" },
-            }}
-          >
-            Live tracking updates & extra support on our App
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <Box
-              component="img"
-              src="https://www.delhivery.com/app-store.svg"
-              alt="App Store"
-              sx={{
-                height: { xs: 35, sm: 40 },
-                cursor: "pointer",
-                transition: "transform 0.2s",
-                "&:hover": { transform: "scale(1.05)" },
-              }}
-            />
-            <Box
-              component="img"
-              src="https://www.delhivery.com/play-store.svg"
-              alt="Play Store"
-              sx={{
-                height: { xs: 35, sm: 40 },
-                cursor: "pointer",
-                transition: "transform 0.2s",
-                "&:hover": { transform: "scale(1.05)" },
-              }}
-            />
-          </Box>
-        </CardContent>
-      </Card>
+      <OrderTrackingCard videoEnded={videoEnded} />
     </motion.div>
-  </Container>
+  </Box>
 )}
+
 
 {/* Stats Section */}
 <Container
