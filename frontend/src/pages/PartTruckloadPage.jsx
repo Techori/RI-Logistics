@@ -1,28 +1,37 @@
 import React from 'react';
 import {
   Box,
+  Stack,
   Container,
   Typography,
   Button,
-  Grid,
   Card,
   CardContent,
-  alpha,
+
 } from '@mui/material';
 import {
   LocalShipping,
   Schedule,
+  Apple,
+  ShopOutlined,
   VerifiedUser,
   CurrencyRupee,
-  GpsFixed,
   CheckCircle,
 } from '@mui/icons-material';
+import { alpha } from '@mui/material/styles';
+import partTruckBg from '../assets/partTruckImage.png';
 import Navbar from '../components/solutions/Navbar';
 import { useThemeMode } from '../theme/ThemeProvider';
 import truckImage from '../assets/realtruck.png';
-import partTruckBg from '../assets/partTruckImage.png';
 import Footer from '../components/solutions/Footer';
+import { useNavigate } from 'react-router-dom';
 const PartTruckloadPage = () => {
+
+  const handleSignUp = () => {
+    // Replace with your actual registration page URL
+    window.location.href = '/register';
+  };
+  const navigate = useNavigate()
   const { mode } = useThemeMode();
   const isDark = mode === 'dark';
 
@@ -127,64 +136,199 @@ const PartTruckloadPage = () => {
 
       {/* Hero Section */}
       <Box
+      sx={{
+        position: 'relative',
+        minHeight: { xs: '80vh', md: '75vh' },
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
+        mt: { xs: 2, md: 4 },
+      }}
+    >
+      {/* Background Image with Enhanced Dark Overlay */}
+      <Box
         sx={{
-          position: 'relative',
-          minHeight: '70vh',
-          display: 'flex',
-          alignItems: 'center',
-          background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${partTruckBg})`,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: `linear-gradient(
+            rgba(0, 0, 0, 0.65), 
+            rgba(0, 0, 0, 0.65)
+          ), url(${partTruckBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          color: 'white',
-          mt: 4,
+          filter: 'brightness(0.85)',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Content Container */}
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          position: 'relative', 
+          zIndex: 1,
+          py: { xs: 6, md: 8 },
         }}
       >
-        <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ flex: '1 1 70%', maxWidth: '70%' }}>
-              <Typography
-                variant="h2"
-                component="h1"
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: { xs: 'flex-start', md: 'center' },
+            gap: { xs: 3, md: 4 },
+          }}
+        >
+          {/* Left Content Section */}
+          <Box sx={{ flex: 1, maxWidth: { xs: '100%', md: '70%' } }}>
+            {/* Main Heading with Proper Spacing */}
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{
+                fontWeight: 800,
+                mb: { xs: 2, md: 3 },
+                fontSize: { xs: '2.25rem', sm: '2.75rem', md: '3.75rem' },
+                lineHeight: 1.2,
+                color: 'white',
+                textAlign: { xs: 'left', md: 'left' },
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Send your{' '}
+              <Box
+                component="span"
                 sx={{
-                  fontWeight: 700,
+                  color: '#e53935',
+                  display: 'inline-block',
+                }}
+              >
+                cargo
+              </Box>{' '}
+              with Relogistics
+            </Typography>
+
+            {/* Subheading */}
+            <Typography
+              variant="h5"
+              sx={{
+                mb: { xs: 4, md: 5 },
+                opacity: 0.95,
+                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
+                lineHeight: 1.5,
+                color: 'white',
+                fontWeight: 400,
+                textAlign: { xs: 'left', md: 'left' },
+                maxWidth: { xs: '100%', md: '90%' },
+              }}
+            >
+              Send bulk shipments across India via our Part Truck Load (PTL) network
+            </Typography>
+
+            {/* CTA Button - Enhanced */}
+            <Button
+              variant="contained"
+              size="large"
+              endIcon={<LocalShipping />}
+              onClick={()=> navigate('/register')}
+              sx={{
+                bgcolor: '#e53935',
+                color: 'white',
+                px: { xs: 4, md: 6 },
+                py: { xs: 1.75, md: 2 },
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                fontWeight: 700,
+                borderRadius: 2,
+                textTransform: 'none',
+                boxShadow: '0 8px 24px rgba(229, 57, 53, 0.4)',
+                transition: 'all 0.3s ease',
+                mb: { xs: 4, md: 0 },
+                '&:hover': {
+                  bgcolor: '#c62828',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 32px rgba(229, 57, 53, 0.5)',
+                },
+                '&:active': {
+                  transform: 'translateY(0)',
+                },
+              }}
+            >
+              Sign up as a business
+            </Button>
+
+            {/* App Store Buttons */}
+            <Box sx={{ mt: { xs: 3, md: 4 } }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'white',
                   mb: 2,
-                  fontSize: { xs: '2rem', md: '3.5rem' },
-                }}
-              >
-                Send your <span style={{ color: '#e53935' }}>cargo</span> with Relogistics
-              </Typography>
-              <Typography
-                variant="h5"
-                sx={{
-                  mb: 4,
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
                   opacity: 0.9,
-                  fontSize: { xs: '1rem', md: '1.5rem' },
                 }}
               >
-                Send bulk shipments across India via our Part Truck Load (PTL) network
+                Download our mobile app
               </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                endIcon={<LocalShipping />}
-                sx={{
-                  bgcolor: 'white',
-                  color: 'text.primary',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  '&:hover': {
-                    bgcolor: alpha('#fff', 0.9),
-                  },
-                }}
-              >
-                Sign up as a business
-              </Button>
+              <Stack direction="row" spacing={2}>
+                {/* App Store Button */}
+                <Button
+                  variant="contained"
+                  startIcon={<Apple />}
+                  onClick={() => handleAppStore('ios')}
+                  sx={{
+                    bgcolor: alpha('#fff', 0.95),
+                    color: '#000',
+                    px: 3,
+                    py: 1.25,
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    '&:hover': {
+                      bgcolor: '#fff',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                    },
+                  }}
+                >
+                  App Store
+                </Button>
+
+                {/* Play Store Button */}
+                <Button
+                  variant="contained"
+                  startIcon={<ShopOutlined />}
+                  onClick={() => handleAppStore('android')}
+                  sx={{
+                    bgcolor: alpha('#fff', 0.95),
+                    color: '#000',
+                    px: 3,
+                    py: 1.25,
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    '&:hover': {
+                      bgcolor: '#fff',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                    },
+                  }}
+                >
+                  Play Store
+                </Button>
+              </Stack>
             </Box>
           </Box>
-        </Container>
-      </Box>
+        </Box>
+      </Container>
+    </Box>
 
       {/* Stats Section */}
       <Box sx={{ py: 3 }}>
