@@ -337,7 +337,7 @@ export default function FranchisePartnerForm() {
       style={{ color: textColor }}
     >
       <Navbar />
-      <Container maxWidth="lg" sx={{ py: { xs: 4, sm: 8 } }}>
+      <Container maxWidth="lg" sx={{mt: 6, py: { xs: 4, sm: 8 } }}>
         <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="hidden">
           <Paper elevation={10} sx={{ bgcolor: cardBg, p: { xs: 2, sm: 4 }, borderRadius: 3, border: `2px solid ${TailwindColors.primary}`, transition: 'background-color 0.5s', }}>
             
