@@ -204,7 +204,7 @@ export default function FleetOwnerRegistration() {
       style={{ color: textColor }}
     >
       <Navbar />
-      <Container maxWidth="lg" sx={{ py: { xs: 4, sm: 8 } }}>
+      <Container maxWidth="lg" sx={{ mt: 8, py: { xs: 4, sm: 8 } }}>
         <motion.div 
           variants={containerVariants}
           initial="hidden" 
