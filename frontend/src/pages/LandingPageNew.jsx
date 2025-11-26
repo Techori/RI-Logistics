@@ -514,7 +514,7 @@ const OTPHandler = () => {
 </Box>
 {/* Hero Video Section End */}
 
-{/* Tracking Form - Mobile Only (Below video, above stats) */}
+{/* Tracking Form - Mobile Only (Below video, above stats) */}  
 {videoEnded && (
   <Box
     sx={{

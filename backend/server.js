@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
-
+const fleetowner  = require('./routes/fleetowner')
+const franchisePatner = require('./routes/franchisepartner')
 // Connect Database
 connectDB();
 
@@ -22,7 +23,8 @@ app.get("/", (req, res) => {
 
 // Define Routes
 app.use("/api/auth", require("./routes/auth"));
-
+app.use("/api/fleetowner",fleetowner)
+app.use("/api/franchisepartner",franchisePatner)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

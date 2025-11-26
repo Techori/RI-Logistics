@@ -156,35 +156,91 @@ export default function FleetOwnerRegistration() {
       return null;
   }
 
-  // Submission Handler with Application Number Generation
-  async function handleSubmit(e) {
-      e.preventDefault();
-      setErrors(null);
-      const err = validate();
-      if (err) { setErrors(err); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-      setSubmitting(true);
-      
-      try {
-          // --- API submission logic goes here ---
-          // const fd = new FormData(); // ... append data
-          // const res = await fetch("/api/fleetowner/register", { method: "POST", body: fd });
-          
-          // Mock API delay
-          await new Promise(resolve => setTimeout(resolve, 1500)); 
+  
+   // Submission Handler with Application Number Generation
+async function handleSubmit(e) {
+    e.preventDefault();
+    setErrors(null);
+    const err = validate();
+    if (err) { 
+        setErrors(err); 
+        window.scrollTo({ top: 0, behavior: "smooth" }); 
+        return; 
+    }
+    setSubmitting(true);
 
-          // Generate Application Number (Simple unique ID for mock scenario)
-          const generatedAppNumber = 'FOT-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
-          
-          setApplicationNumber(generatedAppNumber);
-          setShowSuccessModal(true); 
-          // Note: Navigation happens in handleCloseSuccessModal
+    try {
+  
+        const submissionData = {
+            fullName,
+            mobile,
+            email,
+            address,
+            aadhaar,
+            pan,
+            gst,
+            bankName,
+            ifsc,
+            accountNumber,
+            accountHolder,
+            aadhaarFile,
+            panFile,
+            rcFile,
+            insuranceFile,
+            fitnessFile,
+            trucksCount: trucks.length,
+            trucks: trucks.map(truck => ({
+                type: truck.type,
+                regNumber: truck.regNumber,
+                capacity: truck.capacity,
+                photos: truck.photos || []
+            })),
+            agree
+        };
 
-      } catch (e) {
-          setErrors(e?.message || "Submission failed");
-      } finally {
-          setSubmitting(false);
-      }
-  }
+        console.log('Submission Object:', submissionData);
+
+        const fd = new FormData();
+        Object.entries(submissionData).forEach(([key, value]) => {
+            if (key === 'trucks') {
+                value.forEach((truck, i) => {
+                    fd.append(`trucks[${i}][type]`, truck.type);
+                    fd.append(`trucks[${i}][regNumber]`, truck.regNumber);
+                    fd.append(`trucks[${i}][capacity]`, truck.capacity);
+                    truck.photos.forEach((photo, j) => {
+                        fd.append(`trucks[${i}][photos][${j}]`, photo);
+                    });
+                });
+            } else if (value instanceof File) {
+                fd.append(key, value);
+            } else {
+                fd.append(key, value);
+            }
+        });
+
+        // API submission
+        const res = await fetch("/api/fleetowner/register", {
+            method: "POST",
+            body: fd
+        });
+
+        if (!res.ok) throw new Error('Registration failed. Please try again.');
+
+        const data = await res.json();
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        const generatedAppNumber = 'FOT-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
+        setApplicationNumber(generatedAppNumber);
+        setShowSuccessModal(true);
+
+    } catch (e) {
+        console.error('Registration Error:', e);
+        setErrors(e?.message || "Submission failed");
+    } finally {
+        setSubmitting(false);
+    }
+}
+
 
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
@@ -274,13 +330,13 @@ export default function FleetOwnerRegistration() {
                 </SectionBox></motion.div>
 
               <motion.div variants={sectionVariants}><SectionBox title="3. Vehicle / Fleet Details / वाहन / फ्लीट विवरण" isDark={isDark}>
-                  {trucks.map((tr, idx) => (<TruckCard key={tr.id} tr={tr} idx={idx} setTruckField={setTruckField} handleTruckPhotos={handleTruckPhotos} removeTruck={removeTruck} truckTypes={truckTypes} isDark={isDark}/>))}
-                  <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
-                      <Button onClick={addTruck} variant="outlined" sx={{ color: sectionTitleColor, borderColor: sectionTitleColor, transition: 'all 0.3s', '&:hover': { backgroundColor: sectionTitleColor + '15', borderColor: sectionTitleColor, } }}>
-                          + Add Another Truck
-                      </Button>
-                  </Box>
-                </SectionBox></motion.div>
+                {trucks.map((tr, idx) => (<TruckCard key={tr.id} tr={tr} idx={idx} setTruckField={setTruckField} handleTruckPhotos={handleTruckPhotos} removeTruck={removeTruck} truckTypes={truckTypes} isDark={isDark} />))}
+                <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+                  <Button onClick={addTruck} variant="outlined" sx={{ color: sectionTitleColor, borderColor: sectionTitleColor, transition: 'all 0.3s', '&:hover': { backgroundColor: sectionTitleColor + '15', borderColor: sectionTitleColor, } }}>
+                    + Add Another Truck
+                  </Button>
+                </Box>
+              </SectionBox></motion.div>
 
               <motion.div variants={sectionVariants}><SectionBox title="4. Document Uploads / दस्तावेज़ अपलोड" isDark={isDark}>
                   <Grid container spacing={3}>
