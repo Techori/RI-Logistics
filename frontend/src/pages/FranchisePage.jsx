@@ -36,12 +36,12 @@ import Navbar from '../components/solutions/Navbar';
 import Footer from '../components/solutions/Footer';
 import { useNavigate } from 'react-router-dom';
 // Note: In a real project, replace these paths with actual imported variables or public URLs
-const truckBgImage = 'path/to/fullTruckLoad.png'; 
-const officeImage = 'path/to/office.png'; 
+const truckBgImage = 'path/to/fullTruckLoad.png';
+const officeImage = 'path/to/office.png';
 
 
 // --- 1. Constants & Data ---
-const PRIMARY_RED = '#ef4444'; 
+const PRIMARY_RED = '#ef4444';
 
 const ALL_FRANCHISE_TYPES = [
     {
@@ -52,7 +52,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Profit on every parcel booked (हर पार्सल पर लाभ)", "Additional income on packaging & insurance (पैकेजिंग और बीमा से अतिरिक्त आय)"],
         eligibility: ["50-80 sqft space (50-80 वर्ग फुट जगह)", "Good communication skills (उत्तम संचार कौशल)"],
         buttonText: "Courier Booking Counter के लिए आवेदन करें",
-        color: '#1976d2', 
+        color: '#1976d2', // Blue
     },
     {
         icon: <Warehouse />,
@@ -62,7 +62,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Low Setup Cost (कम सेटअप लागत)", "High Volume Business (उच्च मात्रा का व्यवसाय)", "Earn Per Delivery (प्रति डिलीवरी कमाएं)"],
         eligibility: ["Minimum 500 Sqft. of floor space (500 वर्ग फुट जगह)", "Delivery Rider Staff (डिलीवरी स्टाफ की आवश्यकता)"],
         buttonText: "Parcel Delivery Center के लिए आवेदन करें",
-        color: '#2e7d32', 
+        color: '#2e7d32', // Green
     },
     {
         icon: <CreditCard />,
@@ -72,7 +72,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["High Commission on Load & Vehicle booked (लोड बुकिंग पर उच्च कमीशन)", "Earn with your own margins (अपने मार्जिन के साथ कमाएं)", "Benefit from trusted platform & training (भरोसेमंद प्लेटफॉर्म और ट्रेनिंग का लाभ)"],
         eligibility: ["600-800 sqft warehouse space (600-800 वर्ग फुट गोदाम जगह)", "Strong local network (मजबूत स्थानीय नेटवर्क)"],
         buttonText: "Full Logistics Partner के लिए Enquiry करें",
-        color: '#9c27b0', 
+        color: '#9c27b0', // Purple
     },
     {
         icon: <LocalShipping />,
@@ -82,7 +82,7 @@ const ALL_FRANCHISE_TYPES = [
         benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Earn profit on every vehicle (हर वाहन पर लाभ कमाएं)", "Stable and growing income (स्थिर और बढ़ती आय)"],
         eligibility: ["100–250 sq. ft. office space (100–250 वर्ग फुट ऑफिस जगह)", "Minimum 5 vehicles required (न्यूनतम 5 वाहन आवश्यक)", "Basic understanding of fleet coordination (फ्लीट समन्वय की बुनियादी समझ)"],
         buttonText: "Fleet Partner के लिए Enquiry करें",
-        color: '#ff9800', 
+        color: '#ff9800', // Orange
     }
 ];
 
@@ -119,31 +119,39 @@ const OTHER_OPPORTUNITIES = [
 // --- 2. Franchise Page Component ---
 
 const FranchisePage = () => {
-    // Hooks are correctly placed at the top level of the function component
     const theme = useTheme();
     const [expanded, setExpanded] = useState(false);
+    const navigate = useNavigate();
 
     const handleAccordionChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    const navigate = useNavigate()
+
+    // Determine the overlay color based on the current theme mode for the hero section
+    const heroOverlay = theme.palette.mode === 'dark'
+        ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))`
+        : `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`;
+
+
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
             <Navbar />
-            
+
             {/* --------------------------------------------------- */}
+            {/* ## 🚀 Hero Section */}
             <Box
                 sx={{
                     position: 'relative',
                     minHeight: '70vh',
                     display: 'flex',
                     alignItems: 'center',
-                    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${truckBgImage})`,
+                    // Apply theme-aware overlay for better readability in both modes
+                    background: `${heroOverlay}, url(${truckBgImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     color: 'white',
-                    mt: 8,
+                    mt: 8, // To account for a fixed navbar
                 }}
             >
                 <Container maxWidth="lg">
@@ -151,6 +159,7 @@ const FranchisePage = () => {
                         <Box sx={{ width: 60, height: 4, bgcolor: PRIMARY_RED, mb: 3 }} />
                         <Typography
                             variant="h2"
+                            component="h1"
                             sx={{
                                 fontWeight: 700,
                                 mb: 3,
@@ -165,12 +174,12 @@ const FranchisePage = () => {
                         <Typography variant="h6" sx={{ color: alpha('#fff', 0.9) }}>
                             RIlogistics नेटवर्क का हिस्सा बनें और हमारे साथ अपना व्यवसाय बढ़ाएँ
                         </Typography>
-                        <Button 
-                             variant="contained" 
-                             onClick={()=>navigate('/franchise-registration')}
-                             size="large"
-                             endIcon={<ArrowForward />}
-                             sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': {bgcolor: alpha(PRIMARY_RED, 0.8)} }}
+                        <Button
+                            variant="contained"
+                            // onClick={()=>navigate('/franchise-registration')} // Uncomment in production
+                            size="large"
+                            endIcon={<ArrowForward />}
+                            sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': {bgcolor: alpha(PRIMARY_RED, 0.8)} }}
                         >
                             Explore Opportunities (अवसर खोजें)
                         </Button>
@@ -180,7 +189,7 @@ const FranchisePage = () => {
 
             ---
 
-
+            {/* ## 🚚 Choose your Franchisee Type Section */}
             <Container maxWidth="xl" sx={{ py: 8 }}>
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -189,7 +198,7 @@ const FranchisePage = () => {
                     <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
                 </Box>
 
-                {/* Dynamic Grid for 4 Franchise Options (2x2 grid on large screens) */}
+                {/* Fix: Use lg={3} to ensure 4 cards are perfectly aligned in one row on large screens (3*4 = 12) */}
                 <Grid container spacing={4} justifyContent="center" alignItems="stretch">
                     {ALL_FRANCHISE_TYPES.map((franchise, index) => (
                         <Grid item xs={12} sm={6} lg={3} key={index} sx={{ display: 'flex' }}>
@@ -197,8 +206,10 @@ const FranchisePage = () => {
                                 elevation={4}
                                 sx={{
                                     height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.3s', borderRadius: 3,
+                                    // Professional hover effect
                                     '&:hover': { transform: 'translateY(-6px)', boxShadow: 8, border: `2px solid ${franchise.color}` },
                                     border: '2px solid transparent', p: 3,
+                                    // Ensure full height for proper alignment
                                 }}
                             >
                                 {/* Icon and Title */}
@@ -237,7 +248,7 @@ const FranchisePage = () => {
                                         ))}
                                     </List>
                                 </Box>
-                                
+
                                 {/* Eligibility */}
                                 <Box mb={3}>
                                     <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1, display: 'flex', alignItems: 'center', gap: 1, color: 'primary.main' }}>
@@ -253,12 +264,12 @@ const FranchisePage = () => {
                                     </List>
                                 </Box>
 
-                                {/* Button */}
+                                {/* Button - Use mt: 'auto' to push the button to the bottom */}
                                 <Button
                                     variant="contained" fullWidth size="large" endIcon={<ArrowForward />}
                                     sx={{
                                         bgcolor: franchise.color, color: '#fff', py: 1.5, fontWeight: 600,
-                                        mt: 'auto', 
+                                        mt: 'auto', // Ensures the button is at the bottom of the card
                                         '&:hover': { bgcolor: alpha(franchise.color, 0.8) },
                                     }}
                                 >
@@ -281,8 +292,8 @@ const FranchisePage = () => {
 
             ---
 
-            ## ❓ Frequently Asked Questions (FAQ)
-            <Box sx={{ bgcolor: alpha(theme.palette.primary.main, 0.05), py: 8 }}>
+            {/* ## ❓ Frequently Asked Questions (FAQ) - Theme-aware background */}
+            <Box sx={{ bgcolor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.05 : 0.05), py: 8 }}>
                 <Container maxWidth="lg">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
                         <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -351,7 +362,7 @@ const FranchisePage = () => {
 
             ---
 
-            ## 🤝 Other Partnership Opportunities
+            {/* ## 🤝 Other Partnership Opportunities */}
             <Container maxWidth="lg" sx={{ py: 8 }}>
                 <Box sx={{ mb: 6, textAlign: 'center' }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -399,10 +410,13 @@ const FranchisePage = () => {
 
             ---
 
-            ## 📢 Join Now Call to Action (CTA)
+            {/* ## 📢 Join Now Call to Action (CTA) - Dark, high-contrast section */}
             <Box
                 sx={{
-                    background: 'linear-gradient(135deg, #111827 0%, #000000 100%)',
+                    // Strong, contrasting background for CTA
+                    background: theme.palette.mode === 'dark' 
+                        ? 'linear-gradient(135deg, #1f2937 0%, #000000 100%)' 
+                        : 'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
                     color: 'white',
                     py: 8,
                 }}
