@@ -57,8 +57,7 @@ exports.registerFleetOwner = async (req, res) => {
       insuranceFile: insuranceUrl,
       fitnessFile: fitnessUrl,
       trucks,
-      status: "pending",
-      applicationNumber: "FOT-" + Date.now(),
+      status: "New",
     });
 
     return res.status(200).json({

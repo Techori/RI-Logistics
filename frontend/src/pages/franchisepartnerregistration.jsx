@@ -218,6 +218,7 @@ export default function FranchisePartnerForm() {
   const sectionTitleColor = TailwindColors.primary;
 
   const [formData, setFormData] = useState({
+    applicationNumber:"",
     fullName: "",
     businessName: "",
     mobile: "",
@@ -366,9 +367,9 @@ export default function FranchisePartnerForm() {
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         // Generate Application Number
-        const generatedAppNumber = 'FRP-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
-        setApplicationNumber(generatedAppNumber);
+       setApplicationNumber(data.data.applicationNumber); 
         setShowSuccessModal(true);
+        
 
     } catch (error) {
         console.error('Registration Error:', error);

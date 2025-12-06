@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OrderTrackingCard from "../components/Landingpage.jsx/OrderTrackingCard";
+import StatusCheckForm from "../components/StatusCheckForm/StatusCheckForm";
 import Footer from "../components/solutions/Footer";
 import {
   Box,
@@ -1048,7 +1049,8 @@ const OTPHandler = () => {
           </Tilt>
         </motion.div>
       </Container>
-
+      {/* Status Checker Form */}
+      <StatusCheckForm/>
       {/* Footer */}
      <Footer/>
     </Box>

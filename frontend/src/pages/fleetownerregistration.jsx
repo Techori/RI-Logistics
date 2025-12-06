@@ -170,8 +170,11 @@ async function handleSubmit(e) {
     setSubmitting(true);
 
     try {
+      const generatedAppNumber = 'FOT-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
+        setApplicationNumber(generatedAppNumber);
   
         const submissionData = {
+            applicationNumber:generatedAppNumber,
             fullName,
             mobile,
             email,
@@ -229,8 +232,7 @@ async function handleSubmit(e) {
         const data = await res.json();
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        const generatedAppNumber = 'FOT-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
-        setApplicationNumber(generatedAppNumber);
+        
         setShowSuccessModal(true);
 
     } catch (e) {

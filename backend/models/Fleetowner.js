@@ -51,11 +51,16 @@ const FleetownerSchema = new mongoose.Schema(
     // Auto number (optional)
     applicationNumber: { type: String },
 
+    //Dashboard Application tab fields
+     partnerType: { type: String, default: "Fleet Owner" },
+    feeStatus: { type: String, default: "Pending" },
+    feeAmount: { type: Number, default: 10000 },
+
     // Status
-    status: {
+      status: {
       type: String,
-      enum: ["pending", "verified", "rejected"],
-      default: "pending",
+      enum: ["New","In Kyc", "Field Pending","Under Review","Approved", "rejected"],
+      default: "New",
     },
 
     userId: {

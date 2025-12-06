@@ -28,8 +28,8 @@ exports.registerFranchise = async (req, res) => {
       panCopy,
       gstCertificate,
       shopOwnershipDoc,
-      status: "pending",
-      applicationNumber: "FRN-" + Date.now(),
+      status: "New",
+      applicationNumber: "FRP-" + Date.now(),
     });
 
     return res.status(200).json({

@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const FranchiseRegistrationSchema = new mongoose.Schema(
   {
-   
+    // ID Of application
+    applicationNumber:{type:String},
     // 1. Personal & Contact Details
    
     fullName: { type: String, required: true },
@@ -50,6 +51,18 @@ const FranchiseRegistrationSchema = new mongoose.Schema(
     // 5. Declaration
 
     declaration: { type: Boolean, required: true },
+
+      //Dashboard Application tab fields
+     partnerType: { type: String, default: "Franchise Partner" },
+    feeStatus: { type: String, default: "Pending" },
+    feeAmount: { type: Number, default: 10000 },
+    
+    // Status
+    status: {
+      type: String,
+      enum: ["New","In Kyc", "Field Pending","Under Review","Approved", "rejected"],
+      default: "New",
+    },
   },
   {
     timestamps: true,
