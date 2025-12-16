@@ -60,10 +60,86 @@ const FranchiseRegistrationSchema = new mongoose.Schema(
     // Status
     status: {
       type: String,
-      enum: ["New","In Kyc", "Field Pending","Under Review","Approved", "rejected"],
+      enum: ["New","In Kyc", "Tele Verification","Field Pending","Field Verified — Under Admin Review","Under Review","Approved", "Rejected"],
       default: "New",
     },
+
+    // Doc status 
+    documentStatus: {
+      applicantPhoto: { type: String, default: "uploaded" },
+      aadhaarCopy: { type: String, default: "uploaded" },
+      panCopy: { type: String, default: "uploaded" },
+      gstCertificate: { type: String, default: "uploaded" },
+      shopOwnershipDoc: { type: String, default: "uploaded" }
+    },
+    
+    //Doc reason
+    documentReason: {
+      applicantPhoto: { type: String, default: "" },
+      aadhaarCopy: { type: String, default: "" },
+      panCopy: { type: String, default: "" },
+      gstCertificate: { type: String, default: "" },
+      shopOwnershipDoc: { type: String, default: "" }
+    },
+
+     // STPE 3 Kyc approval
+    kycApproval: {
+      status: {
+        type: String,
+        enum: ["pending", "approved", "rejected", "on_hold"],
+        default: "pending"
+      },
+
+      checklist: {
+        identity: { type: Boolean, default: false },
+        address: { type: Boolean, default: false },
+        business: { type: Boolean, default: false },
+        fleet: { type: Boolean, default: false },
+        bank: { type: Boolean, default: false },
+        blacklist: { type: Boolean, default: false },
+        consent: { type: Boolean, default: false }
+      },
+
+      riskLevel: { type: String, default: "LOW" },
+
+      approvedBy: { type: String, default: "" },
+      kycReference: { type: String, default: "" },
+      validUntil: { type: Date, default: null },
+
+      rejectionReason: { type: String, default: "" },
+      holdReason: { type: String, default: "" },
+      escalatedTo: { type: String, default: "" },
+
+      approvedAt: { type: Date }
+    },
+     // Field Verification (Step 4)
+    fieldAssignedTo: { type: String, default: null },
+
+    fieldVisitStatus: {
+      type: String,
+      enum: [
+        "Field Pending",
+        "Field Visit Scheduled",
+        "Field Verification In Progress",
+        "Field Verified",
+        "Field Verified With Issues",
+        "Field Verification Failed",
+        "Field Verification Complete – Under Admin Review"
+      ],
+      default: "Field Pending"
+    },
+
+    // Step 5 - Fee Collection
+    feeCollection: {
+      amount: { type: Number, default: 0 },
+      mode: { type: String, default: null },
+      transactionId: { type: String, default: null },
+      paymentProof: { type: Object, default: {} },
+      agreementSigned: { type: Boolean, default: false }
+    },
+
   },
+ 
   {
     timestamps: true,
   }

@@ -6,6 +6,13 @@ const fleetowner  = require('./routes/fleetowner')
 const franchisePatner = require('./routes/franchisepartner')
 const dashboardroutes = require('./routes/dashboard')
 const applicationsRoute = require('./routes/application')
+const kycRoute = require('./routes/kyc')
+const teleRoute = require('./routes/tele')
+const kycApprove = require('./routes/kycApprove')
+const FieldVerification = require('./routes/fieldVerification')
+const adminVerification = require('./routes/admin')
+const staff = require('./routes/staff')
+const auth = require('./routes/auth')
 // Connect Database
 connectDB();
 
@@ -28,11 +35,18 @@ app.get("/", (req, res) => {
 });
 
 // Define Routes
-app.use("/api/auth", require("./routes/auth"));
+app.use("/api/auth",auth );
 app.use('/api',dashboardroutes)
 app.use("/api/fleetowner",fleetowner)
 app.use("/api/franchisepartner",franchisePatner)
 app.use("/api",applicationsRoute)
+app.use("/api",teleRoute)
+app.use("/api/kyc", kycRoute);
+app.use('/api',kycApprove)
+app.use('/api',FieldVerification)
+app.use('/api',adminVerification);
+app.use('/api/staff',staff)
+
 const PORT = process.env.PORT || 5000;
 //process.env.PORT which is 5001
 
