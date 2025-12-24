@@ -218,6 +218,7 @@ export default function FranchisePartnerForm() {
   const sectionTitleColor = TailwindColors.primary;
 
   const [formData, setFormData] = useState({
+    applicationNumber:"",
     fullName: "",
     businessName: "",
     mobile: "",
@@ -297,30 +298,86 @@ export default function FranchisePartnerForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    
     if (!validate()) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
     }
+    
     setSubmitting(true);
 
     try {
-        // --- API Submission Logic ---
-        // Prepare FormData here if submitting files.
-        await new Promise(resolve => setTimeout(resolve, 1500)); 
-        
-        // Generate Application Number 
-        const generatedAppNumber = 'FRP-' + Date.now().toString().slice(-8) + Math.floor(Math.random() * 900 + 100);
-        
-        setApplicationNumber(generatedAppNumber);
+        // Prepare submission data object
+        const submissionData = {
+            fullName: formData.fullName,
+            businessName: formData.businessName,
+            mobile: formData.mobile,
+            email: formData.email,
+            address: formData.address,
+            state: formData.state,
+            city: formData.city,
+            pinCode: formData.pinCode,
+            franchiseType: formData.franchiseType,
+            shopSize: formData.shopSize,
+            locationType: formData.locationType,
+            facilities: formData.facilities,
+            investmentCapacity: formData.investmentCapacity,
+            staffCount: formData.staffCount,
+            priorExperience: formData.priorExperience,
+            applicantPhoto: formData.applicantPhoto,
+            aadhaarCopy: formData.aadhaarCopy,
+            panCopy: formData.panCopy,
+            gstCertificate: formData.gstCertificate,
+            shopOwnershipDoc: formData.shopOwnershipDoc,
+            bankName: formData.bankName,
+            bankBranch: formData.bankBranch,
+            ifsc: formData.ifsc,
+            accountHolder: formData.accountHolder,
+            accountNumber: formData.accountNumber,
+            declaration: formData.declaration
+        };
+
+        console.log('Submission Object:', submissionData);
+
+        // Create FormData for API submission
+        const fd = new FormData();
+        Object.entries(submissionData).forEach(([key, value]) => {
+            if (key === 'facilities') {
+                // Handle array of facilities
+                value.forEach((facility, i) => {
+                    fd.append(`facilities[${i}]`, facility);
+                });
+            } else if (value instanceof File) {
+                fd.append(key, value);
+            } else {
+                fd.append(key, value);
+            }
+        });
+
+        // API submission
+        const res = await fetch("/api/franchisepartner/register", {
+            method: "POST",
+            body: fd
+        });
+
+        if (!res.ok) throw new Error('Registration failed. Please try again.');
+
+        const data = await res.json();
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Generate Application Number
+       setApplicationNumber(data.data.applicationNumber); 
         setShowSuccessModal(true);
+        
 
     } catch (error) {
-        setErrors({ submit: error.message || "Form submission failed." });
+        console.error('Registration Error:', error);
+        setErrors({ submit: error?.message || "Submission failed" });
     } finally {
         setSubmitting(false);
     }
-  };
-
+};
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false);
     navigate("/registration-success"); 

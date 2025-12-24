@@ -34,6 +34,8 @@ import B2BSolutionsPage from "../pages/solutions/B2BSolutionsPage.jsx";
 import ThreePLSolutionsPage from "../pages/solutions/ThreePLSolutionsPage.jsx";
 import FleetOwnerRegistration from "../pages/fleetownerregistration.jsx";
 import FranchisePartnerForm from "../pages/franchisepartnerregistration.jsx";
+import Stats from "../pages/Stats.jsx";
+
 const DashboardRouter = () => {
   const userRole = localStorage.getItem("userRole");
 
@@ -69,7 +71,7 @@ const AppRouter = () => {
           <Route path="/fleet-owners-registration" element={<FleetOwnerRegistration/>} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/about" element={<AboutUs />} />
-
+          <Route path="/stats" element={<Stats />} />
           {/* Solutions Pages */}
           <Route path="/solutions/d2c" element={<D2CSolutionsPage />} />
           <Route path="/solutions/b2b" element={<B2BSolutionsPage />} />
