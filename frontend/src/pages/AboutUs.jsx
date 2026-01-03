@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Container,
@@ -38,6 +39,7 @@ const content = {
 // -----------------------------------------------------------
 const AboutUs = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,7 +52,7 @@ const AboutUs = () => {
         minHeight: '100vh',
       }}>
         <Container maxWidth="lg">
-          
+
           {/* Header Section */}
           <Box textAlign="center" mb={{ xs: 6, md: 10 }}>
             <Typography
@@ -168,18 +170,21 @@ const AboutUs = () => {
                 <Typography variant="h6">पता</Typography>
                 <Typography variant="body1" color="text.secondary">{content.contact.address}</Typography>
               </Box>
-              
+
               <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', md: 'block' } }} />
-              
+
               <Box sx={{ ml: { md: 4 } }}>
                 <Typography variant="h5" fontWeight={700} color="primary.dark" mb={2}>
-                    आज ही अपनी शिपमेंट बुक करें!
+                  आज ही अपनी शिपमेंट बुक करें!
                 </Typography>
                 <Button
                   variant="contained"
                   color="primary"
                   size="large"
-                  onClick={() => {/* Navigate to Booking Page */ }}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    navigate('/login');
+                  }}
                 >
                   फ्री कोट प्राप्त करें
                 </Button>

@@ -1,4 +1,12 @@
 import React, { useState } from 'react';
+import stepOne from "../assets/step1.webp"
+import stepTwo from "../assets/step2.jpeg"
+import stepThree from "../assets/step3.png"
+import stepFour from "../assets/step4.jpg"
+import Courier from "../assets/courier-booking.jpeg"
+import fleetOwner from "../assets/fleetOwner.jpeg"
+import LocalDelivery from "../assets/LocalDeliveryFranchise.png"
+
 import {
   Box,
   Container,
@@ -32,6 +40,7 @@ import partnerPhoto from '../assets/partnerphoto.png'; // Add your partner image
 import deliveryBoy from '../assets/delivaryBoy.jpeg';
 import delCustomer from '../assets/delCustomer.png';
 import Footer from '../components/solutions/Footer';
+import { useNavigate } from 'react-router-dom';
 const DeliveryPartnerPage = () => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
@@ -39,7 +48,7 @@ const DeliveryPartnerPage = () => {
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
+  const navigate = useNavigate()
   const benefits = [
     {
       icon: <MonetizationOn sx={{ fontSize: 48 }} />,
@@ -75,7 +84,7 @@ const DeliveryPartnerPage = () => {
 
   const signupSteps = [
     {
-      title: "Download the Delhivery Partner App on Google Playstore",
+      title: "Download the Ri Logistics Partner App on Google Playstore",
       image: "google-play"
     },
     {
@@ -144,7 +153,7 @@ const DeliveryPartnerPage = () => {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       <Navbar />
-      
+
       {/* Hero Section */}
       <Box
         sx={{
@@ -156,9 +165,9 @@ const DeliveryPartnerPage = () => {
         }}
       >
         <Container maxWidth="xl" sx={{ position: 'relative', height: '100%', py: 8 }}>
-          <Box 
-            sx={{ 
-              display: 'flex', 
+          <Box
+            sx={{
+              display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: 'center',
               gap: 4,
@@ -182,6 +191,7 @@ const DeliveryPartnerPage = () => {
                 variant="contained"
                 size="large"
                 endIcon={<ArrowForward />}
+                onClick={() => navigate('/register')}
                 sx={{
                   bgcolor: 'white',
                   color: 'black',
@@ -235,9 +245,9 @@ const DeliveryPartnerPage = () => {
 
       {/* Delivery Partner Info Section */}
       <Container maxWidth="xl" sx={{ py: 10 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
+        <Box
+          sx={{
+            display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             alignItems: 'flex-start',
             gap: 6,
@@ -289,7 +299,7 @@ const DeliveryPartnerPage = () => {
             </Typography>
             <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444' }} />
           </Box>
-          
+
           {/* First Row - 4 items */}
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 5, mb: 5, justifyContent: 'center' }}>
             {benefits.slice(0, 4).map((benefit, index) => (
@@ -365,19 +375,76 @@ const DeliveryPartnerPage = () => {
       </Box>
 
       {/* How to Sign Up Section */}
-      <Box sx={{ bgcolor: '#1a1a2e', py: 10 }}>
+      {/* How to Sign Up Section */}
+      <Box sx={{ bgcolor: '#1a1a2e', py: { xs: 6, md: 10 } }}>
         <Container maxWidth="xl">
-          <Box sx={{ mb: 6 }}>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, color: 'white' }}>
+          {/* Heading */}
+          <Box sx={{ mb: { xs: 4, md: 6 } }}>
+            <Typography
+              variant="h3"
+              sx={{
+                fontWeight: 700,
+                mb: 1,
+                color: 'white',
+                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+              }}
+            >
               How to <Box component="span" sx={{ color: '#ef4444' }}>sign up</Box>
             </Typography>
             <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444' }} />
           </Box>
-          
-          {/* All 4 steps in one row */}
-          <Box sx={{ display: 'flex', gap: 3, flexWrap: 'nowrap', overflowX: 'auto' }}>
-            {signupSteps.map((step, index) => (
-              <Box sx={{ flex: '1 1 0', minWidth: '250px', maxWidth: '350px' }} key={index}>
+
+          {/* Steps Wrapper */}
+          <Box
+            sx={{
+              display: 'flex',
+              gap: { xs: 2, md: 3 },
+              flexWrap: 'nowrap',
+              overflowX: { xs: 'auto', lg: 'hidden' },
+              scrollSnapType: { xs: 'x mandatory', lg: 'none' },
+              pb: 2,
+
+              /* Scrollbar styling (mobile only) */
+              '&::-webkit-scrollbar': {
+                height: { xs: 6, lg: 0 },
+              },
+              '&::-webkit-scrollbar-thumb': {
+                bgcolor: alpha('#ef4444', 0.6),
+                borderRadius: 4,
+              },
+            }}
+          >
+            {[
+              {
+                title: "Download the Ri Logistics Partner App on Google Playstore",
+                image: stepOne,
+              },
+              {
+                title: "Create your profile and select the closest dispatch centre",
+                image: stepTwo,
+              },
+              {
+                title: "Upload your AADHAAR and PAN card details",
+                image: stepThree,
+              },
+              {
+                title: "Receive a call from our executive and get yourself on boarded",
+                image: stepFour,
+              },
+            ].map((step, index) => (
+              <Box
+                key={index}
+                sx={{
+                  flex: {
+                    xs: '0 0 85%',
+                    sm: '0 0 45%',
+                    md: '0 0 30%',
+                    lg: '1 1 0',
+                  },
+                  minWidth: { xs: '260px', md: '280px' },
+                  scrollSnapAlign: 'start',
+                }}
+              >
                 <Card
                   sx={{
                     height: '100%',
@@ -386,44 +453,52 @@ const DeliveryPartnerPage = () => {
                     borderRadius: 3,
                     overflow: 'hidden',
                     transition: 'all 0.3s',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex',
+                    flexDirection: 'column',
+
                     '&:hover': {
                       transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',
-                      border: '1px solid rgba(239, 68, 68, 0.5)',
+                      boxShadow: '0 12px 24px rgba(0,0,0,0.4)',
+                      border: '1px solid rgba(239,68,68,0.5)',
                     },
                   }}
                 >
+                  {/* Step Image */}
                   <Box
+                    component="img"
+                    src={step.image}
+                    alt={`Step ${index + 1}`}
                     sx={{
-                      height: 150,
-                      bgcolor: '#1e1e38',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative',
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      width: '100%',
+                      height: { xs: 160, sm: 180 },
+                      objectFit: 'cover',
+                      borderBottom: '1px solid rgba(255,255,255,0.1)',
                     }}
-                  >
-                    <Typography 
-                      variant="h1" 
-                      sx={{ 
-                        color: 'rgba(255, 255, 255, 0.1)', 
-                        fontWeight: 800,
-                        fontSize: '80px',
+                  />
+
+                  {/* Content */}
+                  <CardContent sx={{ p: { xs: 2, md: 2.5 }, flexGrow: 1 }}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: '#ef4444',
+                        fontWeight: 700,
+                        display: 'block',
+                        mb: 1,
+                        letterSpacing: '0.5px',
                       }}
                     >
-                      {index + 1}
+                      STEP {index + 1}
                     </Typography>
-                  </Box>
-                  <CardContent sx={{ p: 2.5 }}>
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
+
+                    <Typography
+                      variant="body2"
+                      sx={{
                         fontWeight: 500,
                         fontSize: '0.9rem',
-                        color: 'rgba(255, 255, 255, 0.8)',
-                        lineHeight: 1.5,
+                        color: 'rgba(255,255,255,0.85)',
+                        lineHeight: 1.6,
                       }}
                     >
                       {step.title}
@@ -436,12 +511,14 @@ const DeliveryPartnerPage = () => {
         </Container>
       </Box>
 
+
+
       {/* Testimonial Section */}
       <Box sx={{ bgcolor: '#f5f5f5', py: 12 }}>
         <Container maxWidth="xl">
-          <Box 
-            sx={{ 
-              display: 'flex', 
+          <Box
+            sx={{
+              display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: 'center',
               gap: 6,
@@ -520,12 +597,12 @@ const DeliveryPartnerPage = () => {
               >
                 "
               </Typography>
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  mb: 4, 
-                  fontSize: '1rem', 
-                  lineHeight: 1.8, 
+              <Typography
+                variant="body1"
+                sx={{
+                  mb: 4,
+                  fontSize: '1rem',
+                  lineHeight: 1.8,
                   color: 'rgba(0, 0, 0, 0.6)',
                 }}
               >
@@ -558,6 +635,16 @@ const DeliveryPartnerPage = () => {
             <Button
               variant="contained"
               size="large"
+              onClick={() => {
+                navigate("/");
+
+                // wait for route change, then scroll
+                setTimeout(() => {
+                  document
+                    .getElementById("services-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }, 300);
+              }}
               sx={{
                 bgcolor: 'white',
                 color: 'black',
@@ -570,21 +657,22 @@ const DeliveryPartnerPage = () => {
                 },
               }}
             >
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                 alt="Get it on Google Play"
                 style={{ height: '40px' }}
               />
             </Button>
+
           </Box>
         </Container>
       </Box>
 
       {/* FAQ Section */}
       <Container maxWidth="lg" sx={{ py: 10 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
+        <Box
+          sx={{
+            display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             gap: 6,
           }}
@@ -666,6 +754,7 @@ const DeliveryPartnerPage = () => {
       </Container>
 
       {/* Other Programs Section */}
+     {/* Other Programs Section */}
       <Box sx={{ bgcolor: 'grey.50', py: 10 }}>
         <Container maxWidth="xl">
           <Box sx={{ mb: 6 }}>
@@ -674,56 +763,77 @@ const DeliveryPartnerPage = () => {
             </Typography>
             <Box sx={{ width: 80, height: 4, bgcolor: '#ef4444' }} />
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
-            {otherPrograms.map((program, index) => (
-              <Box key={index} sx={{ flex: { xs: '1 1 100%', md: '1 1 30%' }, minWidth: '300px' }}>
+
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 4,
+              justifyContent: 'center',
+            }}
+          >
+            {[
+              {
+                title: "Courier & Sales Franchise",
+                description:
+                  "Send shipments across India for parcels across categories including heavy goods. Get value added services like RTO reduction tools, door-step inspection and tracking",
+                image: Courier,
+              },
+              {
+                title: "Local Delivery Franchise",
+                description:
+                  "Join one of the largest Express PTL networks in India. Get door-to-door and hub-to-hub delivery with additions such as multi-modal freight and client dashboard",
+                image: LocalDelivery,
+              },
+              {
+                title: "Fleet Owner",
+                description:
+                  "We connect shippers with fleet owners, transporters and suppliers of truckload capacity through our in-house bidding platform",
+                image: fleetOwner,
+              },
+            ].map((program, index) => (
+              <Box
+                key={index}
+                sx={{
+                  flex: { xs: '1 1 100%', md: '1 1 30%' },
+                  minWidth: '300px',
+                  maxWidth: '380px',
+                }}
+              >
                 <Card
                   sx={{
                     height: '100%',
                     transition: 'all 0.3s',
+                    borderRadius: 3,
+                    overflow: 'hidden',
                     '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 4,
+                      transform: 'translateY(-6px)',
+                      boxShadow: 6,
                     },
                   }}
                 >
+                  {/* Image */}
                   <Box
+                    component="img"
+                    src={program.image}
+                    alt={program.title}
                     sx={{
-                      height: 250,
-                      bgcolor: alpha(theme.palette.primary.main, 0.1),
-                      backgroundImage: `url(https://via.placeholder.com/400x250/${index === 0 ? 'e3f2fd' : index === 1 ? 'fff3e0' : 'e8f5e9'}/1976d2?text=${program.title})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      position: 'relative',
-                      overflow: 'hidden',
+                      width: '100%',
+                      height: 240,
+                      objectFit: 'cover',
                     }}
-                  >
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: -20,
-                        left: -20,
-                        width: 60,
-                        height: 60,
-                        bgcolor: '#ef4444',
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        bottom: -20,
-                        right: -20,
-                        width: 60,
-                        height: 60,
-                        bgcolor: '#ef4444',
-                      }}
-                    />
-                  </Box>
+                  />
+
+                  {/* Content */}
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
                       {program.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ lineHeight: 1.6 }}
+                    >
                       {program.description}
                     </Typography>
                   </CardContent>
@@ -734,9 +844,10 @@ const DeliveryPartnerPage = () => {
         </Container>
       </Box>
 
-{/* Footer */}
-      <Footer/>
-</Box>
+
+      {/* Footer */}
+      <Footer />
+    </Box>
   );
 };
 

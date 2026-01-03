@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Box } from "@mui/material";
-import LandingPage from "../pages/LandingPageNew.jsx";
+import LandingPageNew from "../pages/LandingPageNew.jsx";
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import AboutUs from "../pages/AboutUs.jsx";
@@ -59,7 +59,7 @@ const AppRouter = () => {
       <Box sx={{ pb: { xs: isAuthenticated ? "70px" : 0, sm: 0 } }}>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPageNew />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/part-truckload" element={<PartTruckloadPage />} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useThemeMode } from '../../theme/ThemeProvider';
@@ -13,6 +13,9 @@ const B2BSolutionsPage = () => {
   const navigate = useNavigate();
   const isDark = mode === 'dark';
   const [activeTab, setActiveTab] = useState('overview');
+  const pricingRef = useRef(null);
+  const [activeSection, setActiveSection] = useState('');
+
   const [stats, setStats] = useState([
     { value: 0, target: 500, suffix: '+', label: 'Enterprise Clients' },
     { value: 0, target: 98, suffix: '%', label: 'On-time Delivery' },
@@ -35,6 +38,43 @@ const B2BSolutionsPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+   /* ---------------- SCROLL TO PRICING ---------------- */
+  const scrollToPricing = () => {
+    if (!pricingRef.current) return;
+
+    const yOffset = -80; // navbar height
+    const y =
+      pricingRef.current.getBoundingClientRect().top +
+      window.pageYOffset +
+      yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
+
+    useEffect(() => {
+    const onScroll = () => {
+      if (!pricingRef.current) return;
+
+      const rect = pricingRef.current.getBoundingClientRect();
+      if (rect.top <= 120 && rect.bottom >= 120) {
+        setActiveSection('pricing');
+      } else {
+        setActiveSection('');
+      }
+    };
+
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+
+  useEffect(() => {
+    if (location.hash === '#pricing') {
+      setTimeout(scrollToPricing, 300);
+    }
+  }, [location]);
+
 
   const features = [
     {
@@ -177,7 +217,7 @@ const B2BSolutionsPage = () => {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button className="btn btn-secondary" onClick={() => setActiveTab('pricing')}>
+              <button className="btn btn-secondary" onClick={scrollToPricing}>
                 View Pricing
               </button>
             </MagneticButton>
@@ -311,7 +351,7 @@ const B2BSolutionsPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="pricing-section" id="pricing">
+      <section className="pricing-section" id="pricing" ref={pricingRef}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

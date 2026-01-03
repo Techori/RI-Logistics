@@ -129,6 +129,18 @@ const PartTruckloadPage = () => {
     'ONDC Disclaimer',
   ];
 
+  const handleStoreRedirect = () => {
+  navigate("/");
+
+  // wait for route change, then scroll
+  setTimeout(() => {
+    document
+      .getElementById("services-section")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }, 300);
+};
+
+
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Navigation Header */}
@@ -256,7 +268,7 @@ const PartTruckloadPage = () => {
                 },
               }}
             >
-              Sign up as a business
+             Book Now
             </Button>
 
             {/* App Store Buttons */}
@@ -273,57 +285,60 @@ const PartTruckloadPage = () => {
               >
                 Download our mobile app
               </Typography>
-              <Stack direction="row" spacing={2}>
-                {/* App Store Button */}
-                <Button
-                  variant="contained"
-                  startIcon={<Apple />}
-                  onClick={() => handleAppStore('ios')}
-                  sx={{
-                    bgcolor: alpha('#fff', 0.95),
-                    color: '#000',
-                    px: 3,
-                    py: 1.25,
-                    borderRadius: 2,
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                    '&:hover': {
-                      bgcolor: '#fff',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-                    },
-                  }}
-                >
-                  App Store
-                </Button>
 
-                {/* Play Store Button */}
-                <Button
-                  variant="contained"
-                  startIcon={<ShopOutlined />}
-                  onClick={() => handleAppStore('android')}
-                  sx={{
-                    bgcolor: alpha('#fff', 0.95),
-                    color: '#000',
-                    px: 3,
-                    py: 1.25,
-                    borderRadius: 2,
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                    '&:hover': {
-                      bgcolor: '#fff',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-                    },
-                  }}
-                >
-                  Play Store
-                </Button>
-              </Stack>
+              {/*  */}
+                <Stack direction="row" spacing={2}>
+                  {/* App Store Button */}
+                  <Button
+                    variant="contained"
+                    startIcon={<Apple />}
+                    onClick={handleStoreRedirect}
+                    sx={{
+                      bgcolor: alpha('#fff', 0.95),
+                      color: '#000',
+                      px: 3,
+                      py: 1.25,
+                      borderRadius: 2,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.95rem',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      '&:hover': {
+                        bgcolor: '#fff',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                      },
+                    }}
+                  >
+                    App Store
+                  </Button>
+
+                  {/* Play Store Button */}
+                  <Button
+                    variant="contained"
+                    startIcon={<ShopOutlined />}
+                    onClick={handleStoreRedirect}
+                    sx={{
+                      bgcolor: alpha('#fff', 0.95),
+                      color: '#000',
+                      px: 3,
+                      py: 1.25,
+                      borderRadius: 2,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.95rem',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      '&:hover': {
+                        bgcolor: '#fff',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                      },
+                    }}
+                  >
+                    Play Store
+                  </Button>
+                </Stack>
+
             </Box>
           </Box>
         </Box>

@@ -26,9 +26,11 @@ import Navbar from '../components/solutions/Navbar';
 import truckImage from '../assets/realtruck.png';
 import fullTruckBg from '../assets/fullTruckLoad.png';
 import Footer from '../components/solutions/Footer';
+import { useNavigate } from 'react-router-dom';
+
 const FullTruckloadPage = () => {
   const theme = useTheme();
-
+  const navigate = useNavigate()
   // Client logos data
   const clients = [
     { name: 'Amazon', logo: 'Amazon' },
@@ -166,6 +168,7 @@ const FullTruckloadPage = () => {
                 variant="contained"
                 size="large"
                 startIcon={<LocalShipping />}
+                onClick={()=>navigate('/register')}
                 sx={{
                   bgcolor: 'white',
                   color: 'text.primary',
@@ -382,6 +385,7 @@ const FullTruckloadPage = () => {
               <Button
                 variant="contained"
                 size="large"
+                onClick={()=>navigate('/register')}
                 startIcon={<LocalShipping />}
                 sx={{
                   mt: 4,
@@ -430,6 +434,9 @@ const FullTruckloadPage = () => {
           </Typography>
           <Button
             variant="outlined"
+            onClick={()=>{navigate('/fleet-owners')
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
             size="large"
             sx={{
               mt: 2,

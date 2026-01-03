@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Box, Card, CardContent, Tabs, Tab, Typography, Button, TextField } from "@mui/material";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderTrackingCard({ videoEnded }) {
   const [trackingTab, setTrackingTab] = useState(0);
   const [subTab, setSubTab] = useState(0);
   const [trackingValue, setTrackingValue] = useState("");
   const [error, setError] = useState("");
-
+  const navigate = useNavigate()
   const textFieldStyles = {
     mb: 3,
     "& .MuiOutlinedInput-root": {
@@ -95,6 +96,16 @@ export default function OrderTrackingCard({ videoEnded }) {
     setTrackingValue("");
     setError("");
   };
+
+  const scrollToServices = () => {
+  const section = document.getElementById("services-section");
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
 
   // REMOVE ALL THE WRAPPING BOX AND CONDITIONAL RENDERING FROM HERE
   // Just return the Card directly
@@ -283,6 +294,7 @@ export default function OrderTrackingCard({ videoEnded }) {
 
         <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
           <Box
+            onClick={scrollToServices}
             component="img"
             src="https://www.delhivery.com/_nuxt/img/appstore-icon-white.b50ab14.svg"
             alt="App Store"
@@ -294,6 +306,7 @@ export default function OrderTrackingCard({ videoEnded }) {
             }}
           />
           <Box
+            onClick={scrollToServices}
             component="img"
             src="https://www.delhivery.com/_nuxt/img/playstore-icon-white.14b6cfa.svg"
             alt="Play Store"

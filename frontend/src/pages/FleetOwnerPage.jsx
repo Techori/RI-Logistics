@@ -1,4 +1,24 @@
 import React, { useState } from 'react';
+// How it works Section 
+import StepOne from "../assets/FleetOwner-how-it-work-step-One.png"
+import StepTwo from "../assets/FleetOwner-how-it-work-step-two.jpeg"
+import StepThree from "../assets/FleetOwner-how-it-work-step-three.png"
+import StepFour from "../assets/FleetOwner-how-it-work-step-Four.jpeg"
+
+// Axle App
+import AxelApp from "../assets/AxelApp.png"
+
+// What our partner says 
+import TruckOnRoad from "../assets/TruckOnRoad.jpeg"
+
+// FAQ
+import FAQ from "../assets/FAQ.jpeg"
+
+// Explore other partner programs
+import DeliveryPartner from "../assets/DeliveryPartner.jpeg"
+import LocalDeliveryFranchise from "../assets/LocalDeliveryFranchise.png"
+import Courier from "../assets/courier-booking.jpeg"
+
 import {
   Box,
   Container,
@@ -25,6 +45,7 @@ import Navbar from '../components/solutions/Navbar';
 import truckHeroImage from '../assets/fullTruckLoad.png';
 import Footer from '../components/solutions/Footer';
 import { useNavigate } from 'react-router-dom';
+
 const FleetOwnerPage = () => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
@@ -55,19 +76,19 @@ const FleetOwnerPage = () => {
   // How it works steps
   const howItWorksSteps = [
     {
-      image: '/path-to-download-image.png',
+      image: StepOne,
       title: 'Ragister as a Fleet owner with basic details & KYC',
     },
     {
-      image: '/path-to-view-orders-image.png',
+      image: StepTwo,
       title: 'View spot orders and long term contracts',
     },
     {
-      image: '/path-to-bid-image.png',
+      image: StepThree,
       title: 'Bid to win orders & contracts for maximum utilization',
     },
     {
-      image: '/path-to-payment-image.png',
+      image: StepFour,
       title: 'On time payments, access to ledger & assistance',
     },
   ];
@@ -119,17 +140,17 @@ const FleetOwnerPage = () => {
   // Other partner programs
   const otherPrograms = [
     {
-      image: '/path-to-delivery-partner.png',
+      image: DeliveryPartner,
       title: 'Delivery Partner',
       description: 'Send shipments across India for parcels across categories including heavy goods. Get value added services like RTO reduction tools, door-step inspection and tracking',
     },
     {
-      image: '/path-to-local-delivery.png',
+      image: LocalDeliveryFranchise,
       title: 'Local Delivery Franchise',
       description: 'Join one of the largest Express PTL networks in India. Get door-to-door and hub-to-hub delivery with additions such as multi-modal freight and client dashboard',
     },
     {
-      image: '/path-to-courier-sales.png',
+      image: Courier,
       title: 'Courier & Sales Franchise',
       description: "Unlock your earning potential by joining India's largest fully integrated logistics service provider. Sign up as a franchisee to open our company branded outlet in your city",
     },
@@ -190,22 +211,26 @@ const FleetOwnerPage = () => {
             <Button
               variant="contained"
               size="large"
-              onClick={()=> navigate('/fleet-owners-registration')}
+              onClick={() => navigate('/fleet-owners-registration')}
               endIcon={<ArrowForward />}
               sx={{
-                bgcolor: 'white',
-                color: 'text.primary',
+                bgcolor: theme.palette.mode === 'dark' ? '#ef4444' : '#ffffff',
+                color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
                 px: 4,
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 600,
                 '&:hover': {
-                  bgcolor: alpha('#fff', 0.9),
+                  bgcolor:
+                    theme.palette.mode === 'dark'
+                      ? alpha('#ef4444', 0.85)
+                      : alpha('#ffffff', 0.9),
                 },
               }}
             >
-             Register As Fleet Owner
+              Register As Fleet Owner
             </Button>
+
           </Box>
           {/* Red square decoration */}
           <Box
@@ -255,6 +280,7 @@ const FleetOwnerPage = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
                 {/* Red square decorations */}
@@ -268,9 +294,16 @@ const FleetOwnerPage = () => {
                     bgcolor: '#ef4444',
                   }}
                 />
-                <Typography variant="h5" color="white">
-                  [AXLE App Mockup]
-                </Typography>
+                <Box
+                  component="img"
+                  src={AxelApp}
+                  alt="AXLE App"
+                  sx={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
                 <Typography variant="body2" sx={{ position: 'absolute', bottom: 20, color: 'white' }}>
                   Bid for spot & contract loads
                 </Typography>
@@ -331,11 +364,19 @@ const FleetOwnerPage = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      overflow: 'hidden',
                     }}
                   >
-                    <Typography variant="h6" color="text.secondary">
-                      [Step {index + 1} Image]
-                    </Typography>
+                    <Box
+                      component="img"
+                      src={step.image}
+                      alt={`Step ${index + 1}`}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
                   </Box>
                   <CardContent sx={{ p: 3, flexGrow: 1 }}>
                     <Typography variant="body1" sx={{ fontWeight: 500 }}>
@@ -399,23 +440,27 @@ const FleetOwnerPage = () => {
                     zIndex: 1,
                   }}
                 />
-                {/* Truck Image Placeholder */}
+                {/* Truck Image */}
                 <Box
                   sx={{
                     width: '100%',
                     height: '100%',
-                    bgcolor: alpha(theme.palette.grey[300], 0.5),
                     borderRadius: 3,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    overflow: 'hidden',
                     position: 'relative',
                     zIndex: 2,
                   }}
                 >
-                  <Typography variant="h6" color="text.secondary">
-                    [Truck on Road Image]
-                  </Typography>
+                  <Box
+                    component="img"
+                    src={TruckOnRoad}
+                    alt="Truck on Road"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
                 </Box>
                 {/* Bottom-right red square */}
                 <Box
@@ -482,11 +527,8 @@ const FleetOwnerPage = () => {
                 sx={{
                   bgcolor: alpha(theme.palette.grey[100], 0.5),
                   borderRadius: 3,
-                  p: 4,
                   minHeight: 400,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  overflow: 'hidden',
                   position: 'relative',
                 }}
               >
@@ -498,11 +540,19 @@ const FleetOwnerPage = () => {
                     width: 60,
                     height: 60,
                     bgcolor: '#ef4444',
+                    zIndex: 1,
                   }}
                 />
-                <Typography variant="h6" color="text.secondary">
-                  [FAQ Illustration]
-                </Typography>
+                <Box
+                  component="img"
+                  src={FAQ}
+                  alt="FAQ Illustration"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
               </Box>
             </Box>
 
@@ -554,21 +604,36 @@ const FleetOwnerPage = () => {
             variant="contained"
             size="large"
             endIcon={<ArrowForward />}
+            onClick={() => {
+              navigate("/");
+
+              // wait for route change, then scroll to Services
+              setTimeout(() => {
+                document
+                  .getElementById("services-section")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }, 300);
+            }}
             sx={{
               mt: 4,
-              bgcolor: 'white',
-              color: 'text.primary',
+              bgcolor: theme.palette.mode === 'dark' ? '#ef4444' : '#ffffff',
+              color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
               px: 4,
               py: 1.5,
               fontSize: '1.1rem',
               fontWeight: 600,
               '&:hover': {
-                bgcolor: alpha('#fff', 0.9),
+                bgcolor:
+                  theme.palette.mode === 'dark'
+                    ? alpha('#ef4444', 0.85)
+                    : alpha('#ffffff', 0.9),
               },
             }}
           >
             Download Axle App
           </Button>
+
+
         </Container>
       </Box>
 
@@ -604,6 +669,7 @@ const FleetOwnerPage = () => {
                       alignItems: 'center',
                       justifyContent: 'center',
                       position: 'relative',
+                      overflow: 'hidden',
                     }}
                   >
                     {/* Red square decorations */}
@@ -615,6 +681,7 @@ const FleetOwnerPage = () => {
                         width: 60,
                         height: 60,
                         bgcolor: '#ef4444',
+                        zIndex: 1,
                       }}
                     />
                     <Box
@@ -625,11 +692,19 @@ const FleetOwnerPage = () => {
                         width: 60,
                         height: 60,
                         bgcolor: '#ef4444',
+                        zIndex: 1,
                       }}
                     />
-                    <Typography variant="h6" color="text.secondary">
-                      [{program.title}]
-                    </Typography>
+                    <Box
+                      component="img"
+                      src={program.image}
+                      alt={program.title}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
                   </Box>
                   <CardContent sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
