@@ -33,6 +33,11 @@ const ThreePLSolutionsPage = () => {
     { value: 0, target: 15, suffix: 'K+', label: 'Sq Ft Storage' }
   ]);
 
+  const handleScheduleTour = () => {
+    window.scrollTo(0, 0);
+    navigate('/support');
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setStats(prevStats =>
@@ -356,7 +361,7 @@ const ThreePLSolutionsPage = () => {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button className="btn btn-secondary">
+              <button className="btn btn-secondary" onClick={handleScheduleTour}>
                 Schedule Tour
               </button>
             </MagneticButton>
@@ -697,7 +702,7 @@ const ThreePLSolutionsPage = () => {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button className="btn btn-secondary">
+              <button className="btn btn-secondary" onClick={handleScheduleTour}>
                 Schedule Facility Tour
               </button>
             </MagneticButton>
@@ -705,7 +710,7 @@ const ThreePLSolutionsPage = () => {
         </motion.div>
       </section>
       {/* Footer */}
-     <Footer/>
+      <Footer />
     </div>
   );
 };

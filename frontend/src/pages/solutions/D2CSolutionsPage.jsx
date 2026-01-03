@@ -233,7 +233,11 @@ const D2CSolutionsPage = () => {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button className="btn btn-secondary">
+              <button
+              onClick={()=>{navigate('/')
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}
+              className="btn btn-secondary">
                 Watch Demo
               </button>
             </MagneticButton>
@@ -483,7 +487,11 @@ const D2CSolutionsPage = () => {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button className="btn btn-secondary">
+              <button 
+              onClick={()=>{navigate('/support')
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }} 
+              className="btn btn-secondary">
                 Talk to Sales
               </button>
             </MagneticButton>

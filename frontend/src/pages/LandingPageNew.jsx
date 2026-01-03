@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import OrderTrackingCard from "../components/Landingpage.jsx/OrderTrackingCard";
+import OrderTrackingCard from "../components/Landingpage/OrderTrackingCard";
 import StatusCheckForm from "../components/StatusCheckForm/StatusCheckForm";
 import Footer from "../components/solutions/Footer";
 import {
@@ -219,6 +219,7 @@ const OTPHandler = () => {
   ];
 
   return (
+<>
     <Box
       sx={{
         minHeight: "100vh",
@@ -281,6 +282,7 @@ const OTPHandler = () => {
           overflow: "hidden",
           zIndex: 0,
           opacity: 0.6,
+          pointerEvents: "none",
         }}
       >
         {[...Array(20)].map((_, i) => (
@@ -868,6 +870,7 @@ const OTPHandler = () => {
             </Typography>
           </motion.div>
 
+              {/*  */}
           <Box
             sx={{
               display: "flex",
@@ -876,71 +879,111 @@ const OTPHandler = () => {
               justifyContent: "center",
             }}
           >
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
-                  minWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "200px" },
-                  maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "300px" },
-                }}
-              >
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: false, amount: 0.3 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    type: "spring",
+            {services.map((service, index) => {
+              // Check if the service is Express or Air Freight
+              const isComingSoon =
+                service.title === "Express Delivery" || service.title === "Air Freight";
+
+              return (
+                <Box
+                  key={index}
+                  sx={{
+                    flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 16px)", md: "1 1 calc(25% - 32px)" },
+                    minWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "200px" },
+                    maxWidth: { xs: "100%", sm: "calc(50% - 16px)", md: "300px" },
                   }}
                 >
-                  <Tilt
-                    tiltMaxAngleX={20}
-                    tiltMaxAngleY={20}
-                    scale={1.05}
-                    transitionSpeed={1000}
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      type: "spring",
+                    }}
                   >
-                    <Card
-                      data-aos="flip-left"
-                      data-aos-delay={index * 100}
-                      sx={{
-                        p: 4,
-                        height: 280,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        textAlign: "center",
-                        background: service.gradient,
-                        color: "white",
-                        borderRadius: 4,
-                        boxShadow: "0 25px 70px rgba(0,0,0,0.3)",
-                        transition: "all 0.4s",
-                        cursor: "pointer",
-                        "&:hover": {
-                          transform: "translateY(-15px) scale(1.05)",
-                          boxShadow: "0 35px 90px rgba(0,0,0,0.4)",
-                        },
-                      }}
+                    <Tilt
+                      // Disable tilt effect intensity if coming soon
+                      tiltMaxAngleX={isComingSoon ? 5 : 20}
+                      tiltMaxAngleY={isComingSoon ? 5 : 20}
+                      scale={isComingSoon ? 1 : 1.05}
+                      transitionSpeed={1000}
                     >
-                      <motion.div
-                        whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                        transition={{ duration: 0.5 }}
+                      <Card
+                        data-aos="flip-left"
+                        data-aos-delay={index * 100}
+                        sx={{
+                          p: 4,
+                          height: 280,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                          background: service.gradient,
+                          color: "white",
+                          borderRadius: 4,
+                          boxShadow: "0 25px 70px rgba(0,0,0,0.3)",
+                          transition: "all 0.4s",
+                          position: "relative", // Needed for the absolute badge
+                          overflow: "hidden",   // Keeps badge contained
+                          
+                          // Conditional Styling for Coming Soon
+                          ...(isComingSoon && {
+                            cursor: "not-allowed",
+                            filter: "grayscale(0.8)", // Desaturate colors
+                            opacity: 0.8,
+                          }),
+                          
+                          "&:hover": {
+                            // Only apply hover lift if NOT coming soon
+                            transform: !isComingSoon ? "translateY(-15px) scale(1.05)" : "none",
+                            boxShadow: !isComingSoon ? "0 35px 90px rgba(0,0,0,0.4)" : "0 25px 70px rgba(0,0,0,0.3)",
+                          },
+                        }}
                       >
-                        <service.icon sx={{ fontSize: 70, mb: 3 }} />
-                      </motion.div>
-                      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
-                        {service.title}
-                      </Typography>
-                      <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                        {service.description}
-                      </Typography>
-                    </Card>
-                  </Tilt>
-                </motion.div>
-              </Box>
-            ))}
+                        {/* Coming Soon Label */}
+                        {isComingSoon && (
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              top: 20,
+                              right: -30,
+                              background: "#ff9800", // Orange warning color
+                              color: "#000",
+                              transform: "rotate(45deg)",
+                              width: "150px",
+                              textAlign: "center",
+                              py: 0.5,
+                              fontWeight: "bold",
+                              fontSize: "0.8rem",
+                              boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+                              zIndex: 2,
+                            }}
+                          >
+                            Coming Soon
+                          </Box>
+                        )}
+
+                        <motion.div
+                          whileHover={!isComingSoon ? { rotate: [0, -10, 10, -10, 0] } : {}}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <service.icon sx={{ fontSize: 70, mb: 3 }} />
+                        </motion.div>
+                        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                          {service.title}
+                        </Typography>
+                        <Typography variant="body1" sx={{ opacity: 0.9 }}>
+                          {service.description}
+                        </Typography>
+                      </Card>
+                    </Tilt>
+                  </motion.div>
+                </Box>
+              );
+            })}
           </Box>
         </Container>
       </Box>
@@ -1052,8 +1095,10 @@ const OTPHandler = () => {
       {/* Status Checker Form */}
       <StatusCheckForm/>
       {/* Footer */}
-     <Footer/>
     </Box>
+  
+     <Footer/>
+  </>
   );
 };
 

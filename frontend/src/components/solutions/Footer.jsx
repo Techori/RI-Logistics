@@ -1,4 +1,5 @@
-import { Box, Container, Typography, TextField, Button, IconButton, Divider } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Container, Typography, TextField, Button, IconButton, Divider, Snackbar, Alert } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -8,8 +9,29 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
+  const handleSubscribe = () => {
+    if (!email.trim()) {
+      setSnackbar({ open: true, message: "Email cannot be empty", severity: "error" });
+      return;
+    }
+    if (!email.endsWith("@gmail.com")) {
+      setSnackbar({ open: true, message: "Please enter a valid @gmail.com address", severity: "error" });
+      return;
+    }
+    setSnackbar({ open: true, message: "Thanks for subscribing Our newsletter", severity: "success" });
+    setEmail("");
+  };
   return (
     <Box sx={{ bgcolor: "#0B132B", color: "#FFFFFF", pt: 8, pb: 4 }}>
       <Container maxWidth="xl">
@@ -78,7 +100,7 @@ export default function Footer() {
                 <LinkedInIcon fontSize="small" />
               </IconButton>
               <IconButton
-                
+
                 size="small"
                 sx={{
                   color: "#FFFFFF",
@@ -103,34 +125,138 @@ export default function Footer() {
             </Box>
           </Box>
 
-          {/* Quick Links */}
           <FooterColumn
             title="QUICK LINKS"
-            items={["Home", "About Us", "Services", "Track Shipment", "Contact Us", "Careers"]}
+            items={[
+              { label: "Home", onClick: () => navigate("/") },
+              { label: "About Us", onClick: () => navigate("/about") },
+              {
+                label: "Services",
+                onClick: () => {
+                  navigate("/");
+                  setTimeout(() => {
+                    document
+                      .getElementById("services-section")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }, 300);
+                },
+              },
+
+              {
+                label: "Contact Us",
+                onClick: () => {
+                  document
+                    .getElementById("footer-contact")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                },
+              },
+              {
+                label: "Track Shipment",
+                onClick: () => {
+                  navigate("/support");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              }
+
+
+            ]}
           />
 
           {/* Our Services */}
           <FooterColumn
             title="OUR SERVICES"
             items={[
-              "Transportation",
-              "Warehousing",
-              "Freight Forwarding",
-              "Express Delivery",
-              "Part Truckload",
-              "Full Truckload",
+              {
+                label: "Transportation",
+                onClick: () => {
+                  navigate("/register");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Warehousing",
+                onClick: () => {
+                  navigate("/register");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Freight Forwarding",
+                onClick: () => {
+                  navigate("/register");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Express Delievery",
+                onClick: () => {
+                  navigate("/delivery-partner");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Part Truckload",
+                onClick: () => {
+                  navigate("/part-truckload");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Full Truckload",
+                onClick: () => {
+                  navigate("/full-truckload");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              }
             ]}
           />
 
           {/* Solutions */}
           <FooterColumn
             title="SOLUTIONS"
-            items={["D2C Brands", "B2B Enterprises", "3rd Party Load", "White Label Solution", "Franchise Opportunities"]}
+            items={[
+              {
+                label: "D2C Brands",
+                onClick: () => {
+                  navigate("/solutions/d2c");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "B2B Enterprises",
+                onClick: () => {
+                  navigate("/solutions/b2b");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "3rd Party Load",
+                onClick: () => {
+                  navigate("/3pl-solution");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "White Label Solution",
+                onClick: () => {
+                  navigate("/support");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+              {
+                label: "Franchise Opportunities",
+                onClick: () => {
+                  navigate("/franchise");
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                },
+              },
+            ]}
           />
         </Box>
 
         {/* Contact Information Section */}
         <Box
+          id="footer-contact"
           sx={{
             bgcolor: "#1E3A5F",
             borderRadius: 2,
@@ -181,6 +307,8 @@ export default function Footer() {
               variant="outlined"
               size="small"
               fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               sx={{
                 bgcolor: "#FFFFFF",
                 borderRadius: 1,
@@ -192,6 +320,7 @@ export default function Footer() {
             />
             <Button
               variant="contained"
+              onClick={handleSubscribe}
               sx={{
                 bgcolor: "#FF8000",
                 color: "#FFFFFF",
@@ -204,6 +333,11 @@ export default function Footer() {
               Subscribe
             </Button>
           </Box>
+          <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+              {snackbar.message}
+            </Alert>
+          </Snackbar>
         </Box>
 
         {/* Policies */}
@@ -232,6 +366,10 @@ export default function Footer() {
               <Typography
                 key={item}
                 variant="body2"
+                onClick={() => {
+                  navigate("/support")
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                }}
                 sx={{
                   cursor: "pointer",
                   color: "#D9D9D9",
@@ -244,6 +382,7 @@ export default function Footer() {
               </Typography>
             ))}
           </Box>
+
         </Box>
 
         <Divider sx={{ bgcolor: "#1E3A5F", mb: 3 }} />
@@ -272,23 +411,34 @@ function FooterColumn({ title, items }) {
       >
         {title}
       </Typography>
+
       <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-        {items.map((item) => (
-          <Box component="li" key={item} sx={{ mb: 1.5 }}>
-            <Typography
-              variant="body2"
-              sx={{
-                cursor: "pointer",
-                color: "#D9D9D9",
-                fontSize: "0.875rem",
-                transition: "color 0.2s",
-                "&:hover": { color: "#FF8000" },
-              }}
-            >
-              {item}
-            </Typography>
-          </Box>
-        ))}
+        {items.map((item, index) => {
+          const isObject = typeof item === "object";
+
+          return (
+            <Box component="li" key={index} sx={{ mb: 1.5 }}>
+              <Typography
+                variant="body2"
+                onClick={isObject ? item.onClick : undefined}
+                sx={{
+                  cursor: isObject ? "pointer" : "default",
+                  color: "#D9D9D9",
+                  fontSize: "0.875rem",
+                  transition: "all 0.25s ease",
+                  "&:hover": isObject
+                    ? {
+                      color: "#FF8000",
+                      transform: "translateX(4px)",
+                    }
+                    : {},
+                }}
+              >
+                {isObject ? item.label : item}
+              </Typography>
+            </Box>
+          );
+        })}
       </Box>
     </Box>
   );
@@ -296,7 +446,7 @@ function FooterColumn({ title, items }) {
 
 function ContactItem({ icon, title, content, linkPrefix }) {
   const isLink = !!linkPrefix;
-  
+
   return (
     <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}>
       <Box sx={{ color: "#FF8000", mt: 0.5 }}>{icon}</Box>

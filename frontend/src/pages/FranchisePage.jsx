@@ -48,57 +48,95 @@ const ALL_FRANCHISE_TYPES = [
         icon: <Store />,
         title: "Load & Courier Booking Partner",
         titleHindi: "(लोड और कूरियर बुकिंग पार्टनर)",
-        description: "अपने स्टोर पर ग्राहकों से लोड बुकिंग और पार्सल एकत्र करें और एक सुविधाजनक कूरियर अनुभव प्रदान करें।",
-        benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Profit on every parcel booked (हर पार्सल पर लाभ)", "Additional income on packaging & insurance (पैकेजिंग और बीमा से अतिरिक्त आय)"],
-        eligibility: ["50-80 sqft space (50-80 वर्ग फुट जगह)", "Good communication skills (उत्तम संचार कौशल)"],
+        description:
+            "अपने स्टोर पर ग्राहकों से लोड बुकिंग और पार्सल एकत्र करें और एक सुविधाजनक कूरियर अनुभव प्रदान करें।",
+        benefits: [
+            "Affordable setup cost (किफायती सेटअप लागत)",
+            "Profit on every parcel booked (हर पार्सल पर लाभ)",
+            "Additional income on packaging & insurance (पैकेजिंग और बीमा से अतिरिक्त आय)",
+        ],
+        eligibility: [
+            "50-80 sqft space (50-80 वर्ग फुट जगह)",
+            "Good communication skills (उत्तम संचार कौशल)",
+        ],
         buttonText: "Courier Booking Counter के लिए आवेदन करें",
-        color: '#1976d2', // Blue
+        color: "#1976d2",
+        route: "/register",
     },
     {
         icon: <Warehouse />,
         title: "Parcel Delivery Center",
         titleHindi: "(पार्सल वितरण केंद्र)",
-        description: "अपने स्थान से, चयनित मार्गों पर, अपने कर्मचारियों के साथ ग्राहकों के पते पर पार्सल छाँटें और वितरित करें।",
-        benefits: ["Low Setup Cost (कम सेटअप लागत)", "High Volume Business (उच्च मात्रा का व्यवसाय)", "Earn Per Delivery (प्रति डिलीवरी कमाएं)"],
-        eligibility: ["Minimum 500 Sqft. of floor space (500 वर्ग फुट जगह)", "Delivery Rider Staff (डिलीवरी स्टाफ की आवश्यकता)"],
+        description:
+            "अपने स्थान से, चयनित मार्गों पर, अपने कर्मचारियों के साथ ग्राहकों के पते पर पार्सल छाँटें और वितरित करें।",
+        benefits: [
+            "Low Setup Cost (कम सेटअप लागत)",
+            "High Volume Business (उच्च मात्रा का व्यवसाय)",
+            "Earn Per Delivery (प्रति डिलीवरी कमाएं)",
+        ],
+        eligibility: [
+            "Minimum 500 Sqft. of floor space (500 वर्ग फुट जगह)",
+            "Delivery Rider Staff (डिलीवरी स्टाफ की आवश्यकता)",
+        ],
         buttonText: "Parcel Delivery Center के लिए आवेदन करें",
-        color: '#2e7d32', // Green
+        color: "#2e7d32",
+        route: "/register",
     },
     {
         icon: <CreditCard />,
         title: "Full Load & Logistics Franchise Partner",
         titleHindi: "(पूर्ण लॉजिस्टिक्स फ्रेंचाइजी पार्टनर)",
-        description: "थोक लोड और अनलोड सेवाओं (3PL, FTL, PTL) की बुकिंग करके अपना व्यवसाय बढ़ाएँ। हमारे विश्वसनीय प्लेटफॉर्म से अपने मार्जिन पर लाभ कमाएं।",
-        benefits: ["High Commission on Load & Vehicle booked (लोड बुकिंग पर उच्च कमीशन)", "Earn with your own margins (अपने मार्जिन के साथ कमाएं)", "Benefit from trusted platform & training (भरोसेमंद प्लेटफॉर्म और ट्रेनिंग का लाभ)"],
-        eligibility: ["600-800 sqft warehouse space (600-800 वर्ग फुट गोदाम जगह)", "Strong local network (मजबूत स्थानीय नेटवर्क)"],
+        description:
+            "थोक लोड और अनलोड सेवाओं (3PL, FTL, PTL) की बुकिंग करके अपना व्यवसाय बढ़ाएँ।",
+        benefits: [
+            "High Commission on Load & Vehicle booked (लोड बुकिंग पर उच्च कमीशन)",
+            "Earn with your own margins (अपने मार्जिन के साथ कमाएं)",
+            "Trusted platform & training (भरोसेमंद प्लेटफॉर्म और ट्रेनिंग)",
+        ],
+        eligibility: [
+            "600-800 sqft warehouse space (600-800 वर्ग फुट गोदाम जगह)",
+            "Strong local network (मजबूत स्थानीय नेटवर्क)",
+        ],
         buttonText: "Full Logistics Partner के लिए Enquiry करें",
-        color: '#9c27b0', // Purple
+        color: "#9c27b0",
+        route: "/franchise-registration",
     },
     {
         icon: <LocalShipping />,
         title: "RILogistics Fleet Partner",
         titleHindi: "(फ्लीट पार्टनर)",
-        description: "मांग के अनुसार RILogistics को आवश्यक वाहन प्रदान करें और सुचारू लॉजिस्टिक्स संचालन में सहायता करें। आपूर्ति किए गए प्रत्येक वाहन पर आकर्षक कमीशन अर्जित करें।",
-        benefits: ["Affordable setup cost (किफायती सेटअप लागत)", "Earn profit on every vehicle (हर वाहन पर लाभ कमाएं)", "Stable and growing income (स्थिर और बढ़ती आय)"],
-        eligibility: ["100–250 sq. ft. office space (100–250 वर्ग फुट ऑफिस जगह)", "Minimum 5 vehicles required (न्यूनतम 5 वाहन आवश्यक)", "Basic understanding of fleet coordination (फ्लीट समन्वय की बुनियादी समझ)"],
+        description:
+            "मांग के अनुसार RILogistics को आवश्यक वाहन प्रदान करें और आकर्षक कमीशन अर्जित करें।",
+        benefits: [
+            "Affordable setup cost (किफायती सेटअप लागत)",
+            "Earn profit on every vehicle (हर वाहन पर लाभ)",
+            "Stable and growing income (स्थिर और बढ़ती आय)",
+        ],
+        eligibility: [
+            "100–250 sq. ft. office space",
+            "Minimum 5 vehicles required",
+            "Basic fleet coordination knowledge",
+        ],
         buttonText: "Fleet Partner के लिए Enquiry करें",
-        color: '#ff9800', // Orange
-    }
+        color: "#ff9800",
+        route: "/fleet-owners-registration",
+    },
 ];
+
 
 const FAQ_DATA = {
     exchangeCenter: [
-      { question: "What is Local Delivery Franchise? (लोकल डिलीवरी फ्रेंचाइजी क्या है?)", answer: "The program is an extension of the RIlogistics pick-up and delivery network. We seek entrepreneurs willing to run their own parcel and freight pick-up and delivery business." },
-      { question: "Who can become a Local Delivery Franchise partner? (पार्टनर कौन बन सकता है?)", answer: "Any entrepreneur with the required infrastructure and business acumen can apply to become a franchise partner." },
-      { question: "How long does the application process take? (आवेदन प्रक्रिया में कितना समय लगता है?)", answer: "The application process typically takes 2-4 weeks from submission to approval." },
-      { question: "Does it cost anything to become a partner for RIlogistics? (क्या यह निःशुल्क है?)", answer: "There is an initial setup cost that varies based on the franchise type you choose." },
-      { question: "Will training be provided? (क्या प्रशिक्षण प्रदान किया जाएगा?)", answer: "Yes, comprehensive training will be provided to all franchise partners." },
+        { question: "What is Local Delivery Franchise? (लोकल डिलीवरी फ्रेंचाइजी क्या है?)", answer: "The program is an extension of the RIlogistics pick-up and delivery network. We seek entrepreneurs willing to run their own parcel and freight pick-up and delivery business." },
+        { question: "Who can become a Local Delivery Franchise partner? (पार्टनर कौन बन सकता है?)", answer: "Any entrepreneur with the required infrastructure and business acumen can apply to become a franchise partner." },
+        { question: "How long does the application process take? (आवेदन प्रक्रिया में कितना समय लगता है?)", answer: "The application process typically takes 2-4 weeks from submission to approval." },
+        { question: "Does it cost anything to become a partner for RIlogistics? (क्या यह निःशुल्क है?)", answer: "There is an initial setup cost that varies based on the franchise type you choose." },
+        { question: "Will training be provided? (क्या प्रशिक्षण प्रदान किया जाएगा?)", answer: "Yes, comprehensive training will be provided to all franchise partners." },
     ],
     courierStore: [
-      { question: "Local Delivery Franchise vs Courier & Sales Franchise", answer: "In the Local Delivery Franchise program, a partner sets up a last mile delivery center. In the Courier & Sales Franchise program, a partner sets up a company branded retail counter." },
-      { question: "What infrastructure is needed to set up a RIlogistics courier store?", answer: "You need a retail space of 60-80 sqft in a prime location with good footfall." },
-      { question: "Is there an investment involved? (क्या इसमें कोई निवेश शामिल है?)", answer: "Yes, there is an initial investment for store setup, branding, and operational requirements." },
-      { question: "How can I earn by joining RIlogistics courier franchise program? (मैं कैसे कमा सकता हूँ?)", answer: "You earn commission on every parcel booked, plus additional income from packaging and insurance services." },
+        { question: "Local Delivery Franchise vs Courier & Sales Franchise", answer: "In the Local Delivery Franchise program, a partner sets up a last mile delivery center. In the Courier & Sales Franchise program, a partner sets up a company branded retail counter." },
+        { question: "What infrastructure is needed to set up a RIlogistics courier store?", answer: "You need a retail space of 60-80 sqft in a prime location with good footfall." },
+        { question: "Is there an investment involved? (क्या इसमें कोई निवेश शामिल है?)", answer: "Yes, there is an initial investment for store setup, branding, and operational requirements." },
+        { question: "How can I earn by joining RIlogistics courier franchise program? (मैं कैसे कमा सकता हूँ?)", answer: "You earn commission on every parcel booked, plus additional income from packaging and insurance services." },
     ]
 };
 
@@ -106,17 +144,22 @@ const OTHER_OPPORTUNITIES = [
     {
         icon: <People sx={{ fontSize: 48 }} />,
         title: "Delivery Partner (डिलीवरी पार्टनर)",
-        description: "पार्सल सहित, सभी श्रेणियों में भारत भर में शिपमेंट भेजें। RTO रिडक्शन टूल्स, डोर-स्टेप इंस्पेक्शन और ट्रैकिंग जैसी वैल्यू एडेड सेवाएं प्राप्त करें।",
+        description:
+            "पार्सल सहित, सभी श्रेणियों में भारत भर में शिपमेंट भेजें। RTO रिडक्शन टूल्स, डोर-स्टेप इंस्पेक्शन और ट्रैकिंग जैसी वैल्यू एडेड सेवाएं प्राप्त करें।",
+        route: "/delivery-partner",
     },
     {
         icon: <TrendingUp sx={{ fontSize: 48 }} />,
         title: "Fleet Owner (फ्लीट मालिक)",
-        description: "हम अपने इन-हाउस बिडिंग प्लेटफॉर्म के माध्यम से शिपर्स को फ्लीट मालिकों, ट्रांसपोर्टरों और ट्रकलोड क्षमता के आपूर्तिकर्ताओं से जोड़ते हैं।",
-    }
+        description:
+            "हम अपने इन-हाउस बिडिंग प्लेटफॉर्म के माध्यम से शिपर्स को फ्लीट मालिकों, ट्रांसपोर्टरों और ट्रकलोड क्षमता के आपूर्तिकर्ताओं से जोड़ते हैं।",
+        route: "/fleet-owners",
+    },
 ];
 
 
 // --- 2. Franchise Page Component ---
+
 
 const FranchisePage = () => {
     const theme = useTheme();
@@ -176,10 +219,10 @@ const FranchisePage = () => {
                         </Typography>
                         <Button
                             variant="contained"
-                            // onClick={()=>navigate('/franchise-registration')} // Uncomment in production
+                            onClick={() => navigate('/franchise-registration')}
                             size="large"
                             endIcon={<ArrowForward />}
-                            sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': {bgcolor: alpha(PRIMARY_RED, 0.8)} }}
+                            sx={{ mt: 3, bgcolor: PRIMARY_RED, '&:hover': { bgcolor: alpha(PRIMARY_RED, 0.8) } }}
                         >
                             Explore Opportunities (अवसर खोजें)
                         </Button>
@@ -187,9 +230,7 @@ const FranchisePage = () => {
                 </Container>
             </Box>
 
-            ---
 
-            {/* ## 🚚 Choose your Franchisee Type Section */}
             <Container maxWidth="xl" sx={{ py: 8 }}>
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -198,18 +239,28 @@ const FranchisePage = () => {
                     <Box sx={{ width: 80, height: 4, bgcolor: PRIMARY_RED, mx: 'auto' }} />
                 </Box>
 
-                {/* Fix: Use lg={3} to ensure 4 cards are perfectly aligned in one row on large screens (3*4 = 12) */}
-                <Grid container spacing={4} justifyContent="center" alignItems="stretch">
+                {/* Dynamic Grid for 4 Franchise Options (2x2 grid on large screens) */}
+                <Grid
+                    container
+                    spacing={4}
+                    // Changed to flex-start to ensure Box 3 sits next to Box 4, not centered alone
+                    justifyContent="flex-start"
+                    alignItems="stretch"
+                >
                     {ALL_FRANCHISE_TYPES.map((franchise, index) => (
-                        <Grid item xs={12} sm={6} lg={3} key={index} sx={{ display: 'flex' }}>
+                       <Grid item xs={12} sm={6} md={3} key={index} sx={{ display: 'flex' }}>
                             <Paper
                                 elevation={4}
                                 sx={{
-                                    height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.3s', borderRadius: 3,
-                                    // Professional hover effect
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    transition: 'all 0.3s',
+                                    borderRadius: 3,
                                     '&:hover': { transform: 'translateY(-6px)', boxShadow: 8, border: `2px solid ${franchise.color}` },
-                                    border: '2px solid transparent', p: 3,
-                                    // Ensure full height for proper alignment
+                                    border: '2px solid transparent',
+                                    p: 3,
+                                    width: '100%' // Ensure Paper fills the Grid item
                                 }}
                             >
                                 {/* Icon and Title */}
@@ -266,19 +317,35 @@ const FranchisePage = () => {
 
                                 {/* Button - Use mt: 'auto' to push the button to the bottom */}
                                 <Button
-                                    variant="contained" fullWidth size="large" endIcon={<ArrowForward />}
+                                    variant="contained"
+                                    fullWidth
+                                    size="large"
+                                    endIcon={<ArrowForward />}
+                                    onClick={() => {
+                                        navigate(franchise.route);
+                                        setTimeout(() => {
+                                            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                                        }, 0);
+                                    }}
                                     sx={{
-                                        bgcolor: franchise.color, color: '#fff', py: 1.5, fontWeight: 600,
-                                        mt: 'auto', // Ensures the button is at the bottom of the card
-                                        '&:hover': { bgcolor: alpha(franchise.color, 0.8) },
+                                        bgcolor: franchise.color,
+                                        color: "#fff",
+                                        py: 1.5,
+                                        fontWeight: 600,
+                                        mt: "auto",
+                                        "&:hover": {
+                                            bgcolor: alpha(franchise.color, 0.8),
+                                        },
                                     }}
                                 >
                                     {franchise.buttonText}
                                 </Button>
+
                             </Paper>
                         </Grid>
                     ))}
                 </Grid>
+
 
                 {/* OR Divider */}
                 <Box sx={{ display: 'flex', alignItems: 'center', my: 6 }}>
@@ -290,10 +357,8 @@ const FranchisePage = () => {
                 </Box>
             </Container>
 
-            ---
 
-            {/* ## ❓ Frequently Asked Questions (FAQ) - Theme-aware background */}
-            <Box sx={{ bgcolor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.05 : 0.05), py: 8 }}>
+            <Box sx={{ bgcolor: alpha(theme.palette.primary.main, 0.05), py: 8 }}>
                 <Container maxWidth="lg">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
                         <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -360,9 +425,7 @@ const FranchisePage = () => {
                 </Container>
             </Box>
 
-            ---
 
-            {/* ## 🤝 Other Partnership Opportunities */}
             <Container maxWidth="lg" sx={{ py: 8 }}>
                 <Box sx={{ mb: 6, textAlign: 'center' }}>
                     <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
@@ -373,31 +436,65 @@ const FranchisePage = () => {
 
                 <Grid container spacing={4} justifyContent="center">
                     {OTHER_OPPORTUNITIES.map((opportunity, index) => (
-                        <Grid item xs={12} md={6} key={index} sx={{ display: 'flex' }}>
+                        <Grid item xs={12} md={6} key={index} sx={{ display: "flex" }}>
                             <Card
                                 elevation={4}
                                 sx={{
-                                    height: '100%', width: '100%', transition: 'all 0.3s', display: 'flex', flexDirection: 'column',
-                                    '&:hover': { transform: 'translateY(-4px)', boxShadow: 8 },
+                                    height: "100%",
+                                    width: "100%",
+                                    transition: "all 0.3s",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    "&:hover": {
+                                        transform: "translateY(-4px)",
+                                        boxShadow: 8,
+                                    },
                                 }}
                             >
                                 <Box
                                     sx={{
-                                        height: 150, bgcolor: alpha(theme.palette.primary.main, 0.1), display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        height: 150,
+                                        bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
                                     }}
                                 >
                                     <Box sx={{ color: PRIMARY_RED }}>{opportunity.icon}</Box>
                                 </Box>
-                                <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+
+                                <CardContent
+                                    sx={{ p: 3, display: "flex", flexDirection: "column", flexGrow: 1 }}
+                                >
                                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
                                         {opportunity.title}
                                     </Typography>
-                                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
+
+                                    <Typography
+                                        variant="body1"
+                                        color="text.secondary"
+                                        sx={{ mb: 3, flexGrow: 1 }}
+                                    >
                                         {opportunity.description}
                                     </Typography>
+
                                     <Button
-                                        endIcon={<ArrowForward />} variant="outlined"
-                                        sx={{ fontWeight: 600, alignSelf: 'flex-start', color: PRIMARY_RED, borderColor: PRIMARY_RED, '&:hover': {borderColor: PRIMARY_RED, bgcolor: alpha(PRIMARY_RED, 0.05)} }}
+                                        onClick={() => {
+                                            navigate(opportunity.route)
+                                            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                                        }}
+                                        endIcon={<ArrowForward />}
+                                        variant="outlined"
+                                        sx={{
+                                            fontWeight: 600,
+                                            alignSelf: "flex-start",
+                                            color: PRIMARY_RED,
+                                            borderColor: PRIMARY_RED,
+                                            "&:hover": {
+                                                borderColor: PRIMARY_RED,
+                                                bgcolor: alpha(PRIMARY_RED, 0.05),
+                                            },
+                                        }}
                                     >
                                         Learn More (और जानें)
                                     </Button>
@@ -406,11 +503,10 @@ const FranchisePage = () => {
                         </Grid>
                     ))}
                 </Grid>
+
             </Container>
 
-            ---
 
-            {/* ## 📢 Join Now Call to Action (CTA) - Dark, high-contrast section */}
             <Box
                 sx={{
                     // Strong, contrasting background for CTA
@@ -427,6 +523,7 @@ const FranchisePage = () => {
                             Join the Franchisee program and experience the benefit of a wider reach, growth opportunities, and more
                         </Typography>
                         <Button
+                            onClick={() => navigate('/franchise-registration')}
                             variant="contained" size="large" endIcon={<ArrowForward />}
                             sx={{
                                 bgcolor: PRIMARY_RED, color: 'white', px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 600,
@@ -440,7 +537,7 @@ const FranchisePage = () => {
             </Box>
 
             {/* --------------------------------------------------- */}
-            <Footer/>
+            <Footer />
         </Box>
     );
 };
