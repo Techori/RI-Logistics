@@ -162,31 +162,39 @@ const OTHER_OPPORTUNITIES = [
 
 
 const FranchisePage = () => {
-    // Hooks are correctly placed at the top level of the function component
     const theme = useTheme();
     const [expanded, setExpanded] = useState(false);
+    const navigate = useNavigate();
 
     const handleAccordionChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    const navigate = useNavigate()
+
+    // Determine the overlay color based on the current theme mode for the hero section
+    const heroOverlay = theme.palette.mode === 'dark'
+        ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))`
+        : `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`;
+
+
     return (
         <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
             <Navbar />
 
             {/* --------------------------------------------------- */}
+            {/* ## 🚀 Hero Section */}
             <Box
                 sx={{
                     position: 'relative',
                     minHeight: '70vh',
                     display: 'flex',
                     alignItems: 'center',
-                    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${truckBgImage})`,
+                    // Apply theme-aware overlay for better readability in both modes
+                    background: `${heroOverlay}, url(${truckBgImage})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     color: 'white',
-                    mt: 8,
+                    mt: 8, // To account for a fixed navbar
                 }}
             >
                 <Container maxWidth="lg">
@@ -194,6 +202,7 @@ const FranchisePage = () => {
                         <Box sx={{ width: 60, height: 4, bgcolor: PRIMARY_RED, mb: 3 }} />
                         <Typography
                             variant="h2"
+                            component="h1"
                             sx={{
                                 fontWeight: 700,
                                 mb: 3,
@@ -306,7 +315,7 @@ const FranchisePage = () => {
                                     </List>
                                 </Box>
 
-                                {/* Button */}
+                                {/* Button - Use mt: 'auto' to push the button to the bottom */}
                                 <Button
                                     variant="contained"
                                     fullWidth
@@ -500,7 +509,10 @@ const FranchisePage = () => {
 
             <Box
                 sx={{
-                    background: 'linear-gradient(135deg, #111827 0%, #000000 100%)',
+                    // Strong, contrasting background for CTA
+                    background: theme.palette.mode === 'dark' 
+                        ? 'linear-gradient(135deg, #1f2937 0%, #000000 100%)' 
+                        : 'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
                     color: 'white',
                     py: 8,
                 }}
