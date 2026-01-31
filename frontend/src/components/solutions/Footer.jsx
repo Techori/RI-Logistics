@@ -100,7 +100,10 @@ export default function Footer() {
                 <LinkedInIcon fontSize="small" />
               </IconButton>
               <IconButton
-
+                component="a"
+                href="https://www.instagram.com/rilogistic/"
+                target="_blank"
+                rel="noopener noreferrer"
                 size="small"
                 sx={{
                   color: "#FFFFFF",
