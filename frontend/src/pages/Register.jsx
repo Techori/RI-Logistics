@@ -7,9 +7,11 @@ import {
   TextField,
   Button,
   MenuItem,
-  Grid,
   IconButton,
+  InputAdornment,
+  Stack,
   alpha,
+  useTheme,
 } from "@mui/material";
 import {
   ArrowBack,
@@ -53,6 +55,7 @@ const roles = [
 const Register = () => {
   const navigate = useNavigate();
   const { mode } = useThemeMode();
+  const theme = useTheme();
   const isDark = mode === "dark";
 
   const [alert, setAlert] = React.useState({
@@ -104,27 +107,14 @@ const Register = () => {
       sx={{
         minHeight: "100vh",
         width: "100%",
-        background: isDark
-          ? "linear-gradient(135deg, #0a0e1a 0%, #1a1d29 100%)"
-          : "linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        p: { xs: 2, sm: 3 },
+        background: isDark
+          ? "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)" // Deep Blue/Slate for Dark
+          : "linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%)", // Soft Gray/Blue for Light
         position: "relative",
-        overflow: "hidden",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: isDark
-            ? "radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.1) 0%, transparent 50%)"
-            : "radial-gradient(circle at 80% 20%, rgba(25, 118, 210, 0.1) 0%, transparent 50%)",
-          pointerEvents: "none",
-        },
+        p: 2,
       }}
     >
       {/* Back Button */}
@@ -134,92 +124,76 @@ const Register = () => {
           position: "absolute",
           top: { xs: 16, sm: 24 },
           left: { xs: 16, sm: 24 },
-          bgcolor: isDark ? alpha("#ffffff", 0.1) : alpha("#000000", 0.05),
+          bgcolor: isDark ? alpha("#fff", 0.05) : "rgba(255,255,255,0.8)",
           backdropFilter: "blur(8px)",
+          boxShadow: 2,
           "&:hover": {
-            bgcolor: isDark ? alpha("#ffffff", 0.15) : alpha("#000000", 0.1),
+            bgcolor: isDark ? alpha("#fff", 0.1) : "#fff",
           },
         }}
       >
-        <ArrowBack sx={{ color: isDark ? "white" : "inherit" }} />
+        <ArrowBack />
       </IconButton>
 
-      <Container component="main" maxWidth="sm">
+      <Container maxWidth="xs" disableGutters>
         <Paper
-          elevation={isDark ? 0 : 8}
+          elevation={isDark ? 0 : 24}
           sx={{
             p: { xs: 3, sm: 4 },
-            width: "100%",
-            bgcolor: isDark ? alpha("#1a1d29", 0.8) : alpha("#ffffff", 0.95),
+            borderRadius: 4,
+            bgcolor: isDark ? alpha("#1e293b", 0.8) : "rgba(255, 255, 255, 0.9)",
             backdropFilter: "blur(20px)",
-            border: isDark ? `1px solid ${alpha("#ffffff", 0.1)}` : "none",
-            borderRadius: 3,
+            border: isDark ? `1px solid ${alpha("#fff", 0.1)}` : "none",
             boxShadow: isDark
-              ? "0 20px 60px rgba(0,0,0,0.5)"
-              : "0 20px 60px rgba(0,0,0,0.1)",
+              ? "0 8px 32px rgba(0, 0, 0, 0.4)"
+              : "0 20px 60px rgba(0, 0, 0, 0.12)",
           }}
         >
-          {/* Logo/Brand */}
           <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: 3,
-            }}
+            component="form"
+            onSubmit={formik.handleSubmit}
+            noValidate
+            sx={{ width: "100%" }}
           >
-            <Box
-              sx={{
-                width: { xs: 56, sm: 64 },
-                height: { xs: 56, sm: 64 },
-                borderRadius: "50%",
-                background: isDark
-                  ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                  : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: isDark
-                  ? "0 8px 32px rgba(230, 57, 70, 0.4)"
-                  : "0 8px 32px rgba(25, 118, 210, 0.3)",
-              }}
-            >
-              <LocalShipping
-                sx={{ fontSize: { xs: 32, sm: 36 }, color: "white" }}
-              />
-            </Box>
-          </Box>
+            <Stack spacing={3} alignItems="center">
+              {/* Header Grid */}
+              <Stack spacing={1} alignItems="center" sx={{ width: "100%", mb: 1 }}>
+                <Box
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: isDark
+                      ? "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)"
+                      : "linear-gradient(135deg, #1976d2 0%, #1565c0 100%)",
+                    boxShadow: "0 8px 20px rgba(37, 99, 235, 0.3)",
+                    mb: 1,
+                  }}
+                >
+                  <LocalShipping sx={{ fontSize: 32, color: "#fff" }} />
+                </Box>
+                <Typography
+                  variant="h5"
+                  fontWeight="700"
+                  color="text.primary"
+                  align="center"
+                >
+                  Create Account
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  align="center"
+                >
+                  Join our logistics platform today
+                </Typography>
+              </Stack>
 
-          <Typography
-            component="h1"
-            variant="h4"
-            align="center"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              fontSize: { xs: "1.75rem", sm: "2.125rem" },
-              color: isDark ? "white" : "text.primary",
-              mb: 1,
-            }}
-          >
-            Create Account
-          </Typography>
-
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{
-              color: isDark ? alpha("#ffffff", 0.7) : "text.secondary",
-              mb: 4,
-              fontSize: { xs: "0.875rem", sm: "0.875rem" },
-            }}
-          >
-            Join our logistics platform today
-          </Typography>
-
-          <form onSubmit={formik.handleSubmit}>
-            <Grid container spacing={{ xs: 2, sm: 2.5 }}>
-              <Grid item xs={12}>
+              {/* Form Fields Stack */}
+              <Stack spacing={2.5} sx={{ width: "100%" }}>
                 <TextField
                   fullWidth
                   name="name"
@@ -231,26 +205,13 @@ const Register = () => {
                   helperText={formik.touched.name && formik.errors.name}
                   InputProps={{
                     startAdornment: (
-                      <Person
-                        sx={{
-                          mr: 1,
-                          color: isDark
-                            ? alpha("#ffffff", 0.5)
-                            : "action.active",
-                        }}
-                      />
+                      <InputAdornment position="start">
+                        <Person color="action" />
+                      </InputAdornment>
                     ),
                   }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      bgcolor: isDark
-                        ? alpha("#ffffff", 0.05)
-                        : "background.paper",
-                    },
-                  }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
                   fullWidth
                   name="email"
@@ -262,26 +223,13 @@ const Register = () => {
                   helperText={formik.touched.email && formik.errors.email}
                   InputProps={{
                     startAdornment: (
-                      <Email
-                        sx={{
-                          mr: 1,
-                          color: isDark
-                            ? alpha("#ffffff", 0.5)
-                            : "action.active",
-                        }}
-                      />
+                      <InputAdornment position="start">
+                        <Email color="action" />
+                      </InputAdornment>
                     ),
                   }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      bgcolor: isDark
-                        ? alpha("#ffffff", 0.05)
-                        : "background.paper",
-                    },
-                  }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
                   fullWidth
                   name="phone"
@@ -293,153 +241,109 @@ const Register = () => {
                   helperText={formik.touched.phone && formik.errors.phone}
                   InputProps={{
                     startAdornment: (
-                      <Phone
-                        sx={{
-                          mr: 1,
-                          color: isDark
-                            ? alpha("#ffffff", 0.5)
-                            : "action.active",
-                        }}
-                      />
+                      <InputAdornment position="start">
+                        <Phone color="action" />
+                      </InputAdornment>
                     ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      bgcolor: isDark
-                        ? alpha("#ffffff", 0.05)
-                        : "background.paper",
-                    },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={formik.touched.password && formik.errors.password}
-                  InputProps={{
-                    startAdornment: (
-                      <Lock
-                        sx={{
-                          mr: 1,
-                          color: isDark
-                            ? alpha("#ffffff", 0.5)
-                            : "action.active",
-                        }}
-                      />
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      bgcolor: isDark
-                        ? alpha("#ffffff", 0.05)
-                        : "background.paper",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  select
-                  name="role"
-                  label="Role"
-                  value={formik.values.role}
-                  onChange={formik.handleChange}
-                  error={formik.touched.role && Boolean(formik.errors.role)}
-                  helperText={formik.touched.role && formik.errors.role}
-                  InputProps={{
-                    startAdornment: (
-                      <Work
-                        sx={{
-                          mr: 1,
-                          color: isDark
-                            ? alpha("#ffffff", 0.5)
-                            : "action.active",
-                        }}
-                      />
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      bgcolor: isDark
-                        ? alpha("#ffffff", 0.05)
-                        : "background.paper",
-                    },
-                  }}
-                >
-                  {roles.map((role) => (
-                    <MenuItem key={role} value={role}>
-                      {role}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    py: { xs: 1.5, sm: 1.75 },
-                    fontSize: { xs: "1rem", sm: "1.125rem" },
-                    fontWeight: 600,
-                    background: isDark
-                      ? "linear-gradient(135deg, #e63946 0%, #ff6b6b 100%)"
-                      : "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
-                    boxShadow: isDark
-                      ? "0 4px 20px rgba(230, 57, 70, 0.4)"
-                      : "0 4px 20px rgba(25, 118, 210, 0.3)",
-                    "&:hover": {
-                      boxShadow: isDark
-                        ? "0 6px 28px rgba(230, 57, 70, 0.5)"
-                        : "0 6px 28px rgba(25, 118, 210, 0.4)",
-                      transform: "translateY(-2px)",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  Create Account
-                </Button>
-              </Grid>
-              <Grid item xs={12} textAlign="center">
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: isDark ? alpha("#ffffff", 0.7) : "text.secondary",
-                    fontSize: { xs: "0.875rem", sm: "0.875rem" },
-                  }}
-                >
-                  Already have an account?{" "}
-                  <Button
-                    onClick={() => navigate("/login")}
-                    sx={{
-                      color: isDark ? "#e63946" : "primary.main",
-                      fontWeight: 500,
-                      textTransform: "none",
-                      p: 0,
-                      minWidth: "auto",
-                      "&:hover": {
-                        bgcolor: "transparent",
-                        textDecoration: "underline",
-                      },
+
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <TextField
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.password && Boolean(formik.errors.password)
+                    }
+                    helperText={
+                      formik.touched.password && formik.errors.password
+                    }
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <TextField
+                    fullWidth
+                    select
+                    name="role"
+                    label="Role"
+                    value={formik.values.role}
+                    onChange={formik.handleChange}
+                    error={formik.touched.role && Boolean(formik.errors.role)}
+                    helperText={formik.touched.role && formik.errors.role}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Work color="action" />
+                        </InputAdornment>
+                      ),
                     }}
                   >
-                    Sign In
-                  </Button>
+                    {roles.map((role) => (
+                      <MenuItem key={role} value={role}>
+                        {role}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Stack>
+              </Stack>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                size="large"
+                sx={{
+                  py: 1.5,
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  textTransform: "none",
+                  borderRadius: 2,
+                  boxShadow: "0 8px 16px rgba(25, 118, 210, 0.24)",
+                  background: isDark
+                    ? "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)"
+                    : "linear-gradient(135deg, #1976d2 0%, #1565c0 100%)",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 12px 20px rgba(25, 118, 210, 0.32)",
+                  },
+                }}
+              >
+                Create Account
+              </Button>
+
+              {/* Sign In Link */}
+              <Stack direction="row" spacing={0.5} alignItems="center">
+                <Typography variant="body2" color="text.secondary">
+                  Already have an account?
                 </Typography>
-              </Grid>
-            </Grid>
-          </form>
+                <Button
+                  onClick={() => navigate("/login")}
+                  sx={{
+                    textTransform: "none",
+                    fontWeight: 600,
+                    minWidth: "auto",
+                    p: 0.5,
+                    "&:hover": { bgcolor: "transparent", textDecoration: "underline" },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
         </Paper>
       </Container>
 
